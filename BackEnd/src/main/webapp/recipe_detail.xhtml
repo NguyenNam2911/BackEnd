@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -199,36 +200,34 @@
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Ingredient</div>
                                                     <div class="col-lg-9">
-                                                        <p>500g Noodles</p>
-                                                        <p>4 tomatoes</p>
-                                                        <p>2 botle</p>
-                                                        <p>1.5kg Chicken</p>
-                                                        <p>1kg Potatoes</p>
+                                                        <c:forEach items="#{recipeDetailManagedBean.listIngredients}" var="ing">
+                                                            #{ing.name} <h:outputText value=" : "/>
+                                                            #{ing.quantity}
+                                                            #{ing.unit}
+                                                            <br/>                                                           
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Steps</div>
                                                     <div class="col-lg-9">
-                                                        <div class="panel-body">
-                                                            <div class="col-lg-5">
-                                                                <img src="img/recipes/recipe-avatar3.jpg" height="150" width="auto"/>
+                                                    <c:forEach items="#{recipeDetailManagedBean.listSteps}" var="step">
+                                                        
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-5">
+                                                                    <img src="#{step.pictureUrl}" height="150" width="auto"/>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <span><b>Step #{step.stepNo}:</b></span>
+                                                                    #{step.description}
+                                                                </div>
                                                             </div>
-                                                            <div class="col-lg-6">
-                                                                <span><b>Step 1:</b></span>
-                                                                Since we do not have any page to link it to, and we do not want to get a "404" message, we put # as the link. In real life it should of course been a real URL to the "Search" page.
-                                                            </div>
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <div class="col-lg-5">
-                                                                <img src="img/recipes/recipe-avatar2.jpg" height="150" width="auto"/>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <span><b>Step 2:</b></span>
-                                                                Since we do not have any page to link it to, and we do not want to get a "404" message, we put # as the link. In real life it should of course been a real URL to the "Search" page.
-                                                            </div>
+
+                                                        
+
+                                                    </c:forEach>
                                                         </div>
 
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -299,7 +298,6 @@
                                             }
                                         })
                                     });
-
                                     //carousel
                                     $(document).ready(function () {
                                         $("#owl-slider").owlCarousel({
@@ -310,13 +308,11 @@
 
                                         });
                                     });
-
                                     //custom select box
 
                                     $(function () {
                                         $('select.styled').customSelect();
                                     });
-
                                     /* ---------- Map ---------- */
                                     $(function () {
                                         $('#map').vectorMap({
