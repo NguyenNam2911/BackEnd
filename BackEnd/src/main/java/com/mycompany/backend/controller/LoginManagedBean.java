@@ -35,7 +35,7 @@ public class LoginManagedBean {
         if (user_check != null) {
             if (user_check.getPassword().equals(user.getPassword())) {
                 user = user_check;
-                flagAdmin = user.getRole().equals("admin");
+                flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
                 JSFutil.navigate("index?faces-redirect=true");
             } else {
                 pass = true;

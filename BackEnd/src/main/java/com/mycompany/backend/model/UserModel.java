@@ -22,7 +22,7 @@ public class UserModel {
         List<User> users_normal = new ArrayList<>();
         users = UserDAO.getInstance().getAllUser();
         for (User user : users) {
-            if (user.getRole().equals("normal_user")) {
+            if (user.getRole().equals(User.NORMAL_USER_ROLE)) {
                 users_normal.add(user);
             }
         }
@@ -30,9 +30,9 @@ public class UserModel {
     }
 
     public List<User> getBanUser() {
-        List<User> normalUsers = new ArrayList<User>();
+        List<User> normalUsers = new ArrayList<>();
         normalUsers = getUsersNomrmal();
-        List<User> banUsers = new ArrayList<User>();
+        List<User> banUsers = new ArrayList<>();
         for (User user : normalUsers) {
             if (user.getActiveFlag() != User.ACTIVE_FLAG) {
                 banUsers.add(user);
@@ -53,7 +53,7 @@ public class UserModel {
         return UserDAO.getInstance().banUser(userId, flag);
     }
 
-    public boolean unBanUser(String userId, int flag) {
+    public boolean unBanUser(String userId) {
         return UserDAO.getInstance().unBanUser(userId);
     }
 

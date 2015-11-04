@@ -20,7 +20,7 @@ public class LoginModel {
     public User CheckLogin(User user) throws DAOException {
         User u = UserDAO.getInstance().getUserInfoByEmail(user.getEmail());
         if (u != null) {
-            if (u.getRole().equals("admin") || u.getRole().equals("super_admin")) {
+            if (u.getRole().equals(User.ADMIN_ROLE) || u.getRole().equals(User.SUPER_ADMIN_ROLE)) {
                 return u;
             } else {
                 u = null;

@@ -19,11 +19,10 @@ import org.entity.User;
 public class AdminModel {
     //get list admin namnh
     public List<User> getUsersAdmin(){
-        List<User> users = new ArrayList<>();
+        List<User> users = UserDAO.getInstance().getAllUser();
         List<User> users_admin = new ArrayList<>();
-        users = UserDAO.getInstance().getAllUser();
         for (User user : users) {
-            if(user.getRole().equals("admin") && user.getActiveFlag() == 1){
+            if(user.getRole().equals(User.ADMIN_ROLE) && user.getActiveFlag() == 1){
                 users_admin.add(user);
             }
             

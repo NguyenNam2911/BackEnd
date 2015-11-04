@@ -39,7 +39,7 @@ public class AdminManagedBean extends Object implements Serializable {
 
     //method
     public void save(ActionEvent event) throws DAOException {
-        userAdmin.setRole("admin");
+        userAdmin.setRole(User.ADMIN_ROLE);
         userAdmin.setPassword(RandomStringUtils.randomAlphanumeric(8));
         userAdmin.setRegisteredTime(date.getTime());
         adminModel = new AdminModel();
