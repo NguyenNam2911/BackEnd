@@ -1,0 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 14, 2015, 11:39:28 PM
+    Author     : Nguyen Hoai Nam
+*/
+
+.search-panel{width : 230px;  float: left; margin-left: 10px; text-align: left;height: 30px;border-radius: 5px ; border: 1px solid;  display: inline-block;}
+.search-panel .button-search{height : 28px;width: 38px;border :0px; text-indent: -9999px; display: inline-block; background: url(../img/search-icon.jpg) no-repeat center  ;border-radius:  5px}
+.search-panel .input-search{height : 28px; width: 190px; font-size: 14px;border: 0px; display: inline-block; border-radius:   5px ; margin: 0px auto}
+.ddl-filter {width : 230px;  float: left; height: 28px; float: left; margin-left: 10px; text-align: left;height: 30px;border-radius: 5px ; border: 1px solid;  display: inline-block;}
+.ddl-filter .button-filter {height : 28px;width: 38px;border :0px; text-indent: -9999px; display: inline-block; background: url(../img/filter-icon.png) no-repeat center  ;border-radius:  5px}
+.ddl-filter select{height : 28px; width: 190px; font-size: 14px;border: 0px; display: inline-block; border-radius:   5px ; margin: 0px auto}

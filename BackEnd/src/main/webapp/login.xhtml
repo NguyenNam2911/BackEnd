@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!-- Bootstrap CSS -->    
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- bootstrap theme -->
+        <link href="css/bootstrap-theme.css" rel="stylesheet" />
+        <!--external css-->
+        <!-- font icon -->
+        <link href="css/elegant-icons-style.css" rel="stylesheet" />
+        <link href="css/font-awesome.css" rel="stylesheet" />
+        <!-- Custom styles -->
+        <link href="css/style.css" rel="stylesheet">
+            <link href="css/style-responsive.css" rel="stylesheet" /></link>
+        <script>
+            var pass = #{loginManagedBean.pass};
+            var email = #{loginManagedBean.email};
+            if (email) {
+                alert("Email incorect");
+            }
+            if (pass) {
+                alert("Pasword Imcorect");
+            }
+        </script>
+    </head>
+
+    <body class="login-img3-body">
+        <div class="container">
+            <h:form class="login-form">        
+                <div class="login-wrap" id="login">
+
+
+
+                    <p class="login-img"><i class="icon_lock_alt"></i></p>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon_profile"></i></span>
+                        <!--<input type="text" class="form-control" placeholder="Username" value=""/>-->
+                        <h:inputText class="form-control" value="#{loginManagedBean.user.email}" a:placeholder="Username">Username</h:inputText>
+
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                        <!--<input type="password" class="form-control" placeholder="Password"/>-->
+                        <h:inputText class="form-control" value="#{loginManagedBean.user.password}" a:placeholder="Password">Username</h:inputText>
+
+                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me"/> Remember me
+                        <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+                    </label>
+                    <!--<button class="btn btn-primary btn-lg btn-block" type="submit" style="background-color:#CC0000; border-color:#CC0000" >Login</button>-->
+                    <h:commandButton class="btn btn-primary btn-lg btn-block" type="submit" style="background-color:#CC0000; border-color:#CC0000" action="#{loginManagedBean.checkLogin()}" value="Login" />
+
+
+                </div>
+
+            </h:form>
+
+
+        </div>
+    </body>
+</html>
+
+

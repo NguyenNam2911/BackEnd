@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!-- Bootstrap CSS -->    
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- bootstrap theme -->
+        <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+        <!--external css-->
+        <!-- font icon -->
+        <link href="css/elegant-icons-style.css" rel="stylesheet" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" />    
+        <!-- full calendar css-->
+        <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+        <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+        <!-- easy pie chart-->
+        <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+        <!-- owl carousel -->
+        <link rel="stylesheet" href="css/owl.carousel.css" type="text/css"/>
+        <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet"/>
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="css/fullcalendar.css"/>
+        <link href="css/widgets.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/style-responsive.css" rel="stylesheet" />
+        <link href="css/xcharts.min.css" rel=" stylesheet"/>	
+        <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <section id="container" class="">
+                    <header class="header dark-bg">
+                        <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
+                        <div class="top-nav notification-row">
+                            <ul class="nav pull-right top-menu">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                        <span class="profile-ava">
+                                            <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
+                                        </span>
+                                        <h:outputText value="#{loginManagedBean.user.displayName}"/>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu extended logout">
+                                        <div class="log-arrow-up"></div>
+                                        <li class="eborder-top">
+                                            <a href="#"><i class="icon_profile"></i>My Profile</a>
+                                        </li>
+                                        <li>
+                                            <h:form>
+                                                <h:commandLink action="#{loginManagedBean.logOut()}" value="Log Out"  />
+                                            </h:form> 
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </header>
+                    <!--header end-->
+
+                    <!--sidebar start-->
+                    <aside>
+                        <div id="sidebar"  class="nav-collapse ">
+                            <!-- sidebar menu start-->
+                            <ul class="sidebar-menu">                
+                                <li class="active">
+                                    <a class="" href="index.xhtml">
+                                        <i class="icon_house_alt"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="sub-menu" id="li-admin">
+                                    <a href="javascript:;" class="">
+                                        <i class="icon_archive"></i>
+                                        <span>Admin</span>
+                                        <span class="menu-arrow arrow_carrot-right"></span>
+                                    </a>
+                                    <ul class="sub">
+                                        <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
+                                    </ul>
+                                </li> 
+                                <script>
+                                    var role = #{loginManagedBean.flagAdmin};
+                                    if (role) {
+                                        var element = document.getElementById("li-admin");
+                                        element.parentNode.removeChild(element);
+                                    }
+                                </script> 
+                                <li class="sub-menu">
+                                    <a href="javascript:;" class="">
+                                        <i class="icon_profile"></i>
+                                        <span>User</span>
+                                        <span class="menu-arrow arrow_carrot-right"></span>
+                                    </a>
+                                    <ul class="sub">
+                                        <li><a class="" href="user_view.xhtml">View User</a></li>                          
+                                        <li><a class="" href="ban_user.xhtml">Ban User</a></li>
+                                    </ul>
+                                </li>       
+                                <li class="sub-menu">
+                                    <a href="javascript:;" class="">
+                                        <i class="icon_document_alt"></i>
+                                        <span>Recipe</span>
+                                        <span class="menu-arrow arrow_carrot-right"></span>
+                                    </a>
+                                    <ul class="sub">
+                                        <li><a class="" href="recipe_view.xhtml">View Recipe</a></li>
+                                    </ul>
+                                </li>
+                                <li class="sub-menu">
+                                    <a class="" href="javascript:;">
+                                        <i class="icon_error-triangle_alt"></i>
+                                        <span>Report</span>
+                                        <span class="menu-arrow arrow_carrot-right"></span>
+                                    </a>
+                                    <ul class="sub">
+                                        <li><a class="" href="report_view.xhtml">View Report</a></li>
+                                    </ul>
+                                </li>
+                                <li class="sub-menu">                     
+                                    <a class="" href="javascript:;">
+                                        <i class="icon_piechart"></i>
+                                        <span>Statistic</span>
+                                        <span class="menu-arrow arrow_carrot-right"></span>
+                                    </a>
+                                    <ul class="sub">
+                                        <li><a class="" href="general.html">Number Of Users</a></li>
+                                        <li><a class="" href="general.html">Number Of Recipes</a></li>
+                                        <li><a class="" href="general.html">New Users In Week</a></li>
+                                        <li><a class="" href="general.html">New Recipes In Week</a></li>
+                                    </ul>                   
+                                </li>
+                            </ul>
+                            <!-- sidebar menu end-->
+                        </div>
+                    </aside>
+                    <!--sidebar end-->
+                    <!--sidebar end-->
+
+                    <!--main content start-->
+                    <section id="main-content">
+                        <section class="wrapper">
+                            <!--title page-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3 class="page-header"><i class="fa fa-info"></i> Recipe Detail</h3>
+                                    <ol class="breadcrumb">
+                                        <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                                        <li><i class="fa fa-list-alt"></i>Recipe</li>
+                                        <li><i class="fa fa-info"></i>Recipe Detail</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <!--title page end-->
+
+                            <!--content start-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <h1>#{recipeDetailManagedBean.recipe.title}</h1>
+                                            <h6>
+                                                <span>
+                                                    <i class="icon_clock_alt"></i>
+                                                    11:05 AM
+                                                </span>
+                                                <span>
+                                                    <i class="icon_calendar"></i>
+                                                    #{recipeDetailManagedBean.convertTime(recipeDetailManagedBean.recipe.createdTime)}
+                                                </span>
+                                                <span>
+                                                    <i class="icon_profile"></i>
+                                                    <h:commandLink value="#{recipeDetailManagedBean.getOwnerName(recipeDetailManagedBean.recipe.owner)}"
+                                                                   action="#{userDetailManagedBean.UserDetail(recipeDetailManagedBean.getOwner(recipeDetailManagedBean.recipe.owner))}"/>
+                                                </span>
+                                            </h6>
+                                            <div class="text-center">               
+                                                <img src="#{recipeDetailManagedBean.recipe.pictureUrl}" height="300" width="auto"/>
+                                            </div>
+                                            <div class="panel-body bio-graph-info form-horizontal">
+                                                <div class="form-group">
+                                                    <div class="col-lg-2">Description</div>
+                                                    <div class="col-lg-9">
+                                                        Description is one of four rhetorical modes (also known as modes of discourse), along with exposition, argumentation, and narration. Each of the rhetorical
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-2">Category</div>
+                                                    <div class="col-lg-9">
+                                                        Fried
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-2">Ingredient</div>
+                                                    <div class="col-lg-9">
+                                                        <p>500g Noodles</p>
+                                                        <p>4 tomatoes</p>
+                                                        <p>2 botle</p>
+                                                        <p>1.5kg Chicken</p>
+                                                        <p>1kg Potatoes</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-2">Steps</div>
+                                                    <div class="col-lg-9">
+                                                        <div class="panel-body">
+                                                            <div class="col-lg-5">
+                                                                <img src="img/recipes/recipe-avatar3.jpg" height="150" width="auto"/>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <span><b>Step 1:</b></span>
+                                                                Since we do not have any page to link it to, and we do not want to get a "404" message, we put # as the link. In real life it should of course been a real URL to the "Search" page.
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="col-lg-5">
+                                                                <img src="img/recipes/recipe-avatar2.jpg" height="150" width="auto"/>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <span><b>Step 2:</b></span>
+                                                                Since we do not have any page to link it to, and we do not want to get a "404" message, we put # as the link. In real life it should of course been a real URL to the "Search" page.
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <!--content end-->
+
+                        </section>
+                    </section>
+                    <!--main content end-->
+
+                </section>
+                <!-- container section start -->
+
+
+            </h:form>
+
+
+        </f:view>
+        <!-- javascripts -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui-1.10.4.min.js"></script>
+        <script src="js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+        <!-- bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- nice scroll -->
+        <script src="js/jquery.scrollTo.min.js"></script>
+        <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+        <!-- charts scripts -->
+        <script src="assets/jquery-knob/js/jquery.knob.js"></script>
+        <script src="js/jquery.sparkline.js" type="text/javascript"></script>
+        <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+        <script src="js/owl.carousel.js" ></script>
+        <!-- jQuery full calendar -->
+        <script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+        <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+        <!--script for this page only-->
+        <script src="js/calendar-custom.js"></script>
+        <script src="js/jquery.rateit.min.js"></script>
+        <!-- custom select -->
+        <script src="js/jquery.customSelect.min.js" ></script>
+        <script src="assets/chart-master/Chart.js"></script>
+
+        <!--custome script for all page-->
+        <script src="js/scripts.js"></script>
+        <!-- custom script for this page-->
+        <script src="js/sparkline-chart.js"></script>
+        <script src="js/easy-pie-chart.js"></script>
+        <script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="js/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="js/xcharts.min.js"></script>
+        <script src="js/jquery.autosize.min.js"></script>
+        <script src="js/jquery.placeholder.min.js"></script>
+        <script src="js/gdp-data.js"></script>	
+        <script src="js/morris.min.js"></script>
+        <script src="js/sparklines.js"></script>	
+        <script src="js/charts.js"></script>
+        <script src="js/jquery.slimscroll.min.js"></script>
+        <script>
+
+                                    //knob
+                                    $(function () {
+                                        $(".knob").knob({
+                                            'draw': function () {
+                                                $(this.i).val(this.cv + '%')
+                                            }
+                                        })
+                                    });
+
+                                    //carousel
+                                    $(document).ready(function () {
+                                        $("#owl-slider").owlCarousel({
+                                            navigation: true,
+                                            slideSpeed: 300,
+                                            paginationSpeed: 400,
+                                            singleItem: true
+
+                                        });
+                                    });
+
+                                    //custom select box
+
+                                    $(function () {
+                                        $('select.styled').customSelect();
+                                    });
+
+                                    /* ---------- Map ---------- */
+                                    $(function () {
+                                        $('#map').vectorMap({
+                                            map: 'world_mill_en',
+                                            series: {
+                                                regions: [{
+                                                        values: gdpData,
+                                                        scale: ['#000', '#000'],
+                                                        normalizeFunction: 'polynomial'
+                                                    }]
+                                            },
+                                            backgroundColor: '#eef3f7',
+                                            onLabelShow: function (e, el, code) {
+                                                el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                            }
+                                        });
+                                    });
+        </script>
+    </h:body>
+</html>
+

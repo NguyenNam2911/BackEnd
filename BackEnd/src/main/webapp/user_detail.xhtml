@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!-- Bootstrap CSS -->    
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- bootstrap theme -->
+        <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+        <!--external css-->
+        <!-- font icon -->
+        <link href="css/elegant-icons-style.css" rel="stylesheet" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" />    
+        <!-- full calendar css-->
+        <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+        <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+        <!-- easy pie chart-->
+        <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+        <!-- owl carousel -->
+        <link rel="stylesheet" href="css/owl.carousel.css" type="text/css"/>
+        <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet"/>
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="css/fullcalendar.css"/>
+        <link href="css/widgets.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/style-responsive.css" rel="stylesheet" />
+        <link href="css/xcharts.min.css" rel=" stylesheet"/>	
+        <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
+
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <section id="container" class="">
+                <header class="header dark-bg">
+                    <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
+                    <div class="top-nav notification-row">
+                        <ul class="nav pull-right top-menu">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <span class="profile-ava">
+                                        <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
+                                    </span>
+                                    <h:outputText value="#{loginManagedBean.user.displayName}"/>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu extended logout">
+                                    <div class="log-arrow-up"></div>
+                                    <li class="eborder-top">
+                                        <a href="#"><i class="icon_profile"></i>My Profile</a>
+                                    </li>
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink action="#{loginManagedBean.logOut()}" value="Log Out"  />
+                                        </h:form> 
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </header>
+                <!--header end-->
+
+                <!--sidebar start-->
+                <aside>
+                    <div id="sidebar"  class="nav-collapse ">
+                        <!-- sidebar menu start-->
+                        <ul class="sidebar-menu">                
+                            <li class="active">
+                                <a class="" href="index.xhtml">
+                                    <i class="icon_house_alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sub-menu" id="li-admin">
+                                <a href="javascript:;" class="">
+                                    <i class="icon_archive"></i>
+                                    <span>Admin</span>
+                                    <span class="menu-arrow arrow_carrot-right"></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
+                                </ul>
+                            </li> 
+                            <script>
+                            var role = #{loginManagedBean.flagAdmin};
+                            if (role) {
+                                var element = document.getElementById("li-admin");
+                                element.parentNode.removeChild(element);
+                            }
+                            </script> 
+                            <li class="sub-menu">
+                                <a href="javascript:;" class="">
+                                    <i class="icon_profile"></i>
+                                    <span>User</span>
+                                    <span class="menu-arrow arrow_carrot-right"></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a class="" href="user_view.xhtml">View User</a></li>                          
+                                    <li><a class="" href="ban_user.xhtml">Ban User</a></li>
+                                </ul>
+                            </li>       
+                            <li class="sub-menu">
+                                <a href="javascript:;" class="">
+                                    <i class="icon_document_alt"></i>
+                                    <span>Recipe</span>
+                                    <span class="menu-arrow arrow_carrot-right"></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a class="" href="recipe_view.xhtml">View Recipe</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu">
+                                <a class="" href="javascript:;">
+                                    <i class="icon_error-triangle_alt"></i>
+                                    <span>Report</span>
+                                    <span class="menu-arrow arrow_carrot-right"></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a class="" href="report_view.xhtml">View Report</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu">                     
+                                <a class="" href="javascript:;">
+                                    <i class="icon_piechart"></i>
+                                    <span>Statistic</span>
+                                    <span class="menu-arrow arrow_carrot-right"></span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a class="" href="general.html">Number Of Users</a></li>
+                                    <li><a class="" href="general.html">Number Of Recipes</a></li>
+                                    <li><a class="" href="general.html">New Users In Week</a></li>
+                                    <li><a class="" href="general.html">New Recipes In Week</a></li>
+                                </ul>                   
+                            </li>
+                        </ul>
+                        <!-- sidebar menu end-->
+                    </div>
+                </aside>
+                <!--sidebar end-->
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">
+                        <!--title page-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-info"></i> User Detail</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                                    <li><i class="fa fa-users"></i>Users</li>
+                                    <li><i class="fa fa-info"></i>User Detail</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <!--title page end-->
+                        <!--avata start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="profile-widget profile-widget-info">
+                                    <div class="panel-body" style="background-image:url(#{userDetailManagedBean.userSelected.coverUrl});background-size: 100% 100% ">
+                                        <div class="col-lg-2 col-sm-2">
+                                            <h4><b>#{userDetailManagedBean.userSelected.displayName}</b></h4>
+                                            <div class="follow-ava">
+                                                <img alt="" src="#{userDetailManagedBean.userSelected.avatarUrl}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-4 follow-info">
+                                            <h4>Status: Ban</h4>
+                                            <div>
+                                                <a class="btn btn-warning" title="Bootstrap 3 themes generator" href="">
+                                                    <span class="icon_check_alt2"></span>
+                                                    Unban
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 follow-info weather-category">
+                                            <ul class="red-bg">
+                                                <li class="active">
+                                                    <i class="fa fa-list-alt fa-2x"> </i>
+                                                    <br></br>
+                                                    <div class="count">#{userDetailManagedBean.userSelected.numberRecipes}</div>
+                                                    <div class="title">Recipes</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 follow-info weather-category">
+                                            <ul class="green-bg">
+                                                <li class="active">
+                                                    <i class="fa fa-check fa-2x"> </i>
+                                                    <div class="count">#{userDetailManagedBean.userSelected.numberFollowing}</div>
+                                                    <div class="title">Following</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 follow-info weather-category">
+                                            <ul class="yellow-bg">
+                                                <li class="active">
+                                                    <i class="fa fa-check-square fa-2x"> </i>
+                                                    <br></br>
+                                                    <div class="count">#{userDetailManagedBean.userSelected.numberFollower}</div>
+                                                    <div class="title">Followed</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--avata end-->
+                        <!--content start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <div class="panel-body">
+                                        <section class="panel">
+                                            <div class="bio-graph-info">
+                                                <h1>Profile</h1>
+                                                <div align="center">
+                                                    <p:panel>
+                                                        <table style="width: 60%;" cellpadding="20">
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="Introduce"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.userSelected.introduce}"></h:outputText></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="User Name"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.userSelected.displayName}"></h:outputText></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="Email"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.userSelected.email}"></h:outputText></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="Roll"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.userSelected.role}"></h:outputText></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="Phone Number"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.userSelected.phone}"></h:outputText></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="Register Date"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.convertTime(userDetailManagedBean.userSelected.registeredTime)} "></h:outputText></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30% ;color:#000088"  ><strong><h:outputText value="Date Of Birth"/></strong></td>
+                                                                <td><h:outputText value="#{userDetailManagedBean.userSelected.dob}"></h:outputText></td>
+                                                            </tr>
+                                                        </table >
+                                                    </p:panel>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <!--content end-->
+                    </section>
+                </section>
+                <!--main content end-->
+            </section>
+            <!-- javascripts -->
+            <script src="js/jquery.js"></script>
+            <script src="js/jquery-ui-1.10.4.min.js"></script>
+            <script src="js/jquery-1.8.3.min.js"></script>
+            <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+            <!-- bootstrap -->
+            <script src="js/bootstrap.min.js"></script>
+            <!-- nice scroll -->
+            <script src="js/jquery.scrollTo.min.js"></script>
+            <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+            <!-- charts scripts -->
+            <script src="assets/jquery-knob/js/jquery.knob.js"></script>
+            <script src="js/jquery.sparkline.js" type="text/javascript"></script>
+            <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+            <script src="js/owl.carousel.js" ></script>
+            <!-- jQuery full calendar -->
+            <script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+            <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+            <!--script for this page only-->
+            <script src="js/calendar-custom.js"></script>
+            <script src="js/jquery.rateit.min.js"></script>
+            <!-- custom select -->
+            <script src="js/jquery.customSelect.min.js" ></script>
+            <script src="assets/chart-master/Chart.js"></script>
+
+            <!--custome script for all page-->
+            <script src="js/scripts.js"></script>
+            <!-- custom script for this page-->
+            <script src="js/sparkline-chart.js"></script>
+            <script src="js/easy-pie-chart.js"></script>
+            <script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+            <script src="js/jquery-jvectormap-world-mill-en.js"></script>
+            <script src="js/xcharts.min.js"></script>
+            <script src="js/jquery.autosize.min.js"></script>
+            <script src="js/jquery.placeholder.min.js"></script>
+            <script src="js/gdp-data.js"></script>	
+            <script src="js/morris.min.js"></script>
+            <script src="js/sparklines.js"></script>	
+            <script src="js/charts.js"></script>
+            <script src="js/jquery.slimscroll.min.js"></script>
+            <script>
+
+                            //knob
+                            $(function () {
+                                $(".knob").knob({
+                                    'draw': function () {
+                                        $(this.i).val(this.cv + '%')
+                                    }
+                                })
+                            });
+
+                            //carousel
+                            $(document).ready(function () {
+                                $("#owl-slider").owlCarousel({
+                                    navigation: true,
+                                    slideSpeed: 300,
+                                    paginationSpeed: 400,
+                                    singleItem: true
+
+                                });
+                            });
+
+                            //custom select box
+
+                            $(function () {
+                                $('select.styled').customSelect();
+                            });
+
+                            /* ---------- Map ---------- */
+                            $(function () {
+                                $('#map').vectorMap({
+                                    map: 'world_mill_en',
+                                    series: {
+                                        regions: [{
+                                                values: gdpData,
+                                                scale: ['#000', '#000'],
+                                                normalizeFunction: 'polynomial'
+                                            }]
+                                    },
+                                    backgroundColor: '#eef3f7',
+                                    onLabelShow: function (e, el, code) {
+                                        el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                    }
+                                });
+                            });
+            </script>
+
+        </f:view>
+    </h:body>
+</html>
+
