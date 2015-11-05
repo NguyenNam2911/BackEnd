@@ -8,6 +8,7 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +23,7 @@ import org.entity.Recipe;
  */
 @ManagedBean
 @ViewScoped
-public class RecipeManagedBean {
+public class RecipeManagedBean implements Serializable {
 
     /**
      * Creates a new instance of RecipeManagedBean

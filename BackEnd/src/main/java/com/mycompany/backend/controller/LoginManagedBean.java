@@ -7,6 +7,7 @@ package com.mycompany.backend.controller;
 
 
 import com.mycompany.backend.model.LoginModel;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.dao.DAOException;
@@ -19,7 +20,7 @@ import util.JSFutil;
  */
 @ManagedBean
 @SessionScoped
-public class LoginManagedBean {
+public class LoginManagedBean implements Serializable{
 
     /**
      * Creates a new instance of LoginManagedBean
