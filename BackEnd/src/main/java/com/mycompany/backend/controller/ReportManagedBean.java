@@ -87,24 +87,11 @@ public class ReportManagedBean {
     
     public void searchReport(){
        List<Report> reports = new ArrayList<Report>();
-       if (filterText != null){
-           try{
-               filter = Integer.parseInt(filterText);
-               if (filter != 1 && filter !=0)
-                   filter=-1;
-           }catch(Exception ex){
-               filter=-1;
-           }
-       }
+       listReport = reportModel.getListReports();
        if (searchText != null){
            for (Report report : listReport){
                if (getRecipeName(report.getId()).contains(searchText)){
-                   if (filter==-1){
-                       reports.add(report);
-                   }else{
-                       if (report.getStatus() == filter)
-                           reports.add(report);
-                   }
+                    reports.add(report);
                }
            }
            listReport = reports;

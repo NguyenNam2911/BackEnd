@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.TimeUtils;
+import org.dao.UserDAO;
 import org.entity.User;
 
 
@@ -31,6 +33,10 @@ public class UserBanManagedBean {
     String filterText;
     int filter;
 
+    public UserBanManagedBean() {
+        listBanUser = userModel.getBanUser();
+    }
+    
     public UserModel getUserModel() {
         return userModel;
     }
@@ -71,9 +77,47 @@ public class UserBanManagedBean {
         this.filter = filter;
     }
     
-    public UserBanManagedBean() {
-        listBanUser = userModel.getBanUser();
+    public String convertTime(long time){
+        return TimeUtils.convertTime(time);
     }
     
+    public boolean unbanUser(String userId){
+        return UserDAO.getInstance().unBanUser(userId);
+    }
     
+    public void searchBanUser(){
+       List<User> users = new ArrayList<>();
+       if (searchText != null){
+           for (User user : listBanUser){
+               if (user.getDisplayName().contains(searchText)){
+                    users.add(user);
+               }
+           }
+           listBanUser = users;
+       }
+    }
+    
+    public void filterBanUser(){
+        List<User> users = new ArrayList<>();
+        listBanUser = userModel.getBanUser();
+        if (filterText != null){
+           try{
+               filter = Integer.parseInt(filterText);
+               if (filter != 0 && filter !=-1 && filter !=-2)
+                   filter=2;
+           }catch(Exception ex){
+               filter=2;
+           }
+       }else{
+            filter=2;
+       }
+       
+        if (filter!=2 && filter!=1){
+                for (User user : listBanUser){
+                    if (user.getActiveFlag() == filter)
+                        users.add(user);
+                }
+           listBanUser = users;
+        }
+    }
 }

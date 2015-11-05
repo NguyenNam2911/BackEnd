@@ -33,6 +33,9 @@
         <link href="css/style-responsive.css" rel="stylesheet" />
         <link href="css/xcharts.min.css" rel=" stylesheet"/>	
         <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
+        <link href="css/handmade.css" rel="stylesheet"/>
+
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 
         <title>Ban User - DailyCook.Admin</title>
     </h:head>
@@ -177,16 +180,16 @@
                                                 <div class="search-panel">
                                                     <!--  search form start -->
                                                     <h:form >
-                                                        <h:commandButton class="button-search" action=""/>
-                                                        <h:inputText a:type="text" class="input-search"  a:placeholder="Search By Name" value=""/>
+                                                        <h:commandButton class="button-search" action="#{userBanManagedBean.searchBanUser()}"/>
+                                                        <h:inputText a:type="text" class="input-search"  a:placeholder="Search By Name" value="#{userBanManagedBean.searchText}"/>
                                                     </h:form>
                                                     <!--  search form end -->                
                                                 </div>
                                                 <h:form>
                                                     <div class="ddl-filter">
-                                                        <h:commandButton class="button-filter" action=""/>
+                                                        <h:commandButton class="button-filter" action="#{userBanManagedBean.filterBanUser()}"/>
                                                         <h:selectOneMenu value="" onclick="">
-                                                            <f:selectItem itemValue="2" itemLabel="All status"/>
+                                                            <f:selectItem itemValue="1" itemLabel="All status"/>
                                                             <f:selectItem itemValue="0" itemLabel="Ban Once"/>
                                                             <f:selectItem itemValue="-1" itemLabel="Ban Second"/>
                                                             <f:selectItem itemValue="-2" itemLabel="Deleted"/>
@@ -201,23 +204,47 @@
                                                         <th><i class="icon_profile"></i> User Name</th>
                                                         <th><i class="icon_calendar"></i> Date</th>
                                                         <th><i class="icon_mail_alt"></i> Email</th>
-                                                        <th><i class="icon_error-triangle_alt"></i> Number Report</th>
-                                                        <th><i class="icon_blocked"></i> Number Recipe</th>
+                                                        <th><i class="icon_error-triangle_alt"></i> Number Recipe</th>
+                                                        <th><i class="icon_blocked"></i> Number Report</th>
                                                         <th><i class="icon_pencil_alt"></i> Status</th>
                                                         <th><i class="icon_pencil_alt"></i> Action</th>
                                                     </tr>
                                                     <h:form>
                                                         <p:panel id="tbBanUser">
-                                                            <c:forEach var="banUser" items="#{userBanManagedBean.listBanUser}" var="banUser">
+                                                            <c:forEach var="banUser" items="#{userBanManagedBean.listBanUser}">
                                                                 <tr>
-                                                                    <td>1</td>
-                                                                    <td><a href="user_detail.html">abc</a></td>
-                                                                    <td>2004-07-06</td>
-                                                                    <td>dale@chief.info</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>Ban</td>
-                                                                    <td>Ban</td>
+                                                                    <td>#{userBanManagedBean.listBanUser.indexOf(banUser)+1}</td>
+                                                                    <td>
+                                                                        <h:commandLink value="#{banUser.displayName}" action="#{userDetailManagedBean.UserDetail(banUser)}"
+                                                                                       style="color: 1C86EE" />
+                                                                    </td>
+                                                                    <td>#{userBanManagedBean.convertTime(banUser.registeredTime)}</td>
+                                                                    <td>#{banUser.email}</td>
+                                                                    <td>#{banUser.numberRecipes}</td>
+                                                                    <td>#{banUser.numberReport}</td>
+                                                                    <td>
+                                                                        <c:set var="status" value="#{banUser.activeFlag}"/>
+                                                                        <c:choose>
+                                                                            <c:when test="${status==1}">
+                                                                                <h:outputText value="Active"/>
+                                                                            </c:when>
+                                                                            <c:when test="${status==0}">
+                                                                                <h:outputText value="Ban Once"/>
+                                                                            </c:when>
+                                                                            <c:when test="${status==-1}">
+                                                                                <h:outputText value="Ban Second"/>
+                                                                            </c:when>
+                                                                            <c:when test="${status==-2}">
+                                                                                <h:outputText value="Deleted"/>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <h:outputText value=""/>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h:commandLink value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}"/>
+                                                                    </td>
                                                                 </tr>
                                                             </c:forEach>
                                                         </p:panel>
