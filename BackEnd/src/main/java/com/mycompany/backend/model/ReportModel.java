@@ -6,6 +6,8 @@
 package com.mycompany.backend.model;
 
 import java.util.List;
+import org.TimeUtils;
+import org.dao.DAOException;
 import org.dao.ReportDAO;
 import org.entity.Report;
 
@@ -24,12 +26,15 @@ public class ReportModel {
         return ReportDAO.getInstance().updateReportStatus(id, Report.APPROVE_FLAG);
     }
 
-    public boolean removeReportStatus(String id) {
-        return ReportDAO.getInstance().updateReportStatus(id, Report.REMOVE_FLAG);
+    public void removeReportStatus(String id) throws DAOException {
+        ReportDAO.getInstance().delete(id, Report.class);
     }
 
     public Report getReportByID(String id) {
         return ReportDAO.getInstance().getReport(id);
     }
 
+    public boolean updateAdminReport(String reportId, String adminId){
+        return ReportDAO.getInstance().updateAdminReport(reportId, adminId, TimeUtils.getCurrentGMTTime());
+    }
 }

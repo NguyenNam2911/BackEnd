@@ -230,13 +230,23 @@
                                                                         <h:outputText value="Remove" />
                                                                     </c:if>
                                                                 </td>
-                                                                <td>#{reportManagedBean.getUserName(report.veryfyBy)}</td>
-                                                                <td>#{reportManagedBean.convertTime(report.verifyTime)}</td>
+                                                                <c:set var="status" value="#{report.status}" />
+                                                                <c:choose>
+                                                                    <c:when test="${status==1}">
+                                                                        <td>#{reportManagedBean.getUserName(report.veryfyBy)}</td>
+                                                                        <td>#{reportManagedBean.convertTime(report.verifyTime)}</td>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <td>None</td>
+                                                                        <td>None</td>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                
                                                                 <c:set var="status" value="#{report.status}" />
                                                                 <c:choose>
                                                                     <c:when test="${status==0}">
                                                                         <td>
-                                                                            <h:commandLink value="Approve" action="#{reportManagedBean.approveReportStatus(report.id)}"/>
+                                                                            <h:commandLink value="Approve" action="#{reportManagedBean.approveReportStatus(report.id, loginManagedBean.user.id)}"/>
                                                                         </td>
                                                                         <td>
                                                                             <h:commandLink value="Remove" action="#{reportManagedBean.removeReportStatus(report.id)}"/>

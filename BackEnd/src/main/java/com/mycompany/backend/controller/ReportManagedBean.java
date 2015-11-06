@@ -11,6 +11,7 @@ import com.mycompany.backend.model.UserModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
@@ -25,7 +26,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class ReportManagedBean {
 
     /**
@@ -122,17 +123,24 @@ public class ReportManagedBean {
         }
     }
     
-    public void approveReportStatus(String id) throws DAOException{
+    public void approveReportStatus(String reportId, String adminId) throws DAOException{
         
-        //remove recipe
-        reportModel.approveReportStatus(id);
-        Report report = reportModel.getReportByID(id);
+        //approve report, remove recipe
+        reportModel.approveReportStatus(reportId);
+        Report report = reportModel.getReportByID(reportId);
         recipeModel.removeRecipe(report.getRecipe());
         
+        //remove other the same reports
+        List<Report>reports = reportModel.getListReports();
+        for(Report rp : reports){
+            if (rp.getRecipe().equals(report.getRecipe()) && rp.getStatus()==0)
+                reportModel.removeReportStatus(rp.getId());
+        }
+        
         //check ban user
-        Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());
+        Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());  
+        userModel.increaseReportOfUser(recipe.getOwner());
         User user = UserDAO.getInstance().getUser(recipe.getOwner());
-        userModel.increaseReportOfUser(user.getId());
         switch(user.getNumberReport()){
             case 3:
                 userModel.banUser(user.getId(), User.BAN_FLAG_ONCE);
@@ -144,11 +152,18 @@ public class ReportManagedBean {
                 userModel.banUser(user.getId(), User.DELETED_FLAG);
                 break;
         }
+        if (user.getNumberReport()>9) 
+            userModel.banUser(user.getId(), User.DELETED_FLAG);
+        updateAdminReport(reportId, adminId);
         listReport = reportModel.getListReports();
     }
     
-    public void removeReportStatus(String id){
-        reportModel.removeReportStatus(id);
+    public void removeReportStatus(String reportId) throws DAOException{
+        reportModel.removeReportStatus(reportId);
         listReport = reportModel.getListReports();
+    }
+    
+    public boolean updateAdminReport(String reportId, String adminId){
+        return reportModel.updateAdminReport(reportId, adminId);
     }
 }
