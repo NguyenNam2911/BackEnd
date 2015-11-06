@@ -27,8 +27,6 @@ public class LoginManagedBean implements Serializable{
      */
     User user = new User();
     LoginModel loginModel = new LoginModel();
-    boolean pass;
-    boolean email;
     boolean flagAdmin;
 
     public void checkLogin() throws DAOException {
@@ -39,23 +37,22 @@ public class LoginManagedBean implements Serializable{
                 flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
                 JSFutil.navigate("index?faces-redirect=true");
             } else {
-                pass = true;
-                email = false;
+
+                JSFutil.addErrorMessage("PassWord incorect");
             }
         } else {
-            email = true;
-            pass = false;
+
+            JSFutil.addErrorMessage("Email incorect");
         }
     }
 
     public void logOut() {
+        user = new User();
         JSFutil.navigate("login?faces-redirect=true");
     }
 
     // contructer
     public LoginManagedBean() {
-        pass = false;
-        email = false;
         flagAdmin = false;
     }
     
@@ -67,23 +64,6 @@ public class LoginManagedBean implements Serializable{
     public void setFlagAdmin(boolean flagAdmin) {    
         this.flagAdmin = flagAdmin;
     }
-
-    public boolean isPass() {
-        return pass;
-    }
-
-    public void setPass(boolean pass) {
-        this.pass = pass;
-    }
-
-    public boolean isEmail() {
-        return email;
-    }
-
-    public void setEmail(boolean email) {
-        this.email = email;
-    }
-
     public User getUser() {
         return user;
     }

@@ -17,6 +17,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.dao.DAOException;
 import org.entity.User;
+import util.JSFutil;
 
 /**
  *
@@ -36,17 +37,20 @@ public class AdminManagedBean extends Object implements Serializable {
     User userAdmin;
     boolean addView;
     Date date;
+    
 
     //method
     public void save(ActionEvent event) throws DAOException {
         userAdmin.setRole(User.ADMIN_ROLE);
-        userAdmin.setPassword(RandomStringUtils.randomAlphanumeric(8));
+//      userAdmin.setPassword(RandomStringUtils.randomAlphanumeric(8));
+        userAdmin.setPassword("12345678");
         userAdmin.setRegisteredTime(date.getTime());
         adminModel = new AdminModel();
         adminModel.insertAdmin(userAdmin);
         users = adminModel.getUsersAdmin();
-        userAdmin = new User();
         addView = true;
+        JSFutil.sentMail( userAdmin.getEmail(),"nguyenhoainam301193@gmail.com", "namhot123","Welcome to dalycook management", userAdmin.getPassword());
+        userAdmin = new User();
     }
 
     public void cancel(ActionEvent event) {
