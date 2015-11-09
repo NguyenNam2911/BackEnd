@@ -223,7 +223,7 @@
                                                         <div align="center">
                                                             <p:panel header="Create Admin" id="pnlInput">
                                                                 <p:commandButton id="cmdCreate" disabled="#{!adminManagedBean.addView}" value="Create" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.preAdd(event)}" update=":frmMain:pnlInput"/>
-                                                                <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.cancel(event)}" update=":frmMain:pnlInput"/>
+                                                                <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.cancel(event)}" update=":frmMain:pnlInput" immediate="true"/>
                                                                 <p:commandButton id="cmdSave" disabled="#{adminManagedBean.addView}" value="Save" process="@this,pnlInput" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.save(event)}" update=":frmMain:tbAdmin :frmMain:pnlInput "/>
                                                                 <table cellpadding="10px" id="tbCreate">
                                                                     <tbody>
@@ -232,7 +232,17 @@
                                                                                 <h:outputLabel value="Email " for="txtEmail"   />
                                                                             </td>
                                                                             <td>
-                                                                                <h:inputText value="#{adminManagedBean.userAdmin.email}" class="form-control" id="txtEmail" disabled="#{adminManagedBean.addView}"  a:placeholder="Enter Email" />
+                                                                                <h:inputText required="true" value="#{adminManagedBean.userAdmin.email}" class="form-control" id="txtEmail" disabled="#{adminManagedBean.addView}"  
+                                                                                             requiredMessage="Please enter your email address."
+                                                                                             validatorMessage="Invalid email format"
+                                                                                             a:placeholder="Enter Email"  >
+                                                                                    <f:validateRegex
+                                                                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                                                </h:inputText>
+                                                                                <span style="color: red;">
+                                                                                    <p:message for="txtEmail" id="emailError" />
+                                                                                </span>
+
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -240,7 +250,16 @@
                                                                                 <h:outputLabel value="Name  " for="txtName"   />
                                                                             </td>
                                                                             <td>
-                                                                                <h:inputText value="#{adminManagedBean.userAdmin.displayName}" class="form-control" id="txtName" disabled="#{adminManagedBean.addView}" a:placeholder="Enter User Name"/>
+                                                                                <h:inputText required="true" value="#{adminManagedBean.userAdmin.displayName}" class="form-control" 
+                                                                                             id="txtName" disabled="#{adminManagedBean.addView}" a:placeholder="Enter Admin Name"
+                                                                                             requiredMessage="Please enter Admin Name"
+                                                                                             validatorMessage="Name must content 6 to 50 characters">
+                                                                                    <f:validateLength minimum="6" maximum="50" />
+
+                                                                                </h:inputText>
+                                                                                <span style="color: red;">
+                                                                                    <p:message for="txtName" id="nameError" />
+                                                                                </span>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -248,7 +267,15 @@
                                                                                 <h:outputLabel value="Phone" for="txtPhone"   />
                                                                             </td>
                                                                             <td>
-                                                                                <h:inputText value="#{adminManagedBean.userAdmin.phone}" class="form-control" id="txtPhone" disabled="#{adminManagedBean.addView}" a:placeholder="Enter Phone Number"/>
+                                                                                <h:inputText required="true" value="#{adminManagedBean.userAdmin.phone}" class="form-control" 
+                                                                                             id="txtPhone" disabled="#{adminManagedBean.addView}" a:placeholder="Enter Phone Number"
+                                                                                             requiredMessage="Please enter Phone Number"
+                                                                                             >
+                                                                                        
+                                                                                </h:inputText>
+                                                                                <span style="color: red;">
+                                                                                    <p:message for="txtPhone" id="phoneError" />
+                                                                                </span>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
