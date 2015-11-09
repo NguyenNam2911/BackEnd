@@ -75,6 +75,14 @@ public class ReportManagedBean {
         return "";
     }
     
+    public User getUser(String id) throws DAOException{
+        return userModel.getUserByID(id);
+    }
+    
+    public Recipe getRecipe(String id){
+        return recipeModel.getRecipeByID(id);
+    }
+    
     public String getRecipeName(String id){
         Recipe recipe = recipeModel.getRecipeByID(id);
         if (recipe != null)

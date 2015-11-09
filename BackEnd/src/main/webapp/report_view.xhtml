@@ -214,9 +214,17 @@
                                                             <c:forEach items="#{reportManagedBean.listReport}" var="report">
                                                             <tr>
                                                                 <td>#{reportManagedBean.listReport.indexOf(report)+1}</td>
-                                                                <td><a href="recipe_detail.html">#{reportManagedBean.getRecipeName(report.recipe)}</a></td>
+                                                                <td>
+                                                                    <h:commandLink value="#{reportManagedBean.getRecipeName(report.recipe)}" 
+                                                                                   action="#{recipeDetailManagedBean.recipeDetail(reportManagedBean.getRecipe(report.recipe))}"
+                                                                                    style="color: 1C86EE"/>
+                                                                </td>
                                                                 <td>#{report.reason}</td>
-                                                                <td><a href="user_detail.html">#{reportManagedBean.getUserName(report.reporter)}</a></td>
+                                                                <td>
+                                                                    <h:commandLink value="#{reportManagedBean.getUserName(report.reporter)}"
+                                                                                   action="#{userDetailManagedBean.UserDetail(reportManagedBean.getUser(report.reporter))}"
+                                                                                    style="color: 1C86EE"/>
+                                                                </td>
                                                                 <td>#{reportManagedBean.convertTime(report.reportTime)}</td>
                                                                 <td>
                                                                     <c:set var="status" value="#{report.status}" />
