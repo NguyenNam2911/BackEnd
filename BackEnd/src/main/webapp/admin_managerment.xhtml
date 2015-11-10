@@ -191,13 +191,15 @@
                                                     <p:panel id="tbAdmin">
                                                         <table  class="table table-striped table-advance table-hover">
                                                             <tbody>
-                                                                <tr>
-                                                                    <th><i></i> No</th>
-                                                                    <th><i class="icon_archive_alt"></i> Name</th>
-                                                                    <th><i class="icon_image"></i> Email</th>
-                                                                    <th><i class="icon_profile"></i> Phone</th>
-                                                                    <th><i class="icon_calendar"></i> Action</th>
-                                                                </tr>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th><i></i> No</th>
+                                                                        <th><i class="icon_archive_alt"></i> Name</th>
+                                                                        <th><i class="icon_image"></i> Email</th>
+                                                                        <th><i class="icon_profile"></i> Phone</th>
+                                                                        <th><i class="icon_calendar"></i> Action</th>
+                                                                    </tr>
+                                                                </thead>
                                                                 <c:forEach items="#{adminManagedBean.users}" var="user">
                                                                     <tr>
                                                                         <td>#{adminManagedBean.users.indexOf(user) + 1}</td>
@@ -271,7 +273,7 @@
                                                                                              id="txtPhone" disabled="#{adminManagedBean.addView}" a:placeholder="Enter Phone Number"
                                                                                              requiredMessage="Please enter Phone Number"
                                                                                              >
-                                                                                        
+
                                                                                 </h:inputText>
                                                                                 <span style="color: red;">
                                                                                     <p:message for="txtPhone" id="phoneError" />
