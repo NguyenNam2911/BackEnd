@@ -41,6 +41,10 @@ public class JSFutil {
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
     }
     
+    public static void addErrorMessageById(String id, String msg){
+        FacesContext.getCurrentInstance().addMessage(id,new FacesMessage(FacesMessage.SEVERITY_ERROR, msg,msg));
+    }
+    
     public static void sentMail(String to, String from, String pass,String title, String content) {
         MailCompose mailCompose = new MailCompose();
         mailCompose.setTo(to);

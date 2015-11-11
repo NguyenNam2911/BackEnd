@@ -8,7 +8,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <head>
+    <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <!-- Bootstrap CSS -->    
@@ -37,7 +37,7 @@
         <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
 
         <title>DailyCook.Admin</title>
-    </head>
+    </h:head>
 
     <h:body>
         <f:view>
@@ -224,6 +224,7 @@
                                                     <div style="text-align: center" id="addAdmin">
                                                         <div align="center">
                                                             <p:panel header="Create Admin" id="pnlInput">
+                                                                
                                                                 <p:commandButton id="cmdCreate" disabled="#{!adminManagedBean.addView}" value="Create" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.preAdd(event)}" update=":frmMain:pnlInput"/>
                                                                 <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.cancel(event)}" update=":frmMain:pnlInput" immediate="true"/>
                                                                 <p:commandButton id="cmdSave" disabled="#{adminManagedBean.addView}" value="Save" process="@this,pnlInput" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.save(event)}" update=":frmMain:tbAdmin :frmMain:pnlInput "/>
@@ -242,7 +243,7 @@
                                                                                         pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                                                 </h:inputText>
                                                                                 <span style="color: red;">
-                                                                                    <p:message for="txtEmail" id="emailError" />
+                                                                                    <p:messages for="txtEmail" id="emailError" autoUpdate="true" closable="true"/>
                                                                                 </span>
 
                                                                             </td>
@@ -260,7 +261,7 @@
 
                                                                                 </h:inputText>
                                                                                 <span style="color: red;">
-                                                                                    <p:message for="txtName" id="nameError" />
+                                                                                    <p:messages for="txtName" id="nameError" autoUpdate="true" closable="true"/>
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
@@ -276,7 +277,7 @@
 
                                                                                 </h:inputText>
                                                                                 <span style="color: red;">
-                                                                                    <p:message for="txtPhone" id="phoneError" />
+                                                                                    <p:messages for="txtPhone" id="phoneError" autoUpdate="true"/>
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
@@ -345,7 +346,6 @@
         <script src="js/charts.js"></script>
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
-
                                     //knob
                                     $(function () {
                                         $(".knob").knob({
@@ -364,7 +364,6 @@
                                         });
                                     });
                                     //custom select box
-
                                     $(function () {
                                         $('select.styled').customSelect();
                                     });
@@ -387,4 +386,3 @@
                                     });</script>
     </h:body>
 </html>
-

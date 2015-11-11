@@ -5,7 +5,6 @@
  */
 package com.mycompany.backend.controller;
 
-
 import com.mycompany.backend.model.AdminModel;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import util.JSFutil;
  *
  * @author Nguyen Hoai Nam
  */
-
 @ManagedBean
 @ViewScoped
 public class AdminManagedBean extends Object implements Serializable {
@@ -37,20 +35,54 @@ public class AdminManagedBean extends Object implements Serializable {
     User userAdmin;
     boolean addView;
     Date date;
-    
 
     //method
     public void save(ActionEvent event) throws DAOException {
-        userAdmin.setRole(User.ADMIN_ROLE);
-//      userAdmin.setPassword(RandomStringUtils.randomAlphanumeric(8));
-        userAdmin.setPassword("12345678");
-        userAdmin.setRegisteredTime(date.getTime());
-        adminModel = new AdminModel();
-        adminModel.insertAdmin(userAdmin);
+        if (checkEmail(userAdmin.getEmail())) {
+            if (checkName(userAdmin.getDisplayName())) {
+                userAdmin.setRole(User.ADMIN_ROLE);
+                userAdmin.setPassword(RandomStringUtils.randomAlphanumeric(8));
+                userAdmin.setPassword("12345678");
+                userAdmin.setRegisteredTime(date.getTime());
+                adminModel = new AdminModel();
+                adminModel.insertAdmin(userAdmin);
+                users = adminModel.getUsersAdmin();
+                addView = true;
+////        JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", userAdmin.getPassword());
+                userAdmin = new User();
+            } else {
+                JSFutil.addErrorMessageById("frmMain:txtName", "Name already exists");
+
+            }
+
+        } else {
+
+            JSFutil.addErrorMessageById("frmMain:txtEmail", "Email already registered");
+
+        }
+
+    }
+
+    public boolean checkEmail(String email) {
         users = adminModel.getUsersAdmin();
-        addView = true;
-        JSFutil.sentMail( userAdmin.getEmail(),"nguyenhoainam301193@gmail.com", "namhot123","Welcome to dalycook management", userAdmin.getPassword());
-        userAdmin = new User();
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public boolean checkName(String name) {
+        users = adminModel.getUsersAdmin();
+        for (User user : users) {
+            if (user.getDisplayName().equals(name)) {
+                return false;
+            }
+
+        }
+        return true;
     }
 
     public void cancel(ActionEvent event) {
