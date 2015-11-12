@@ -21,7 +21,13 @@ public class LoginModel {
         User u = UserDAO.getInstance().getUserInfoByEmail(user.getEmail());
         if (u != null) {
             if (u.getRole().equals(User.ADMIN_ROLE) || u.getRole().equals(User.SUPER_ADMIN_ROLE)) {
-                return u;
+                if(u.getActiveFlag() == User.ACTIVE_FLAG){
+                    return u;
+                }
+                else{
+                    u = null;
+                }
+                
             } else {
                 u = null;
             }

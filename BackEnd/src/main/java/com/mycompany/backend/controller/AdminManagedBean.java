@@ -6,6 +6,7 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.AdminModel;
+import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,7 +118,14 @@ public class AdminManagedBean extends Object implements Serializable {
         date = new Date();
     }
 
+    public void deleteUser(User u) {
+        UserModel userModel = new UserModel();
+        userModel.banUser(u.getId(), User.DELETED_FLAG);
+        users = adminModel.getUsersAdmin();
+    }
+
     //get and set
+
     public String getSearch() {
         return search;
     }

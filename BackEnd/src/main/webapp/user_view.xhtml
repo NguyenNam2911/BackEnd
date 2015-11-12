@@ -4,7 +4,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
@@ -96,11 +95,11 @@
                                 </ul>
                             </li> 
                             <script>
-                            var role = #{loginManagedBean.flagAdmin};
-                            if (role) {
-                                var element = document.getElementById("li-admin");
-                                element.parentNode.removeChild(element);
-                            }
+                                var role = #{loginManagedBean.flagAdmin};
+                                if (role) {
+                                    var element = document.getElementById("li-admin");
+                                    element.parentNode.removeChild(element);
+                                }
                             </script>
                             <li class="sub-menu">
                                 <a href="javascript:;" class="">
@@ -193,6 +192,7 @@
                                                             <f:selectItem itemValue="Filter" itemLabel="All status"/>
                                                             <f:selectItem itemValue="Active" itemLabel="Active"/>
                                                             <f:selectItem itemValue="Banned" itemLabel="Banned"/>
+                                                            <f:selectItem itemValue="Deleted" itemLabel="deleted"/>
                                                         </h:selectOneMenu>
                                                     </div>    
 
@@ -225,10 +225,13 @@
                                                                     <td>
                                                                         <c:set var="status"  value="#{user.activeFlag}"/>
                                                                         <c:if test="${ status == 1 }">
-                                                                            <h:outputText value="active"/>
+                                                                            <h:outputText value="active" style="color: green"/>
                                                                         </c:if>
-                                                                        <c:if test="${ status == 0 }">
+                                                                        <c:if test="${ status == 0 || status == -1}">
                                                                             <h:outputText value="banned" style="color: red"/>
+                                                                        </c:if>
+                                                                        <c:if test="${ status == -2}">
+                                                                            <h:outputText value="Deleted" style="color: black"/>
                                                                         </c:if>
                                                                     </td>
                                                                 </tr>
@@ -295,36 +298,34 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
 
-                            //knob
-                            $(function () {
+                                //knob
+                                $(function () {
                                 $(".knob").knob({
                                     'draw': function () {
-                                        $(this.i).val(this.cv + '%')
+                                $(this.i).val(this.cv + '%')
                                     }
                                 })
-                            });
+                                    });
 
                             //carousel
-                            $(document).ready(function () {
-                                $("#owl-slider").owlCarousel({
-                                    navigation: true,
-                                    slideSpeed: 300,
+                                        $(document).ready(function () {
+                                            $("#owl-slider").owlCarousel({
+                                                    navigation: true,
+                                                    slideSpeed: 300,
                                     paginationSpeed: 400,
-                                    singleItem: true
+                                                    singleItem: true
 
                                 });
+                                                });
+
+                                        //custom select box
+
+                                        $(function () {
+                                        $('select.styled').customSelect();
                             });
-
-                            //custom select box
-
-                            $(function () {
-                                $('select.styled').customSelect();
-                            });
-
-                            /* ---------- Map ---------- */
-                            $(function () {
-                                $('#map').vectorMap({
-                                    map: 'world_mill_en',
+                                        /* ---------- Map ---------- */                             $(function () {
+                                    $('#map').vectorMap({
+                                map: 'world_mill_en',
                                     series: {
                                         regions: [{
                                                 values: gdpData,

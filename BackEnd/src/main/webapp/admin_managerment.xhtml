@@ -209,22 +209,30 @@
                                                                         <td>#{user.email}</td>
                                                                         <td>#{user.phone}</td>
                                                                         <td>
-                                                                            <h:commandLink value="Remove" />
+                                                                            <p:commandButton value="Removed" disabled="true" rendered="#{user.activeFlag != 1}" style="width: 100px;"></p:commandButton>
+                                                                            <p:commandButton value="Remove" process="@this" action="#{adminManagedBean.deleteUser(user)}"
+                                                                                             update=":frmMain:tbAdmin" style="width: 100px;" rendered="#{user.activeFlag == 1}" >
+                                                                                <p:confirm header="Confirmation" message="Are you sure delete admin"  />
+                                                                            </p:commandButton>
+                                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
+                                                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                                            </p:confirmDialog>
                                                                         </td>
                                                                     </tr>
-                                                                </c:forEach>                 
+                                                                </c:forEach>  
+
                                                             </tbody>
                                                         </table>
+
                                                     </p:panel>
                                                 </section>
-
                                                 <!--panel create admin start -->
-
                                                 <section class="panel"  >
                                                     <div style="text-align: center" id="addAdmin">
                                                         <div align="center">
                                                             <p:panel header="Create Admin" id="pnlInput">
-                                                                
+
                                                                 <p:commandButton id="cmdCreate" disabled="#{!adminManagedBean.addView}" value="Create" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.preAdd(event)}" update=":frmMain:pnlInput"/>
                                                                 <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.cancel(event)}" update=":frmMain:pnlInput" immediate="true"/>
                                                                 <p:commandButton id="cmdSave" disabled="#{adminManagedBean.addView}" value="Save" process="@this,pnlInput" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.save(event)}" update=":frmMain:tbAdmin :frmMain:pnlInput "/>

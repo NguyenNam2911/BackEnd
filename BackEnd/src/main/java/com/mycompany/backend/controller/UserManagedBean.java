@@ -70,16 +70,26 @@ public class UserManagedBean {
                     break;
                 case "Banned":
                     for (User user : users) {
-                        if (user.getActiveFlag() == 0) {
+                        if (user.getActiveFlag() == 0 || user.getActiveFlag() == -1) {
                             filter_user.add(user);
                         }
                     }
                     break;
+                case "Deleted":
+                    for (User user : users) {
+                        if (user.getActiveFlag() == -2) {
+                            filter_user.add(user);
+                        }
+                    }
+                    break;
+
             }
             users = filter_user;
             filter = "Filter";
         }
     }
+    
+   
 //get and set
 
     public User getUserSelected() {

@@ -22,7 +22,7 @@ public class AdminModel {
         List<User> users = UserDAO.getInstance().getAllUser();
         List<User> users_admin = new ArrayList<>();
         for (User user : users) {
-            if(user.getRole().equals(User.ADMIN_ROLE) && user.getActiveFlag() == 1){
+            if(user.getRole().equals(User.ADMIN_ROLE)){
                 users_admin.add(user);
             }
             
