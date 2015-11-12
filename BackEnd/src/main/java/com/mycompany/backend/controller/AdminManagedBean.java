@@ -49,7 +49,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 adminModel.insertAdmin(userAdmin);
                 users = adminModel.getUsersAdmin();
                 addView = true;
-////        JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", userAdmin.getPassword());
+                JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", userAdmin.getPassword());
                 userAdmin = new User();
             } else {
                 JSFutil.addErrorMessageById("frmMain:txtName", "Name already exists");
@@ -125,7 +125,6 @@ public class AdminManagedBean extends Object implements Serializable {
     }
 
     //get and set
-
     public String getSearch() {
         return search;
     }

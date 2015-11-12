@@ -212,7 +212,10 @@
                                                             </td>
                                                             <td><img src="#{recipe.pictureUrl}" width="100" height="100"/></td>
                                                             <td>
-                                                                #{recipeManagedBean.getOwnerName(recipe.owner)}
+                                                                <h:commandLink value="#{recipeManagedBean.getOwnerName(recipe.owner)}" 
+                                                                               action="#{userDetailManagedBean.UserDetail(recipeManagedBean.getUserById(recipe.owner))}"
+                                                                               style="color: #1C86EE"/> 
+
                                                             </td>
                                                             <td>#{recipeManagedBean.convertTime(recipe.createdTime)}</td>
                                                             <td>#{recipe.favoriteNumber}</td>
@@ -221,13 +224,13 @@
 
                                                                 <c:set var="status" value="#{recipe.statusFlag}"/>
                                                                 <c:if test="${ status == 1}">
-                                                                    <h:outputText value="Approve"/>
+                                                                    <h:outputText value="Approve" style="color: green"/>
                                                                 </c:if>
-                                                                <c:if test="${ status == 0}">
-                                                                    <h:outputText value="Report"/>
+                                                                <c:if test="${ status == 0}" >
+                                                                    <h:outputText value="Report" style="color: red;" />
                                                                 </c:if>
                                                                 <c:if test="${ status == -1}">
-                                                                    <h:outputText value="REMOVED"/>
+                                                                    <h:outputText value="Removed" style="color: black;"/>
                                                                 </c:if>
                                                             </td>
                                                         </tr>
@@ -301,7 +304,7 @@
         <script src="js/charts.js"></script>
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
-
+                            
                             //knob
                             $(function () {
                                 $(".knob").knob({
@@ -310,23 +313,23 @@
                                     }
                                 })
                             });
-
+                            
                             //carousel
                             $(document).ready(function () {
                                 $("#owl-slider").owlCarousel({
                                     navigation: true,
                                     slideSpeed: 300, paginationSpeed: 400,
                                     singleItem: true
-
+                                            
                                 });
                             });
-
+                            
                             //custom select box
-
+                            
                             $(function () {
                                 $('select.styled').customSelect();
                             });
-
+                            
                             /* ---------- Map ---------- */
                             $(function () {
                                 $('#map').vectorMap({

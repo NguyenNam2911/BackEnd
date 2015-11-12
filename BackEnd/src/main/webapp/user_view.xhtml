@@ -205,7 +205,7 @@
                                                             <th><i class="icon_profile"></i> User Name</th>
                                                             <th><i class="icon_calendar"></i> Date</th>
                                                             <th><i class="icon_mail_alt"></i> Email</th>
-                                                            <th><i class="icon_error-circle_alt"></i> Report</th>
+                                                            <th><i class="icon_error-circle_alt"></i>Number Reported</th>
                                                             <th><i class="icon_document_alt"></i> Number Recipe</th>
                                                             <th><i class="icon_pencil_alt"></i> Status</th>
                                                         </tr>
@@ -218,7 +218,7 @@
                                                                     </td>
                                                                     <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
                                                                     <td>#{user.email}</td>
-                                                                    <td>#{user.numberRecipes}</td>
+                                                                    <td>#{user.numberReport}</td>
                                                                     <td>#{user.numberRecipes}</td>
                                                                     <td>
                                                                         <c:set var="status"  value="#{user.activeFlag}"/>

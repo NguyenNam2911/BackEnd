@@ -5,7 +5,6 @@
  */
 package com.mycompany.backend.controller;
 
-
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
@@ -16,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
 import org.entity.Recipe;
+import org.entity.User;
 
 /**
  *
@@ -39,11 +39,15 @@ public class RecipeManagedBean implements Serializable {
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
-    
-    public String getOwnerName(String id) throws DAOException{
+
+    public String getOwnerName(String id) throws DAOException {
         userModel = new UserModel();
         String name = userModel.getUserName(id);
         return name;
+    }
+
+    public User getUserById(String id) throws DAOException {
+        return userModel.getUserByID(id);
     }
 
     public void filter() {
@@ -72,13 +76,10 @@ public class RecipeManagedBean implements Serializable {
                         }
                     }
                     break;
-                
-
             }
             recipes = filter_Recipe;
             filter = "Filter";
         }
-
     }
 
     public void searchRecipe() {
@@ -89,7 +90,6 @@ public class RecipeManagedBean implements Serializable {
                 if (r.getTitle().contains(search)) {
                     search_recipe.add(r);
                 }
-
             }
             recipes = search_recipe;
         }
@@ -101,7 +101,6 @@ public class RecipeManagedBean implements Serializable {
         recipes = recipeModel.getAllRecipe();
         recipe = new Recipe();
         userModel = new UserModel();
-
     }
     //get and set
 
