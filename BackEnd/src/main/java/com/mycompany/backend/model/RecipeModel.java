@@ -7,6 +7,7 @@ package com.mycompany.backend.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.TimeUtils;
 import org.dao.RecipeDAO;
 import org.entity.Recipe;
 
@@ -28,6 +29,6 @@ public class RecipeModel {
     }
 
     public boolean removeRecipe(String id) {
-        return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.REMOVED_FLAG);
+        return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.REMOVED_FLAG, TimeUtils.getCurrentGMTTime());
     }
 }

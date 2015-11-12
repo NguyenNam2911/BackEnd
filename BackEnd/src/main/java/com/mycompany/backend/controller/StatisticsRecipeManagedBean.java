@@ -111,4 +111,11 @@ public class StatisticsRecipeManagedBean implements Serializable{
         long to = getTime(dateTo);
         return RecipeDAO.getInstance().getNumberCreatedRecipe(from, to);
     }
+    
+    public long getCountDeletedRecipe(int month) throws ParseException{
+        getDateFromToOfMoth(month);
+        long from = getTime(dateFrom);
+        long to = getTime(dateTo);
+        return RecipeDAO.getInstance().getNumberDeletedRecipe(from, to);
+    }
 }

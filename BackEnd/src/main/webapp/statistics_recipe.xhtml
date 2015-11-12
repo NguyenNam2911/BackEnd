@@ -169,7 +169,7 @@
                                             Recipe In The Following Month
                                         </header>
                                         <div class="panel-body text-center">
-                                            <canvas id="line" height="400" width="800"></canvas>
+                                            <canvas id="bar" height="400" width="800"></canvas>
                                         </div>
                                     </section>
                                 </div>                  
@@ -219,14 +219,12 @@
     <script src="js/scripts.js"></script>
     
     <script>
-        var lineChartData = {
+        var barChartData = {
             labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
             datasets : [
                 {
                     fillColor : "rgba(151,187,205,0.5)",
                     strokeColor : "rgba(151,187,205,1)",
-                    pointColor : "rgba(151,187,205,1)",
-                    pointStrokeColor : "#fff",
                     data : [    #{statisticsRecipeManagedBean.getCountCreatedRecipe(1)},
                                 #{statisticsRecipeManagedBean.getCountCreatedRecipe(2)},
                                 #{statisticsRecipeManagedBean.getCountCreatedRecipe(3)},
@@ -240,10 +238,27 @@
                                 #{statisticsRecipeManagedBean.getCountCreatedRecipe(11)},
                                 #{statisticsRecipeManagedBean.getCountCreatedRecipe(12)}
                             ]
+                },
+                {
+                    fillColor : "rgba(220,220,220,0.5)",
+                    strokeColor : "rgba(220,220,220,1)",
+                    data : [    #{statisticsRecipeManagedBean.getCountDeletedRecipe(1)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(2)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(3)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(4)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(5)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(6)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(7)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(8)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(9)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(10)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(11)},
+                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(12)}
+                            ]
                 }
             ]
         };
-        new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+        new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
     </script>
     
     <script>
