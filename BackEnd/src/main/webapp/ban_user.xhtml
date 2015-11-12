@@ -98,7 +98,7 @@
                                 if (role) {
                                     var element = document.getElementById("li-admin");
                                     element.parentNode.removeChild(element);
-                                    
+
                                 }
                             </script> 
                             <li class="sub-menu">
@@ -197,20 +197,21 @@
                                                     </div>
                                                 </h:form>     
                                             </div>
-                                            <table class="table table-striped table-advance table-hover" var="banUser" value="#{userBanManagedBean.listBanUser}">
-                                                <tbody>
-                                                    <tr>
-                                                        <th><i></i> No.</th>
-                                                        <th><i class="icon_profile"></i> User Name</th>
-                                                        <th><i class="icon_calendar"></i> Date</th>
-                                                        <th><i class="icon_mail_alt"></i> Email</th>
-                                                        <th><i class="icon_error-triangle_alt"></i> Number Recipe</th>
-                                                        <th><i class="icon_blocked"></i> Number Report</th>
-                                                        <th><i class="icon_pencil_alt"></i> Status</th>
-                                                        <th><i class="icon_pencil_alt"></i> Action</th>
-                                                    </tr>
-                                                    <h:form>
-                                                        <p:panel id="tbBanUser">
+                                            <h:form id="frBanUser">
+                                                <p:panel id ="tbBanUser">
+                                                    <table  class="table table-striped table-advance table-hover" var="banUser" value="#{userBanManagedBean.listBanUser}">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th><i></i> No.</th>
+                                                                <th><i class="icon_profile"></i> User Name</th>
+                                                                <th><i class="icon_calendar"></i> Date</th>
+                                                                <th><i class="icon_mail_alt"></i> Email</th>
+                                                                <th><i class="icon_error-triangle_alt"></i> Number Recipe</th>
+                                                                <th><i class="icon_blocked"></i> Number Report</th>
+                                                                <th><i class="icon_pencil_alt"></i> Status</th>
+                                                                <th><i class="icon_pencil_alt"></i> Action</th>
+                                                            </tr>
+
                                                             <c:forEach var="banUser" items="#{userBanManagedBean.listBanUser}">
                                                                 <tr>
                                                                     <td>#{userBanManagedBean.listBanUser.indexOf(banUser)+1}</td>
@@ -243,14 +244,18 @@
                                                                         </c:choose>
                                                                     </td>
                                                                     <td>
-                                                                        <h:commandLink value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}"/>
+                                                                        <p:commandButton style="width: 100px;" value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}" update="tbBanUser" />
                                                                     </td>
                                                                 </tr>
                                                             </c:forEach>
-                                                        </p:panel>
-                                                    </h:form>                
-                                                </tbody>
-                                            </table>
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </p:panel>
+
+
+                                            </h:form>
                                             <div>
                                                 <ul class="pagination pull-right">
                                                     <li><a href="#">«</a></li>

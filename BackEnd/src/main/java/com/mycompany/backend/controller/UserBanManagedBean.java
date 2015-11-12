@@ -81,8 +81,9 @@ public class UserBanManagedBean {
         return TimeUtils.convertTime(time);
     }
     
-    public boolean unbanUser(String userId){
-        return UserDAO.getInstance().unBanUser(userId);
+    public void unbanUser(String userId){
+        UserDAO.getInstance().unBanUser(userId);
+        listBanUser = userModel.getBanUser();
     }
     
     public void searchBanUser(){
