@@ -38,34 +38,27 @@
             <h2>Forgot password</h2>
             <div class="panel panel-default">
                 <div class="panel-heading">Retrieve password</div>
-                <div class="panel-body">
-                    Enter your email address below to recieve the new password of your account.
-                    <br />
-                    <div class="col-lg-4">
-                        <h:form id="frInput">
-                            <p:panel id="pnInput" visible="#{!forgotPassManagedBean.successFlag}">
-
-
-                                <h:inputText required="true" value="#{forgotPassManagedBean.user.email}" class="form-control" id="txtEmail" 
-                                             requiredMessage="Please enter your email address."
-                                             validatorMessage="Invalid email format"
-                                             a:placeholder="Enter Email"  >
-                                    <f:validateRegex
-                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                </h:inputText>
-                                <span style="color: red;">
-                                    <p:messages for="txtEmail" id="emailError" autoUpdate="true" closable="true"/>
-                                </span>
-                                <br></br>
-                                <p:commandButton class="btn btn-default btn-sm" value="Continue"  action="#{forgotPassManagedBean.resetPassWord()}" update="frInput"/>
-                            </p:panel>
-
-                        </h:form>
-
+                <h:form id="frInput">
+                    <div class="panel-body">
+                        <p:panel id="pnInput" visible="#{!forgotPassManagedBean.successFlag}">
+                            Enter your email address below to recieve the new password of your account.
+                            <br></br>
+                            <br></br>
+                            <h:inputText required="true" value="#{forgotPassManagedBean.user.email}" class="form-control" id="txtEmail" 
+                                         requiredMessage="Please enter your email address."
+                                         validatorMessage="Invalid email format"
+                                         a:placeholder="Enter Email"  >
+                                <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                            <span style="color: red;">
+                                <p:messages for="txtEmail" id="emailError" autoUpdate="true" closable="true"/>
+                            </span>
+                            <br></br>
+                            <p:commandButton class="btn btn-default btn-sm" value="Continue"  action="#{forgotPassManagedBean.resetPassWord()}" update="frInput"/>
+                        </p:panel>
                     </div>
-                    <br />
-                    <br />
-                </div>
+                </h:form>
             </div>
         </div>
     </h:body>

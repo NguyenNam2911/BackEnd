@@ -31,6 +31,7 @@ public class RecipeManagedBean implements Serializable {
     private Recipe recipe;
     private final RecipeModel recipeModel;
     private List<Recipe> recipes = new ArrayList<>();
+    private List<Recipe> listRecipe = new ArrayList<>();
     private String search;
     private String filter;
     private UserModel userModel;
@@ -52,7 +53,7 @@ public class RecipeManagedBean implements Serializable {
 
     public void filter() {
         List<Recipe> filter_Recipe = new ArrayList<>();
-        recipes = recipeModel.getAllRecipe();
+        recipes = listRecipe;
         if (!"Filter".equals(filter)) {
             switch (filter) {
                 case "Approve":
@@ -84,7 +85,7 @@ public class RecipeManagedBean implements Serializable {
 
     public void searchRecipe() {
         List<Recipe> search_recipe = new ArrayList<>();
-        recipes = recipeModel.getAllRecipe();
+        recipes = listRecipe;
         if (search != null) {
             for (Recipe r : recipes) {
                 if (r.getTitle().contains(search)) {
@@ -98,7 +99,8 @@ public class RecipeManagedBean implements Serializable {
 
     public RecipeManagedBean() {
         recipeModel = new RecipeModel();
-        recipes = recipeModel.getAllRecipe();
+        listRecipe = recipeModel.getAllRecipe();
+        recipes = listRecipe;
         recipe = new Recipe();
         userModel = new UserModel();
     }

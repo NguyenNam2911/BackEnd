@@ -37,4 +37,8 @@ public class ReportModel {
     public boolean updateAdminReport(String reportId, String adminId){
         return ReportDAO.getInstance().updateAdminReport(reportId, adminId, TimeUtils.getCurrentGMTTime());
     }
+    
+    public long countReport(){
+        return ReportDAO.getInstance().getNumberReport();
+    }
 }

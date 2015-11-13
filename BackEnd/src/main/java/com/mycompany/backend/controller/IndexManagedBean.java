@@ -24,73 +24,45 @@ import org.entity.User;
 @ManagedBean
 @ViewScoped
 
-public class IndexManagedBean  implements Serializable{
+public class IndexManagedBean implements Serializable {
 
     UserModel userModel = new UserModel();
-    RecipeModel recipeModel =  new RecipeModel();
-    ReportModel reportModel =  new ReportModel();
-    int numberUser =  0;
-    int numberRecipe = 0;
-    int numberReport = 0;
-    
+    RecipeModel recipeModel = new RecipeModel();
+    ReportModel reportModel = new ReportModel();
+    long numberUser = 0;
+    long numberRecipe = 0;
+    long numberReport = 0;
+
     public IndexManagedBean() {
-        getUserNumber();
-        getRecipeNumber();
-        getReportNumber();
-        
+        numberUser = userModel.countUser();
+        numberReport = reportModel.countReport();
+        numberRecipe = recipeModel.countRecipe();
     }
-    
-    public void getUserNumber(){
-        
-        List<User> list = new ArrayList<>();
-        list = userModel.getUsersNomrmal();
-        if(list != null){
-            numberUser = list.size();
-        }
-    }
-    
-    public void getRecipeNumber(){
-        List<Recipe> list = new ArrayList<>();
-        list = recipeModel.getAllRecipe();
-        if(list != null){
-            numberRecipe = list.size();
-        }
-    }
-    
-    public void getReportNumber(){
-        List<Report> list = new ArrayList<>();
-        list =  reportModel.getListReports();
-        if(list != null){
-            numberReport =  list.size();
-        }
-        
-        
-    }
-    
+
     //get and set
 
-    public int getNumberUser() {
+    public long getNumberUser() {
         return numberUser;
     }
 
-    public void setNumberUser(int numberUser) {
+    public void setNumberUser(long numberUser) {
         this.numberUser = numberUser;
     }
 
-    public int getNumberRecipe() {
+    public long getNumberRecipe() {
         return numberRecipe;
     }
 
-    public void setNumberRecipe(int numberRecipe) {
+    public void setNumberRecipe(long numberRecipe) {
         this.numberRecipe = numberRecipe;
     }
 
-    public int getNumberReport() {
+    public long getNumberReport() {
         return numberReport;
     }
 
-    public void setNumberReport(int numberReport) {
+    public void setNumberReport(long numberReport) {
         this.numberReport = numberReport;
     }
-    
+   
 }

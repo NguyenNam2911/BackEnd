@@ -31,4 +31,8 @@ public class RecipeModel {
     public boolean removeRecipe(String id) {
         return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.REMOVED_FLAG, TimeUtils.getCurrentGMTTime());
     }
+    
+    public long countRecipe(){
+        return RecipeDAO.getInstance().getNumberRecipe();
+    }
 }

@@ -17,6 +17,12 @@ import org.entity.User;
  */
 public class UserModel {
 
+    //count all user 
+    public long countUser() {
+        return UserDAO.getInstance().getNumberUser();
+
+    }
+
     public List<User> getUsersNomrmal() {
         List<User> users = new ArrayList<>();
         List<User> users_normal = new ArrayList<>();

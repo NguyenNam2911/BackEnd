@@ -42,5 +42,5 @@ public class AdminModel {
     public User  getAdminByEmail(String email) throws DAOException{
         return UserDAO.getInstance().getUserInfoByEmail(email);
     }
-    
+
 }
