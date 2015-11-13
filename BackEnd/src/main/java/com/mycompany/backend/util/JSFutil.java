@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.mail.MailCompose;
 import org.mail.MailManagement;
 import org.mail.MailWorker;
@@ -55,5 +56,8 @@ public class JSFutil {
         MailManagement.getInstance().addMail(mailCompose);
         Thread mailWorker = new MailWorker();
         mailWorker.start();
+    }
+    public static String ramdomString(int leng){
+        return RandomStringUtils.randomAlphanumeric(leng);
     }
 }

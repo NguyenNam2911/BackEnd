@@ -14,7 +14,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.dao.DAOException;
 import org.entity.User;
 import util.JSFutil;
@@ -42,7 +41,7 @@ public class AdminManagedBean extends Object implements Serializable {
         if (checkEmail(userAdmin.getEmail())) {
             if (checkName(userAdmin.getDisplayName())) {
                 userAdmin.setRole(User.ADMIN_ROLE);
-                userAdmin.setPassword(RandomStringUtils.randomAlphanumeric(8));
+//                userAdmin.setPassword(JSFutil.ramdomString(8));
                 userAdmin.setPassword("12345678");
                 userAdmin.setRegisteredTime(date.getTime());
                 adminModel = new AdminModel();

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template"/>
+        <meta name="author" content="GeeksLabs"/>
+        <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal"/>
+        <link rel="shortcut icon" href="img/favicon.png"/>
+
+        <title>Forgot password</title>
+
+        <!-- Bootstrap CSS -->    
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- bootstrap theme -->
+        <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+        <!--external css-->
+        <!-- font icon -->
+        <link href="css/elegant-icons-style.css" rel="stylesheet" />
+        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <!-- Custom styles -->
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/style-responsive.css" rel="stylesheet" />
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h2>Forgot password</h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">Retrieve password</div>
+                <div class="panel-body">
+                    Enter your email address below to recieve the new password of your account.
+                    <br />
+                    <div class="col-lg-4">
+                        <h:form id="frInput">
+                            <p:panel id="pnInput" visible="#{!forgotPassManagedBean.successFlag}">
+
+
+                                <h:inputText required="true" value="#{forgotPassManagedBean.user.email}" class="form-control" id="txtEmail" 
+                                             requiredMessage="Please enter your email address."
+                                             validatorMessage="Invalid email format"
+                                             a:placeholder="Enter Email"  >
+                                    <f:validateRegex
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                                <span style="color: red;">
+                                    <p:messages for="txtEmail" id="emailError" autoUpdate="true" closable="true"/>
+                                </span>
+                                <br></br>
+                                <p:commandButton class="btn btn-default btn-sm" value="Continue"  action="#{forgotPassManagedBean.resetPassWord()}" update="frInput"/>
+                            </p:panel>
+
+                        </h:form>
+
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

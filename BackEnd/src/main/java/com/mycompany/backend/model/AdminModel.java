@@ -34,5 +34,13 @@ public class AdminModel {
     public  void insertAdmin(User user) throws DAOException{
         UserDAO.getInstance().save(user);
     }
+    //reset pass
+    public boolean resetPass(String id,String pass){
+        return UserDAO.getInstance().updateAdminPassWord(id, pass);
+    }
+    //get admin by email
+    public User  getAdminByEmail(String email) throws DAOException{
+        return UserDAO.getInstance().getUserInfoByEmail(email);
+    }
     
 }

@@ -28,7 +28,7 @@ public class LoginManagedBean implements Serializable{
     User user = new User();
     LoginModel loginModel = new LoginModel();
     boolean flagAdmin;
-
+    //method
     public void checkLogin() throws DAOException {
         User user_check = loginModel.CheckLogin(user);
         if (user_check != null) {
@@ -50,17 +50,21 @@ public class LoginManagedBean implements Serializable{
         user = new User();
         JSFutil.navigate("login?faces-redirect=true");
     }
+    public void preResetPass(){
+        JSFutil.navigate("forgot_pass?faces-redirect=true");
+    }
 
     // contructer
     public LoginManagedBean() {
         flagAdmin = false;
     }
     
+    //get and set
     public boolean isFlagAdmin() {
         return flagAdmin;
     }
 
-    //get and set
+    
     public void setFlagAdmin(boolean flagAdmin) {    
         this.flagAdmin = flagAdmin;
     }
