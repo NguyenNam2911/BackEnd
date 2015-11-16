@@ -57,6 +57,11 @@
                             <br></br>
                             <p:commandButton class="btn btn-default btn-sm" value="Continue"  action="#{forgotPassManagedBean.resetPassWord()}" update="frInput"/>
                         </p:panel>
+                        <p:panel id="pnSuccess" visible="#{forgotPassManagedBean.successFlag}">
+                            Please check email for new password.
+                            <br></br>
+                            <h:link outcome="login" value="Return login page" />
+                        </p:panel>
                     </div>
                 </h:form>
             </div>
