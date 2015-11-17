@@ -32,18 +32,18 @@ public class StatisticsUserManagedBean implements Serializable{
      * Creates a new instance of StatisticsUserManagedBean
      */
     UserModel userModel = new UserModel();
-    List<User> listUser = new ArrayList<>();
     String dateFrom;
     String dateTo;
-    int countUserActive = 0,
+    long countUserActive = 0,
         countUserBanOnce = 0,
         countUserBanSecond = 0,
-        countUserDeleted =0;
+        countUserDeleted =0,
+        countUsers = 0;
 //    long dfrom;
 //    long dto;
     
     public StatisticsUserManagedBean() throws ParseException {
-        listUser = userModel.getUsersNomrmal();
+        countUsers = getCountAllUser();
         countUserActive = getCountUserFollowFlag(User.ACTIVE_FLAG);
         countUserBanOnce = getCountUserFollowFlag(User.BAN_FLAG_ONCE);
         countUserBanSecond = getCountUserFollowFlag(User.BAN_FLAG_SECOND);
@@ -66,38 +66,32 @@ public class StatisticsUserManagedBean implements Serializable{
 //        this.dto = dto;
 //    }
 
-    public int getCountUserActive() {
+    public long getCountUserActive() {
         return countUserActive;
     }
 
-    public int getCountUserBanOnce() {
+    public long getCountUserBanOnce() {
         return countUserBanOnce;
     }
 
-    public int getCountUserBanSecond() {
+    public long getCountUserBanSecond() {
         return countUserBanSecond;
     }
 
-    public int getCountUserDeleted() {
+    public long getCountUserDeleted() {
         return countUserDeleted;
     }
-    
-    public List<User> getListUser() {
-        return listUser;
-    }
 
-    public void setListUser(List<User> listUser) {
-        this.listUser = listUser;
+    public long getCountUsers() {
+        return countUsers;
     }
     
-    private int getCountUserFollowFlag(int flag){
-        listUser = userModel.getUsersNomrmal();
-        int count =0;
-        for (User user : listUser){
-            if (user.getActiveFlag() == flag)
-                count++;
-        }
-        return count;
+    private long getCountUserFollowFlag(int flag){
+        return UserDAO.getInstance().getNumberUserWithFlag(flag);
+    }
+    
+    private long getCountAllUser(){
+        return UserDAO.getInstance().getNumberUser();
     }
     
     private long getTime(String string_date) throws ParseException{

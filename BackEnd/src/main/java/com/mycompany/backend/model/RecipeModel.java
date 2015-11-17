@@ -35,4 +35,8 @@ public class RecipeModel {
     public long countRecipe(){
         return RecipeDAO.getInstance().getNumberRecipe();
     }
+    
+    public boolean updateRecipeReported(String id){
+        return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.APPROVED_FLAG);
+    }
 }

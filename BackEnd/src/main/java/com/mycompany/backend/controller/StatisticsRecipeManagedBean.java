@@ -32,42 +32,36 @@ public class StatisticsRecipeManagedBean implements Serializable{
      * Creates a new instance of StatisticsRecipeManagedBean
      */
     RecipeModel recipeModel = new RecipeModel();
-    List<Recipe> listRecipe = new ArrayList<>();
     String dateFrom;
     String dateTo;
-    int countRecipeApproved = 0,
-        countRecipeRemoved = 0;
+    long countRecipeApproved = 0,
+        countRecipeRemoved = 0,
+        countRecipes = 0;
     
     public StatisticsRecipeManagedBean() {
-        listRecipe = recipeModel.getAllRecipe();
+        countRecipes = getCountAllRecipe();
         countRecipeApproved = getCountRecipeFollowFlag(Recipe.APPROVED_FLAG);
         countRecipeRemoved = getCountRecipeFollowFlag(Recipe.REMOVED_FLAG);
     }
 
-    public List<Recipe> getListRecipe() {
-        return listRecipe;
-    }
-
-    public void setListRecipe(List<Recipe> listRecipe) {
-        this.listRecipe = listRecipe;
-    }
-
-    public int getCountRecipeApproved() {
+    public long getCountRecipeApproved() {
         return countRecipeApproved;
     }
 
-    public int getCountRecipeRemoved() {
+    public long getCountRecipeRemoved() {
         return countRecipeRemoved;
     }
+
+    public long getCountRecipes() {
+        return countRecipes;
+    }
     
-    private int getCountRecipeFollowFlag(int flag){
-        listRecipe = recipeModel.getAllRecipe();
-        int count =0;
-        for (Recipe recipe : listRecipe){
-            if (recipe.getStatusFlag() == flag)
-                count++;
-        }
-        return count;
+    private long getCountRecipeFollowFlag(int flag){
+        return RecipeDAO.getInstance().getNumberRecipeWithFlag(flag);
+    }
+    
+    private long getCountAllRecipe(){
+        return RecipeDAO.getInstance().getNumberRecipe();
     }
     
     private long getTime(String string_date) throws ParseException{

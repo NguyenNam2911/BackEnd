@@ -149,25 +149,29 @@ public class ReportManagedBean {
         Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());  
         userModel.increaseReportOfUser(recipe.getOwner());
         User user = UserDAO.getInstance().getUser(recipe.getOwner());
-        switch(user.getNumberReport()){
-            case 3:
+        int nReport = user.getNumberReport();
+        if (nReport == 3 || nReport == 6 || nReport == 9)
+        switch(user.getNumberBans()){
+            case 0:
                 userModel.banUser(user.getId(), User.BAN_FLAG_ONCE);
                 break;
-            case 6:
+            case 1:
                 userModel.banUser(user.getId(), User.BAN_FLAG_SECOND);
                 break;
-            case 9:
+            case 2:
                 userModel.banUser(user.getId(), User.DELETED_FLAG);
                 break;
         }
-        if (user.getNumberReport()>9) 
-            userModel.banUser(user.getId(), User.DELETED_FLAG);
+//        if (user.getNumberBans()>=3) 
+//            userModel.banUser(user.getId(), User.DELETED_FLAG);
         updateAdminReport(reportId, adminId);
         listReport = reportModel.getListReports();
     }
     
     public void removeReportStatus(String reportId) throws DAOException{
         reportModel.removeReportStatus(reportId);
+        Report report = reportModel.getReportByID(reportId);
+        recipeModel.updateRecipeReported(report.getRecipe());
         listReport = reportModel.getListReports();
     }
     
