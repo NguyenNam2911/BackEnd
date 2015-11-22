@@ -31,26 +31,29 @@ public class RecipeManagedBean implements Serializable {
     private Recipe recipe;
     private final RecipeModel recipeModel;
     private List<Recipe> recipes = new ArrayList<>();
-    private List<Recipe> listRecipe = new ArrayList<>();
-    private String search;
+    private String search ;
     private String filter;
     private UserModel userModel;
     private int page;
-    private int nPage = 0;
+//    private int nPage = 0;
     private long numberP;
-    private int type;
+    private int typePageBtn;
+    private String stringSearch;
+    int flag_active;
 
     //method
     public RecipeManagedBean() {
         recipeModel = new RecipeModel();
-        page = 0;
-        listRecipe = recipeModel.getRecipes(page);
-        recipes = listRecipe;
         recipe = new Recipe();
         userModel = new UserModel();
-        long n =  recipeModel.getNumberRecipe();
+        page = 0;
+        stringSearch = "";
+        search = "";
+        typePageBtn = 1;
+        filter = "All";
+        recipes = recipeModel.getRecipes(page);
+        long n = recipeModel.getNumberRecipe();
         numberP = getNumberPage(n);
-        type = 1;
     }
 
     public String convertTime(long time) {
@@ -67,62 +70,58 @@ public class RecipeManagedBean implements Serializable {
         return userModel.getUserByID(id);
     }
 
-    public void filter() {
-        List<Recipe> filter_Recipe = new ArrayList<>();
-        recipes = listRecipe;
-        if (!"Filter".equals(filter)) {
+    public int filter() {
+        if (!"All".equals(filter)) {
             switch (filter) {
                 case "Approve":
-                    for (Recipe r : recipes) {
-                        if (r.getStatusFlag() == 1) {
-                            filter_Recipe.add(r);
-                        }
-                    }
-                    break;
+                    return Recipe.APPROVED_FLAG;
                 case "Report":
-                    for (Recipe r : recipes) {
-                        if (r.getStatusFlag() == 0) {
-                            filter_Recipe.add(r);
-                        }
-                    }
-                    break;
+                    return Recipe.REPORTED_FLAG;
                 case "Removed":
-                    for (Recipe r : recipes) {
-                        if (r.getStatusFlag() == -1) {
-                            filter_Recipe.add(r);
-                        }
-                    }
-                    break;
+                    return Recipe.REMOVED_FLAG;
             }
-            recipes = filter_Recipe;
-            filter = "Filter";
+            
+        }
+        return 2;
+    }
+
+    public void searchRecipe() throws DAOException {
+        
+        if (!search.equals("") || !filter.equals("All")) {
+            flag_active = filter();
+            stringSearch = search;
+            page = 0;
+            typePageBtn = 1;
+            long n = recipeModel.getSearchResultNumber(stringSearch, flag_active);
+            numberP = getNumberPage(n);
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active);
+            search = "";
+            filter = "All";
+        } else {
+            page = 0;
+            typePageBtn = 1;
+            long n = recipeModel.getNumberRecipe();
+            numberP = getNumberPage(n);
+            recipes = recipeModel.getRecipes(page);
+            stringSearch = "";
+            flag_active = 2;
         }
     }
 
-    public void searchRecipe() {
-        List<Recipe> search_recipe = new ArrayList<>();
-        recipes = listRecipe;
-        if (search != null) {
-            for (Recipe r : recipes) {
-                if (r.getTitle().contains(search)) {
-                    search_recipe.add(r);
-                }
-            }
-            recipes = search_recipe;
+    public void updateRecipes(int page) throws DAOException {
+        if (stringSearch != null || !filter.equals("All")) {
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active);
+        } else {
+            recipes = recipeModel.getRecipes(page);
         }
-        search = "";
-    }
-
-    public void updateRecipes(int page) {
-        recipes = recipeModel.getRecipes(page);
-        this.page = page;
+        this.page = page;        
         if (page == 0) {
-            type = 1;
+            typePageBtn = 1;
         } else if (page == numberP) {
-            type = 3;
+            typePageBtn = 3;
 
         } else {
-            type = 2;
+            typePageBtn = 2;
         }
 
     }
@@ -146,21 +145,15 @@ public class RecipeManagedBean implements Serializable {
         this.numberP = numberP;
     }
 
-    public int getType() {
-        return type;
+    public int getTypePageBtn() {
+        return typePageBtn;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setTypePageBtn(int typePageBtn) {
+        this.typePageBtn = typePageBtn;
     }
 
-    public int getnPage() {
-        return nPage;
-    }
-
-    public void setnPage(int nPage) {
-        this.nPage = nPage;
-    }
+   
 
     public int getPage() {
         return page;

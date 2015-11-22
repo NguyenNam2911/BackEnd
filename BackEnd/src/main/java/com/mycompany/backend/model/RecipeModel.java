@@ -31,14 +31,25 @@ public class RecipeModel {
         return list;
     }
     // search recipe
-    public List<Recipe> searchRecipeByTitle(String title, int page) throws DAOException {
+    public List<Recipe> searchRecipeByTitle(String title, int page, int flag) throws DAOException {
         List<Recipe> list = new ArrayList<>();
-        list = RecipeDAO.getInstance().searchRecipeByName(title, page * 10, 10);
+        if(flag == 2){
+            list = RecipeDAO.getInstance().searchAllRecipeByName(title, page * 10, 10);
+        }
+        else{
+            list = RecipeDAO.getInstance().searchAllAndFilterRecipeByName(title, page * 10, 10, flag);
+        }
         return list;
     }
     //get number result recipe
-    public long getSearchResultNumber(String title) throws DAOException {
-        return (int) RecipeDAO.getInstance().getSearchResultNumber(title);
+    public long getSearchResultNumber(String title, int flag_active) throws DAOException {
+        if(flag_active == 2){
+            return RecipeDAO.getInstance().getSearchAllResultNumber(title);
+        }
+        else{
+            return RecipeDAO.getInstance().getSearchAndFilterResultNumber(title, flag_active);
+        }
+        
     }
 //get recipe by id
     public Recipe getRecipeByID(String id) {
