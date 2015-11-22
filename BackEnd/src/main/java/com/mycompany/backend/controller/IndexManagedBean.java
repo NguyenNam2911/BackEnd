@@ -36,7 +36,7 @@ public class IndexManagedBean implements Serializable {
     public IndexManagedBean() {
         numberUser = userModel.countUser();
         numberReport = reportModel.countReport();
-        numberRecipe = recipeModel.countRecipe();
+        numberRecipe = recipeModel.getNumberRecipe();
     }
 
     //get and set

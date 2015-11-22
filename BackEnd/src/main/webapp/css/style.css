@@ -4943,3 +4943,26 @@ span.customSelect.changed {
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
+/*.all-user .ui-datatable-tablewrapper table {width:100%;}
+.all-user .ui-datatable-tablewrapper table thead th{padding:2px 5px;color:#688a7e !important;line-height:30px;}
+.all-user .ui-datatable-tablewrapper table thead th:nth-child(2){background:url(../img/user.png) left 5px center no-repeat;padding-left:20px;}
+.all-user .ui-datatable-tablewrapper table thead th:nth-child(3){background:url(../img/email.png) left 5px center no-repeat;padding-left:25px;}
+.all-user .ui-datatable-tablewrapper table tbody td{padding:2px 5px;color:333;line-height:30px;}
+.all-user .ui-datatable-tablewrapper table tbody tr:nth-child(2n+2){background:#F5F5F5 !important;}
+.all-user .ui-datatable-tablewrapper table tbody tr:hover{background:#ddd !important;}
+.ui-datatable-tablewrapper table tbody tr:hover{background:#ddd !important;}
+.ui-datatable-tablewrapper table tbody tr:nth-child(2n+2){background:#F5F5F5 !important;}
+.ui-datatable-tablewrapper table tbody tr:nth-child(2n+2):hover {background:#ddd !important;}
+
+
+.ui-datatable tbody td, .ui-datatable tfoot td {border: 0 !important;border-right:1px solid #ccc !important;}
+.ui-datatable thead th {border:0 !important;border-right:1px solid #ccc !important;}
+.ui-datatable thead tr, .ui-datatable tbody tr, .ui-datatable tfoot tr {border: 1px solid #ccc !important;}
+
+.all-admin .ui-datatable-tablewrapper table tbody td:last-child{text-align:center;}*/
+
+.ui-panel-content{
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none;
+    padding: 0em 0em !important;
+}

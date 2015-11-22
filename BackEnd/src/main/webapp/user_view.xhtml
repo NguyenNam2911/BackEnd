@@ -197,6 +197,7 @@
                                                 </h:form>
                                                 <!--end fill form-->
                                             </div>
+
                                             <p:panel>
                                                 <table class="table table-striped table-advance table-hover" var="user" value="#{userManagedBean.users}" >
                                                     <tbody>
@@ -225,7 +226,7 @@
                                                                         <c:if test="${ status == 1 }">
                                                                             <h:outputText value="active" style="color: green"/>
                                                                         </c:if>
-                                                                        <c:if test="${ status == 0 || status == -1}">
+                                                                        <c:if test="${ status == -1 || status == 0}">
                                                                             <h:outputText value="banned" style="color: red"/>
                                                                         </c:if>
                                                                         <c:if test="${ status == -2}">
@@ -298,45 +299,68 @@
 
                                 //knob
                                 $(function () {
-                                $(".knob").knob({
-                                    'draw': function () {
-                                $(this.i).val(this.cv + '%')
-                                    }
-                                })
+                                    $(".knob").knob({
+                                        'draw': function () {
+                                            $(this.i).val(this.cv + '%')
+                                        }
+                                    })
+                                });
+                                //carousel
+                                $(document).ready(function () {
+                                    $("#owl-slider").owlCarousel({
+                                        navigation: true,
+                                        slideSpeed: 300,
+                                        paginationSpeed: 400,
+                                        singleItem: true
+
                                     });
-
-                            //carousel
-                                        $(document).ready(function () {
-                                            $("#owl-slider").owlCarousel({
-                                                    navigation: true,
-                                                    slideSpeed: 300,
-                                    paginationSpeed: 400,
-                                                    singleItem: true
-
                                 });
-                                                });
+                                //custom select box
 
-                                        //custom select box
-
-                                        $(function () {
-                                        $('select.styled').customSelect();
-                            });
-                                        /* ---------- Map ---------- */                             $(function () {
+                                $(function () {
+                                    $('select.styled').customSelect();
+                                });
+                                /* ---------- Map ---------- */                             $(function () {
                                     $('#map').vectorMap({
-                                map: 'world_mill_en',
-                                    series: {
-                                        regions: [{
-                                                values: gdpData,
-                                                scale: ['#000', '#000'],
-                                                normalizeFunction: 'polynomial'
-                                            }]
-                                    },
-                                    backgroundColor: '#eef3f7',
-                                    onLabelShow: function (e, el, code) {
-                                        el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                    }
+                                        map: 'world_mill_en',
+                                        series: {
+                                            regions: [{
+                                                    values: gdpData,
+                                                    scale: ['#000', '#000'],
+                                                    normalizeFunction: 'polynomial'
+                                                }]
+                                        },
+                                        backgroundColor: '#eef3f7',
+                                        onLabelShow: function (e, el, code) {
+                                            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                        }
+                                    });
                                 });
-                            });
+                                jQuery(document).ready(function () {
+                                    jQuery('.ui-datatable-tablewrapper td:last-child').each(function () {
+                                        var str = jQuery(this).text();
+                                        str = str.replace("-2", "Deleted");
+                                        str = str.replace("-1", "Banned");
+                                        str = str.replace("0", "Banned");
+                                        str = str.replace("1", "Active");
+                                        jQuery(this).text(str);
+                                        if (str == "Deleted") {
+                                            jQuery(this).css('color', 'black');
+                                        }
+
+                                        if (str == "Banned") {
+                                            jQuery(this).css('color', 'red');
+                                        }
+
+                                        if (str == "Active") {
+                                            jQuery(this).css('color', 'green');
+                                        }
+
+                                    });
+                                    jQuery(".ui-datatable-tablewrapper th").each(function (i) {
+                                        this.addClass("item" + (i + 1));
+                                    });
+                                });
         </script>
     </h:body>
 </html>

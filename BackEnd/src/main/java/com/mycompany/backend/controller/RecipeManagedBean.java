@@ -35,8 +35,24 @@ public class RecipeManagedBean implements Serializable {
     private String search;
     private String filter;
     private UserModel userModel;
+    private int page;
+    private int nPage = 0;
+    private long numberP;
+    private int type;
 
     //method
+    public RecipeManagedBean() {
+        recipeModel = new RecipeModel();
+        page = 0;
+        listRecipe = recipeModel.getRecipes(page);
+        recipes = listRecipe;
+        recipe = new Recipe();
+        userModel = new UserModel();
+        long n =  recipeModel.getNumberRecipe();
+        numberP = getNumberPage(n);
+        type = 1;
+    }
+
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
@@ -97,14 +113,62 @@ public class RecipeManagedBean implements Serializable {
         search = "";
     }
 
-    public RecipeManagedBean() {
-        recipeModel = new RecipeModel();
-        listRecipe = recipeModel.getAllRecipe();
-        recipes = listRecipe;
-        recipe = new Recipe();
-        userModel = new UserModel();
+    public void updateRecipes(int page) {
+        recipes = recipeModel.getRecipes(page);
+        this.page = page;
+        if (page == 0) {
+            type = 1;
+        } else if (page == numberP) {
+            type = 3;
+
+        } else {
+            type = 2;
+        }
+
     }
+
+    public final long getNumberPage(long number) {
+        long n;
+        if (number % 10 == 0) {
+            n = (number / 10) - 1;
+        } else {
+            n = number / 10;
+        }
+        return n;
+    }
+
     //get and set
+    public long getNumberP() {
+        return numberP;
+    }
+
+    public void setNumberP(long numberP) {
+        this.numberP = numberP;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getnPage() {
+        return nPage;
+    }
+
+    public void setnPage(int nPage) {
+        this.nPage = nPage;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public Recipe getRecipe() {
         return recipe;
