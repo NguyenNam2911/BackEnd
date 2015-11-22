@@ -191,7 +191,7 @@
                                                             <tbody>
                                                                 <thead>
                                                                     <tr>
-                                                                        
+
                                                                         <th><i></i>No.</th>
                                                                         <th><i class="icon_profile"></i> Name</th>
                                                                         <th><i class="icon_mail_alt"></i> Email</th>
@@ -213,9 +213,12 @@
                                                                                              update=":frmMain:tbAdmin" style="width: 100px;" rendered="#{user.activeFlag == 1}" >
                                                                                 <p:confirm header="Confirmation" message="Are you sure delete admin"  />
                                                                             </p:commandButton>
-                                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
-                                                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
+                                                                                <div align="center">
+                                                                                    <p:commandButton style="text-align: center;" value="Yes"  styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
+                                                                                    <p:commandButton style="text-align: center;" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+                                                                                </div>
                                                                             </p:confirmDialog>
                                                                         </td>
                                                                     </tr>

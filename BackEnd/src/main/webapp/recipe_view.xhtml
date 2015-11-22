@@ -190,6 +190,16 @@
                                                             <f:selectItem itemValue="Removed" itemLabel="Removed"/>
                                                         </h:selectOneMenu>
                                                     </div>    
+                                                   
+                                                    <div class="ddl-sort">
+                                                        <h:commandButton class="button-sort" action="#{recipeManagedBean.searchRecipe()}"/>
+                                                        <h:selectOneMenu value="#{recipeManagedBean.sortBy}" onclick="">
+                                                            <f:selectItem itemValue="title" itemLabel="Sort By Title"/>
+                                                            <f:selectItem itemValue="owner" itemLabel="Sort By Owner"/>
+                                                            <f:selectItem itemValue="date" itemLabel="Sort By Created Date"/>
+                                                            <f:selectItem itemValue="favorite" itemLabel="Sort By Favorite Number"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
 
                                                 </h:form>
                                             </div>

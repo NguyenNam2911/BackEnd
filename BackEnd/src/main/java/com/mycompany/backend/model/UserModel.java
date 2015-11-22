@@ -19,8 +19,7 @@ public class UserModel {
 
     //count all user 
     public long countUser() {
-        return UserDAO.getInstance().getNumberUser();
-
+        return UserDAO.getInstance().getNumberUserNomal();
     }
 
     public List<User> getUsersNomrmal() {

@@ -31,13 +31,13 @@ public class RecipeModel {
         return list;
     }
     // search recipe
-    public List<Recipe> searchRecipeByTitle(String title, int page, int flag) throws DAOException {
+    public List<Recipe> searchRecipeByTitle(String title, int page, int flag,  String order) throws DAOException {
         List<Recipe> list = new ArrayList<>();
         if(flag == 2){
-            list = RecipeDAO.getInstance().searchAllRecipeByName(title, page * 10, 10);
+            list = RecipeDAO.getInstance().searchAllRecipeByName(title, page * 10, 10,order);
         }
         else{
-            list = RecipeDAO.getInstance().searchAllAndFilterRecipeByName(title, page * 10, 10, flag);
+            list = RecipeDAO.getInstance().searchAllAndFilterRecipeByName(title, page * 10, 10, flag, order);
         }
         return list;
     }

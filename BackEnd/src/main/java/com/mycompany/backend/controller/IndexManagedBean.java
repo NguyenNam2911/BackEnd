@@ -9,13 +9,8 @@ import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
-import org.entity.Recipe;
-import org.entity.Report;
-import org.entity.User;
 
 /**
  *

@@ -31,18 +31,19 @@ public class RecipeManagedBean implements Serializable {
     private Recipe recipe;
     private final RecipeModel recipeModel;
     private List<Recipe> recipes = new ArrayList<>();
-    private String search ;
+    private String search;
     private String filter;
     private UserModel userModel;
     private int page;
-//    private int nPage = 0;
     private long numberP;
     private int typePageBtn;
     private String stringSearch;
     int flag_active;
+    private String sortBy;
+    private String stringSort;
 
     //method
-    public RecipeManagedBean() {
+    public RecipeManagedBean() throws DAOException {
         recipeModel = new RecipeModel();
         recipe = new Recipe();
         userModel = new UserModel();
@@ -51,9 +52,13 @@ public class RecipeManagedBean implements Serializable {
         search = "";
         typePageBtn = 1;
         filter = "All";
-        recipes = recipeModel.getRecipes(page);
+        flag_active = 2;
+        sortBy = "title";
+        stringSort = sort();
         long n = recipeModel.getNumberRecipe();
         numberP = getNumberPage(n);
+        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
+        
     }
 
     public String convertTime(long time) {
@@ -80,41 +85,55 @@ public class RecipeManagedBean implements Serializable {
                 case "Removed":
                     return Recipe.REMOVED_FLAG;
             }
-            
+
         }
         return 2;
     }
+    
+    private String sort(){
+        if(!sortBy.equals("title")){
+            switch(sortBy){
+                case "owner":
+                    return Recipe.SORT_BY_OWNER;
+                case "date":
+                    return Recipe.SORT_BY_DATE;
+                case "favorite":
+                    return Recipe.SORT_BY_FAVORITE_NUMBER;
+            }
+        }
+        return Recipe.SORT_BY_TITLE;
+    }
 
     public void searchRecipe() throws DAOException {
-        
-        if (!search.equals("") || !filter.equals("All")) {
+
+        if (!search.equals("") || !filter.equals("All") || !sortBy.equals("title")) {
             flag_active = filter();
+            stringSort = sort();
             stringSearch = search;
             page = 0;
             typePageBtn = 1;
             long n = recipeModel.getSearchResultNumber(stringSearch, flag_active);
             numberP = getNumberPage(n);
-            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active);
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
             search = "";
             filter = "All";
+            sortBy = "title";
         } else {
             page = 0;
             typePageBtn = 1;
-            long n = recipeModel.getNumberRecipe();
-            numberP = getNumberPage(n);
-            recipes = recipeModel.getRecipes(page);
             stringSearch = "";
             flag_active = 2;
+            stringSort = sort();
+            long n = recipeModel.getNumberRecipe();
+            numberP = getNumberPage(n);
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
+            
         }
     }
 
     public void updateRecipes(int page) throws DAOException {
-        if (stringSearch != null || !filter.equals("All")) {
-            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active);
-        } else {
-            recipes = recipeModel.getRecipes(page);
-        }
-        this.page = page;        
+        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
+        this.page = page;
         if (page == 0) {
             typePageBtn = 1;
         } else if (page == numberP) {
@@ -137,6 +156,15 @@ public class RecipeManagedBean implements Serializable {
     }
 
     //get and set
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
     public long getNumberP() {
         return numberP;
     }
@@ -152,8 +180,6 @@ public class RecipeManagedBean implements Serializable {
     public void setTypePageBtn(int typePageBtn) {
         this.typePageBtn = typePageBtn;
     }
-
-   
 
     public int getPage() {
         return page;
