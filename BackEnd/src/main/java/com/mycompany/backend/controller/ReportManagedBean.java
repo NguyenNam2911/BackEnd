@@ -26,7 +26,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ReportManagedBean {
 
     /**
@@ -35,7 +35,7 @@ public class ReportManagedBean {
     ReportModel reportModel = new ReportModel();
     RecipeModel recipeModel = new RecipeModel();
     UserModel userModel = new UserModel();
-    List<Report> listReport = new ArrayList<Report>();
+    List<Report> listReport = new ArrayList<>();
     String searchText;
     String filterText;
     int filter;
@@ -169,9 +169,9 @@ public class ReportManagedBean {
     }
     
     public void removeReportStatus(String reportId) throws DAOException{
-        reportModel.removeReportStatus(reportId);
         Report report = reportModel.getReportByID(reportId);
         recipeModel.updateRecipeReported(report.getRecipe());
+        reportModel.removeReportStatus(reportId);
         listReport = reportModel.getListReports();
     }
     
