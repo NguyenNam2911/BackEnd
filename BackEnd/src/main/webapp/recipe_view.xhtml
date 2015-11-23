@@ -190,7 +190,7 @@
                                                             <f:selectItem itemValue="Removed" itemLabel="Removed"/>
                                                         </h:selectOneMenu>
                                                     </div>    
-                                                   
+
                                                     <div class="ddl-sort">
                                                         <h:commandButton class="button-sort" action="#{recipeManagedBean.searchRecipe()}"/>
                                                         <h:selectOneMenu value="#{recipeManagedBean.sortBy}" onclick="">
@@ -274,13 +274,13 @@
 
                                                     <p:panel id="number1" visible="#{recipeManagedBean.typePageBtn == 2}" >
                                                         <ul class="pagination pull-right" id="pageMenu">
-                                                            <li><p:commandButton  value="&#60;&#60;" action="#{recipeManagedBean.updateRecipes(0)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton  value="&#60;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page - 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton  value="#{recipeManagedBean.page }" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page - 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton style="color: red;" value="#{recipeManagedBean.page +1}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton  value="#{recipeManagedBean.page + 2}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton  value="&#62;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton value="&#62;&#62;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.numberP)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
+                                                            <li><p:commandButton  value="&#60;&#60;" action="#{recipeManagedBean.updateRecipes(0)}" update=":frmRcipe :frmPage:number :frmPage:number1  :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton  value="&#60;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page - 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton  value="#{recipeManagedBean.page }" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page - 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton style="color: red;" value="#{recipeManagedBean.page +1}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton  value="#{recipeManagedBean.page + 2}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton  value="&#62;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton value="&#62;&#62;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.numberP)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
                                                         </ul>
                                                     </p:panel>
                                                     <p:panel id="number2" visible="#{recipeManagedBean.typePageBtn == 3}">
@@ -293,6 +293,17 @@
                                                             <li><p:commandButton value="&#62;" disabled="true"/></li>
                                                             <li><p:commandButton value="&#62;&#62;" disabled="true" /></li>
 
+                                                        </ul>
+                                                    </p:panel>
+                                                    <p:panel id="number3" visible="#{recipeManagedBean.typePageBtn == 4}" >
+                                                        <ul class="pagination pull-right" id="pageMenu">
+                                                            <li><p:commandButton  value="&#60;&#60;" action="#{recipeManagedBean.updateRecipes(0)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton  value="&#60;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page - 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton  value="#{recipeManagedBean.page }" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page - 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton style="color: red;" value="#{recipeManagedBean.page +1}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton disabled="true" value="#{recipeManagedBean.page + 2}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
+                                                            <li><p:commandButton value="&#62;" disabled="true"/></li>
+                                                            <li><p:commandButton value="&#62;&#62;" disabled="true" /></li>
                                                         </ul>
                                                     </p:panel>
                                                 </h:form>

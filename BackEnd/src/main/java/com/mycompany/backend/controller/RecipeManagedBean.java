@@ -57,8 +57,8 @@ public class RecipeManagedBean implements Serializable {
         stringSort = sort();
         long n = recipeModel.getNumberRecipe();
         numberP = getNumberPage(n);
-        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
-        
+        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+
     }
 
     public String convertTime(long time) {
@@ -89,10 +89,10 @@ public class RecipeManagedBean implements Serializable {
         }
         return 2;
     }
-    
-    private String sort(){
-        if(!sortBy.equals("title")){
-            switch(sortBy){
+
+    private String sort() {
+        if (!sortBy.equals("title")) {
+            switch (sortBy) {
                 case "owner":
                     return Recipe.SORT_BY_OWNER;
                 case "date":
@@ -114,7 +114,7 @@ public class RecipeManagedBean implements Serializable {
             typePageBtn = 1;
             long n = recipeModel.getSearchResultNumber(stringSearch, flag_active);
             numberP = getNumberPage(n);
-            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
             search = "";
             filter = "All";
             sortBy = "title";
@@ -126,18 +126,22 @@ public class RecipeManagedBean implements Serializable {
             stringSort = sort();
             long n = recipeModel.getNumberRecipe();
             numberP = getNumberPage(n);
-            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
-            
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+
         }
     }
 
     public void updateRecipes(int page) throws DAOException {
-        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active,stringSort);
+        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
         this.page = page;
         if (page == 0) {
             typePageBtn = 1;
         } else if (page == numberP) {
-            typePageBtn = 3;
+            if (numberP > 2) {
+                typePageBtn = 3;
+            } else {
+                typePageBtn = 4;
+            }
 
         } else {
             typePageBtn = 2;
@@ -156,7 +160,6 @@ public class RecipeManagedBean implements Serializable {
     }
 
     //get and set
-
     public String getSortBy() {
         return sortBy;
     }

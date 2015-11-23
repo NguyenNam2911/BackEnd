@@ -41,6 +41,7 @@ public class RecipeModel {
         }
         return list;
     }
+    
     //get number result recipe
     public long getSearchResultNumber(String title, int flag_active) throws DAOException {
         if(flag_active == 2){
