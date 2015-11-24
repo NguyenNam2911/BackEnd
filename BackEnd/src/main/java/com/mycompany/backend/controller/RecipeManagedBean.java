@@ -52,7 +52,7 @@ public class RecipeManagedBean implements Serializable {
         search = "";
         typePageBtn = 1;
         filter = "All";
-        flag_active = 2;
+        flag_active = filter();
         sortBy = "title";
         stringSort = sort();
         long n = recipeModel.getNumberRecipe();
@@ -75,7 +75,7 @@ public class RecipeManagedBean implements Serializable {
         return userModel.getUserByID(id);
     }
 
-    public int filter() {
+    private int filter() {
         if (!"All".equals(filter)) {
             switch (filter) {
                 case "Approve":
@@ -137,7 +137,7 @@ public class RecipeManagedBean implements Serializable {
         if (page == 0) {
             typePageBtn = 1;
         } else if (page == numberP) {
-            if (numberP > 2) {
+            if (numberP >= 2) {
                 typePageBtn = 3;
             } else {
                 typePageBtn = 4;

@@ -25,22 +25,24 @@ public class UserManagedBean {
     /**
      * Creates a new instance of UserManagedBean
      */
-    User user = new User();
-    UserModel userModel = new UserModel();
-    List<User> users = new ArrayList<>();
-    String search;
-    String filter;
-    String sortBy;
-    int page;
-    long numberP;
-    User userSelected = new User();
-    int typePageBtn;
-    String stringSearch;
-    String stringSort;
+    private User user = new User();
+    private UserModel userModel = new UserModel();
+    private List<User> users = new ArrayList<>();
+    private String search;
+    private String filter;
+    private String sortBy;
+    private int page;
+    private long numberP;
+    private User userSelected = new User();
+    private int typePageBtn;
+    private String stringSearch;
+    private String stringSort;
+    private int  flag_Active;
 
 // method
     public UserManagedBean() throws DAOException {
-        filter = "Filter";
+        filter = "all";
+        flag_Active = filter();
         search = "";
         sortBy = "display_name";
         stringSearch = search;
@@ -49,40 +51,43 @@ public class UserManagedBean {
         typePageBtn = 1;
         long n = userModel.countUser();
         numberP = getNumberPage(n);
-        users = userModel.getUserNormalByName(stringSearch, page, stringSort);
+        users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
     }
 
     public void searchUser() throws DAOException {
-        if (!search.equals("") || !sortBy.equals("display_name")) {
+        if (!search.equals("") || !sortBy.equals("display_name") || !filter.equals("all")) {
             stringSort = sort();
             stringSearch = search;
+            flag_Active = filter();
             page = 0;
             typePageBtn = 1;
-            long n = userModel.countNumberResultSearch(stringSearch);
+            long n = userModel.countNumberResultSearch(stringSearch,flag_Active);
             numberP = getNumberPage(n);
-            users = userModel.getUserNormalByName(stringSearch, page, stringSort);
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
             search = "";
             filter = "All";
             sortBy = "display_name";
+            
         } else {
             page = 0;
             typePageBtn = 1;
             stringSearch = search;
             stringSort = sort();
+            flag_Active = filter();
             long n = userModel.countUser();
             numberP = getNumberPage(n);
-            users = userModel.getUserNormalByName(stringSearch, page, stringSort);
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
 
         }
     }
 
     public void updateUsers(int page) throws DAOException {
-        users = userModel.getUserNormalByName(stringSearch, page, stringSort);
+        users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
         this.page = page;
         if (page == 0) {
             typePageBtn = 1;
         } else if (page == numberP) {
-            if (numberP > 2) {
+            if (numberP >= 2) {
                 typePageBtn = 3;
             } else {
                 typePageBtn = 4;
@@ -119,37 +124,23 @@ public class UserManagedBean {
         return n;
     }
 
-    public void filter() {
-        List<User> filter_user = new ArrayList<>();
-        users = userModel.getUsersNomrmal();
-        if (!"Filter".equals(filter)) {
+    private int filter() {
+        
+        if (!"all".equals(filter)) {
             switch (filter) {
-                case "Active":
-                    for (User user : users) {
-                        if (user.getActiveFlag() == 1) {
-                            filter_user.add(user);
-                        }
-                    }
-                    break;
-                case "Banned":
-                    for (User user : users) {
-                        if (user.getActiveFlag() == 0 || user.getActiveFlag() == -1) {
-                            filter_user.add(user);
-                        }
-                    }
-                    break;
-                case "Deleted":
-                    for (User user : users) {
-                        if (user.getActiveFlag() == -2) {
-                            filter_user.add(user);
-                        }
-                    }
-                    break;
+                case "active":
+                    return  User.ACTIVE_FLAG;
+                case "bannedOnce":
+                    return  User.BAN_FLAG_ONCE;
+                case "bannedSecond":
+                    return  User.BAN_FLAG_SECOND;
+                case "deleted":
+                    return  User.DELETED_FLAG;
 
             }
-            users = filter_user;
-            filter = "Filter";
+            
         }
+        return 2;
     }
 
     public String convertTime(long time) {

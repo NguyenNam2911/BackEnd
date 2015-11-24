@@ -186,12 +186,13 @@
                                                     </div>
 
                                                     <div class="ddl-filter">
-                                                        <h:commandButton class="button-filter" action="#{userManagedBean.filter()}"/>
+                                                        <h:commandButton class="button-filter" action="#{userManagedBean.searchUser()}"/>
                                                         <h:selectOneMenu value="#{userManagedBean.filter}" onclick="">
-                                                            <f:selectItem itemValue="Filter" itemLabel="All status"/>
-                                                            <f:selectItem itemValue="Active" itemLabel="Active"/>
-                                                            <f:selectItem itemValue="Banned" itemLabel="Banned"/>
-                                                            <f:selectItem itemValue="Deleted" itemLabel="deleted"/>
+                                                            <f:selectItem itemValue="all" itemLabel="All status"/>
+                                                            <f:selectItem itemValue="active" itemLabel="Active"/>
+                                                            <f:selectItem itemValue="bannedOnce" itemLabel="Banned Once"/>
+                                                            <f:selectItem itemValue="bannedSecond" itemLabel="Banned Second"/>
+                                                            <f:selectItem itemValue="deleted" itemLabel="Deleted"/>
                                                         </h:selectOneMenu>
                                                     </div>   
                                                     <div class="ddl-sort">
@@ -217,7 +218,7 @@
                                                                 <th><i class="icon_profile"></i> User Name</th>
                                                                 <th><i class="icon_calendar"></i> Date</th>
                                                                 <th><i class="icon_mail_alt"></i> Email</th>
-                                                                <th><i class="icon_error-circle_alt"></i>Number Reported</th>
+                                                                <th><i class="icon_error-circle_alt"></i>Number Banned</th>
                                                                 <th><i class="icon_document_alt"></i> Number Recipe</th>
                                                                 <th><i class="icon_pencil_alt"></i> Status</th>
                                                             </tr>
@@ -235,10 +236,13 @@
                                                                         <td>
                                                                             <c:set var="status"  value="#{user.activeFlag}"/>
                                                                             <c:if test="${ status == 1 }">
-                                                                                <h:outputText value="active" style="color: green"/>
+                                                                                <h:outputText value="Active" style="color: green"/>
                                                                             </c:if>
-                                                                            <c:if test="${ status == -1 || status == 0}">
-                                                                                <h:outputText value="banned" style="color: red"/>
+                                                                            <c:if test="${ status == 0}">
+                                                                                <h:outputText value="Banned Once" style="color: red"/>
+                                                                            </c:if>
+                                                                            <c:if test="${  status == -1}">
+                                                                                <h:outputText value="Banned Second" style="color: red"/>
                                                                             </c:if>
                                                                             <c:if test="${ status == -2}">
                                                                                 <h:outputText value="Deleted" style="color: black"/>
@@ -257,13 +261,13 @@
                                                                 <li><p:commandButton disabled="true" value="&#60;&#60;"  /></li>
                                                                 <li><p:commandButton value="&#60;" disabled="true"  /></li>
                                                                 <li><p:commandButton style="color: red;" value="#{userManagedBean.page + 1}" action="#{userManagedBean.updateUsers(userManagedBean.page)}" update=":frmUser :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3"  /></li>
-                                                                <li><p:commandButton disabled="#{userManagedBean.page ==  userManagedBean.numberP}" 
+                                                                <li><p:commandButton disabled="#{userManagedBean.page + 1 >  userManagedBean.numberP}" 
                                                                                      value="#{userManagedBean.page + 2}" action="#{userManagedBean.updateUsers(userManagedBean.page + 1)}" update=":frmUser :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
-                                                                <li><p:commandButton  disabled="#{userManagedBean.page  ==  userManagedBean.numberP}" 
+                                                                <li><p:commandButton  disabled="#{userManagedBean.page + 1 >=  userManagedBean.numberP}" 
                                                                                       value="#{userManagedBean.page + 3}" action="#{userManagedBean.updateUsers(userManagedBean.page + 2)}" update=":frmUser :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
-                                                                <li><p:commandButton disabled="#{userManagedBean.page ==  userManagedBean.numberP}"
+                                                                <li><p:commandButton disabled="#{userManagedBean.page  >=  userManagedBean.numberP}"
                                                                                      value="&#62;" action="#{userManagedBean.updateUsers(userManagedBean.page + 1)}" update=":frmUser :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
-                                                                <li><p:commandButton disabled="#{userManagedBean.page ==  userManagedBean.numberP}"
+                                                                <li><p:commandButton disabled="#{userManagedBean.page  >=  userManagedBean.numberP}"
                                                                                      value="&#62;&#62;" action="#{userManagedBean.updateUsers(userManagedBean.numberP)}" update=":frmUser :frmPage:number :frmPage:number1 :frmPage:number2 :frmPage:number3" /></li>
                                                             </ul>
                                                         </p:panel>

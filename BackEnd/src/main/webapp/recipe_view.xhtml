@@ -220,7 +220,7 @@
                                                             <tr>
                                                                 <td>#{recipeManagedBean.recipes.indexOf(recipe) + (recipeManagedBean.page * 10) + 1}</td>
                                                                 <td>
-                                                                    <h:commandLink value="#{recipe.title}" action="#{recipeDetailManagedBean.recipeDetail(recipe)}"
+                                                                    <h:commandLink value="#{recipe.title}" action="#{recipeDetailManagedBean.recipeDetail(recipe.id)}"
                                                                                    style="color: #1C86EE"/>
 
                                                                 </td>
@@ -261,13 +261,13 @@
                                                             <li><p:commandButton disabled="true" value="&#60;&#60;"  /></li>
                                                             <li><p:commandButton value="&#60;" disabled="true"  /></li>
                                                             <li><p:commandButton style="color: red;" value="#{recipeManagedBean.page + 1}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2"  /></li>
-                                                            <li><p:commandButton disabled="#{recipeManagedBean.page ==  recipeManagedBean.numberP}" 
+                                                            <li><p:commandButton disabled="#{recipeManagedBean.page >=  recipeManagedBean.numberP}" 
                                                                                  value="#{recipeManagedBean.page + 2}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton  disabled="#{recipeManagedBean.page ==  recipeManagedBean.numberP}" 
+                                                            <li><p:commandButton  disabled="#{recipeManagedBean.page  + 1 >=  recipeManagedBean.numberP}" 
                                                                                   value="#{recipeManagedBean.page + 3}" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 2)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton disabled="#{recipeManagedBean.page ==  recipeManagedBean.numberP}"
+                                                            <li><p:commandButton disabled="#{recipeManagedBean.page >=  recipeManagedBean.numberP}"
                                                                                  value="&#62;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.page + 1)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
-                                                            <li><p:commandButton disabled="#{recipeManagedBean.page ==  recipeManagedBean.numberP}"
+                                                            <li><p:commandButton disabled="#{recipeManagedBean.page >=  recipeManagedBean.numberP}"
                                                                                  value="&#62;&#62;" action="#{recipeManagedBean.updateRecipes(recipeManagedBean.numberP)}" update=":frmRcipe :frmPage:number :frmPage:number1 :frmPage:number2" /></li>
                                                         </ul>
                                                     </p:panel>

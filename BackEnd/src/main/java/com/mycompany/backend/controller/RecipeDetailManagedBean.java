@@ -5,6 +5,7 @@
  */
 package com.mycompany.backend.controller;
 
+import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class RecipeDetailManagedBean implements Serializable{
      */
     Recipe recipe;
     UserModel userModel;
+    RecipeModel recipeModel;
     User user;
     List<Ingredient> listIngredients = new ArrayList<>();
     List<Recipe.Step> listSteps = new ArrayList<>();
@@ -48,14 +50,17 @@ public class RecipeDetailManagedBean implements Serializable{
     }
 
     public RecipeDetailManagedBean() {
-        recipe = new Recipe();
+        if(recipe == null){
+//            JSFutil.navigate("recipe_view?faces-redirect=true");
+        }
     }
 
-    public void recipeDetail(Recipe r) {
-        if (r != null) {
-            recipe = r;
-            listIngredients = r.getIngredients();
-            listSteps = r.getSteps();
+    public void recipeDetail(String id) {
+        if (id != null) {
+            recipeModel =  new RecipeModel();
+            recipe = recipeModel.getRecipeByID(id);
+            listIngredients = recipe.getIngredients();
+            listSteps = recipe.getSteps();
             JSFutil.navigate("recipe_detail?faces-redirect=true");
         }
         else{

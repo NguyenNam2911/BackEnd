@@ -21,9 +21,13 @@ public class UserModel {
     public long countUser() {
         return UserDAO.getInstance().getNumberUserNomal();
     }
-    
-    public long countNumberResultSearch(String name){
-        return UserDAO.getInstance().getNumberResultSearchUserNomal(name);
+
+    public long countNumberResultSearch(String name, int flag) {
+        if (flag == 2) {
+            return UserDAO.getInstance().getNumberResultSearchUserNomal(name);
+        } else {
+            return UserDAO.getInstance().getNumberResultSearchAndFillUserNomal(name, flag);
+        }
     }
 
     public List<User> getUsersNomrmal() {
@@ -37,10 +41,15 @@ public class UserModel {
         }
         return users_normal;
     }
-    
-    public List<User> getUserNormalByName(String name,int page,String order ) throws DAOException{
+
+    public List<User> getUserNormalByName(String name, int page, String order, int flag) throws DAOException {
         List<User> users = new ArrayList<>();
-        users =  UserDAO.getInstance().searchAllUserNomal(name, page *10 , 10, order);
+        if (flag == 2) {
+            users = UserDAO.getInstance().searchAllUserNomal(name, page * 10, 10, order);
+        } else {
+            users = UserDAO.getInstance().searchAndFillAllUserNomal(name, page * 10, 10, order, flag);
+        }
+
         return users;
     }
 
