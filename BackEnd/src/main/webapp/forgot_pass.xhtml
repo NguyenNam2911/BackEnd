@@ -39,6 +39,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Retrieve password</div>
                 <h:form id="frInput">
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="img/ajax-loader.gif" />
+                    </p:dialog> 
                     <div class="panel-body">
                         <p:panel id="pnInput" visible="#{!forgotPassManagedBean.successFlag}">
                             Enter your email address below to recieve the new password of your account.

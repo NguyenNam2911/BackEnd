@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -35,6 +36,10 @@
     <h:body>
         <f:view>
             <h:form>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <img src="img/ajax-loader.gif" />
+                </p:dialog>  
                 <section id="container" class="">
                     <header class="header dark-bg">
                         <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
@@ -143,6 +148,7 @@
                     <!--sidebar end-->
 
                     <!--main content start-->
+
                     <section id="main-content">
                         <section class="wrapper">
                             <!--title page-->
@@ -229,20 +235,8 @@
                                                         </c:forEach>
                                                     </div>
                                                 </div>
-                                                
-                                                <div class="form-group">
-                                                    <div class="col-lg-2">Status</div>
-                                                    <div class="col-lg-9">
-                                                        <c:set var="status" value="#{recipeDetailManagedBean.recipe.statusFlag}"></c:set>
-                                                        <c:if test="${ status == 1 }">
-                                                            <h:outputText value="APPROVED"/>
-                                                        </c:if>
-                                                        <c:if test="${ status == 0 }">
-                                                            <h:outputText value="REPORTED"/>
-                                                        </c:if>
-                                                       
-                                                    </div>
-                                                </div>
+
+
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Others</div>
                                                     <div class="col-lg-9">
@@ -250,6 +244,60 @@
                                                         <p>Favorite: #{recipeDetailManagedBean.recipe.favoriteNumber}</p>
                                                     </div>
                                                 </div>
+
+                                                <h:form id="action">
+                                                    <div class="form-group">
+                                                        <div class="col-lg-2">Status</div>
+                                                        <div class="col-lg-9">
+                                                            <c:set var="status" value="#{recipeDetailManagedBean.recipe.statusFlag}"></c:set>
+                                                            <c:if test="${ status == 1 }">
+                                                                <h:outputText style="color: green;" value="APPROVED"/>
+                                                            </c:if>
+                                                            <c:if test="${ status == 0 }">
+                                                                <h:outputText style="color: red;" value="REPORTED"/>
+                                                            </c:if>
+                                                            <c:if test="${ status == -1 }">
+                                                                <h:outputText style="color: black;" value="REMOVED"/>
+                                                                <br></br>
+                                                                <h:outputText value="Remove date : #{recipeDetailManagedBean.convertTime(recipeDetailManagedBean.recipe.deletedTime)}" />
+                                                            </c:if>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-lg-2">Action</div>
+                                                        <div class="col-lg-9">
+
+
+
+                                                            <c:set var="status" value="#{recipeDetailManagedBean.recipe.statusFlag}"></c:set>
+                                                            <c:if test="${ status == 1 }">
+                                                                <p:commandButton value="Remove" process="@this" action="#{recipeDetailManagedBean.removeRecipe()}"
+                                                                                 update="action" style="width: 100px;"  >
+                                                                    <p:confirm header="Confirmation" message="Are you sure delete admin"  />
+                                                                </p:commandButton>
+
+                                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
+                                                                    <div align="center">
+                                                                        <p:commandButton style="text-align: center;" value="Yes"  styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
+                                                                        <p:commandButton style="text-align: center;" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+                                                                    </div>
+                                                                </p:confirmDialog>
+                                                            </c:if>
+                                                            <c:if test="${ status == 0 }">
+                                                                <h:commandButton value="Report Manager Page" action="#{recipeDetailManagedBean.reportPage()}"/>
+                                                            </c:if>
+                                                            <c:if test="${ status == -1 }">
+                                                                <h:commandButton value="Removed" disabled="true" />
+                                                            </c:if>
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </h:form>
                                             </div>
                                         </div>
                                     </section>
@@ -259,6 +307,9 @@
 
                         </section>
                     </section>
+
+
+
                     <!--main content end-->
 
                 </section>

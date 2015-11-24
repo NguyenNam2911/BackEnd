@@ -50,6 +50,7 @@ public class RecipeDetailManagedBean implements Serializable{
     }
 
     public RecipeDetailManagedBean() {
+        recipeModel =  new RecipeModel();
         if(recipe == null){
 //            JSFutil.navigate("recipe_view?faces-redirect=true");
         }
@@ -57,7 +58,6 @@ public class RecipeDetailManagedBean implements Serializable{
 
     public void recipeDetail(String id) {
         if (id != null) {
-            recipeModel =  new RecipeModel();
             recipe = recipeModel.getRecipeByID(id);
             listIngredients = recipe.getIngredients();
             listSteps = recipe.getSteps();
@@ -67,10 +67,17 @@ public class RecipeDetailManagedBean implements Serializable{
             JSFutil.navigate("recipe_view?faces-redirect=true");
         }
     }
+    public void reportPage(){
+        JSFutil.navigate("report_view?faces-redirect=true");
+    }
 
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
 
+    }
+    public void removeRecipe(){
+        recipeModel.removeRecipe(recipe.getId());
+        recipe = recipeModel.getRecipeByID(recipe.getId());
     }
 
     //get and set
