@@ -35,11 +35,11 @@ public class NotiServer {
 
     CloseableHttpClient client;
 
-    public static final String WEBSERVICE_URL = "dailycook.cloudapp.net:8998/dailycook/";
+    public static final String WEBSERVICE_URL = "http://dailycook.cloudapp.net:8998/dailycook/";
 
     public void notiBanUser(String userId) {
         try {
-            String url = WEBSERVICE_URL + userId + "/ban";
+            String url = WEBSERVICE_URL + "user/" + userId + "/ban";
             HttpPut put = new HttpPut(url);
             String result = getResponse(put);
             System.out.println(result);
