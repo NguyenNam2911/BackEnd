@@ -221,7 +221,6 @@
                                                                 <th><i class="icon_error-circle_alt"></i>Number Banned</th>
                                                                 <th><i class="icon_document_alt"></i> Number Recipe</th>
                                                                 <th><i class="icon_pencil_alt"></i> Status</th>
-                                                                <th><i class="icon_pencil_alt"></i> Action</th>
                                                             </tr>
                                                             <h:form>                                                    
                                                                 <c:forEach items="#{userManagedBean.users}" var="user">
@@ -247,12 +246,6 @@
                                                                             </c:if>
                                                                             <c:if test="${ status == -2}">
                                                                                 <h:outputText value="Deleted" style="color: black"/>
-                                                                            </c:if>
-                                                                        </td>
-                                                                        <td>
-                                                                            <c:set var="status"  value="#{user.activeFlag}"/>
-                                                                            <c:if test="${ status == 1 }">
-                                                                                <h:commandLink value="Ban User" action="#{userManagedBean.banUser(user.id)}"/>
                                                                             </c:if>
                                                                         </td>
                                                                     </tr>
