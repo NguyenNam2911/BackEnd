@@ -82,7 +82,7 @@ public class UserBanManagedBean {
     }
     
     public void unbanUser(String userId){
-        UserDAO.getInstance().unBanUser(userId);
+        userModel.unBanUser(userId);
         listBanUser = userModel.getBanUser();
     }
     

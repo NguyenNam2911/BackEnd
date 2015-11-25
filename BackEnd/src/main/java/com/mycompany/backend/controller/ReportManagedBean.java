@@ -8,6 +8,7 @@ package com.mycompany.backend.controller;
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.notification_server.NotiServer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -150,20 +151,11 @@ public class ReportManagedBean {
         userModel.increaseReportOfUser(recipe.getOwner());
         User user = UserDAO.getInstance().getUser(recipe.getOwner());
         int nReport = user.getNumberReport();
-        if (nReport == 3 || nReport == 6 || nReport == 9)
-        switch(user.getNumberBans()){
-            case 0:
-                userModel.banUser(user.getId(), User.BAN_FLAG_ONCE);
-                break;
-            case 1:
-                userModel.banUser(user.getId(), User.BAN_FLAG_SECOND);
-                break;
-            case 2:
-                userModel.banUser(user.getId(), User.DELETED_FLAG);
-                break;
-        }
-//        if (user.getNumberBans()>=3) 
-//            userModel.banUser(user.getId(), User.DELETED_FLAG);
+        if (user.getActiveFlag() != User.DELETED_FLAG)
+            if (nReport == 3 || nReport == 6 || nReport >= 9)
+                userModel.banUser(user.getId());
+        
+        //update report: verify_by, verify_time
         updateAdminReport(reportId, adminId);
         listReport = reportModel.getListReports();
     }
