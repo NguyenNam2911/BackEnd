@@ -3,10 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <!-- Bootstrap CSS -->    
@@ -32,7 +30,8 @@
         <link href="css/style-responsive.css" rel="stylesheet" />
         <link href="css/xcharts.min.css" rel=" stylesheet"/>	
         <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
-        <title>Facelet Title</title>
+
+        <title>DailyCook.Admin</title>
     </h:head>
     <h:body>
         <f:view>
@@ -46,7 +45,7 @@
                                     <span class="profile-ava">
                                         <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
                                     </span>
-                                    <h:outputText value="#{loginManagedBean.user.displayName}"/>
+                                    <h:outputText value="#{loginManagedBean.user.email}"/>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu extended logout">
@@ -70,7 +69,7 @@
                 <aside>
                     <div id="sidebar"  class="nav-collapse ">
                         <!-- sidebar menu start-->
-                        <ul class="sidebar-menu">                
+                        <ul class="sidebar-menu" id="sidebarMenu">   
                             <li class="active">
                                 <a class="" href="index.xhtml">
                                     <i class="icon_house_alt"></i>
@@ -93,7 +92,7 @@
                                     var element = document.getElementById("li-admin");
                                     element.parentNode.removeChild(element);
                                 }
-                            </script> 
+                            </script>
                             <li class="sub-menu">
                                 <a href="javascript:;" class="">
                                     <i class="icon_profile"></i>
@@ -141,161 +140,103 @@
                     </div>
                 </aside>
                 <!--sidebar end-->
+
                 <!--main content start-->
                 <section id="main-content">
                     <section class="wrapper">
                         <!--title page-->
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3 class="page-header"><i class="fa fa-info"></i> User Detail</h3>
+                                <h3 class="page-header"><i class="fa fa-plus-circle"></i> Change password</h3>
                                 <ol class="breadcrumb">
                                     <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
-                                    <li><i class="fa fa-users"></i>Users</li>
-                                    <li><i class="fa fa-info"></i>User Detail</li>
+                                    <li><i class="fa fa-plus-circle"></i>Change Password</li>
                                 </ol>
                             </div>
                         </div>
                         <!--title page end-->
+
                         <!--content start-->
                         <div class="row">
                             <div class="col-lg-12">
                                 <section class="panel">
-                                    <div class="panel-body">
-                                        <h1>Profile - #{userDetailManagedBean.userSelected.displayName}</h1>
-                                        <h:form id="frmMain" >
-                                            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-                                            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                                                <img src="img/ajax-loader.gif" />
-                                            </p:dialog> 
-                                            <div class="form-horizontal">
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label"><b>Role:</b></label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"><b>#{userDetailManagedBean.userSelected.role}</b></p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label"><b>Status:</b></label>
-                                                    <div class="col-lg-8">
-                                                        <c:set var="status"  value="#{userDetailManagedBean.userSelected.activeFlag}"/>
-                                                        <c:if test="${ status == 1 }">
-                                                            <h:outputText value="Active" style="color: green"/>
-                                                        </c:if>
-                                                        <c:if test="${ status == 0}">
-                                                            <h:outputText value="Banned Once" style="color: red"/>
-                                                        </c:if>
-                                                        <c:if test="${  status == -1}">
-                                                            <h:outputText value="Banned Second" style="color: red"/>
-                                                        </c:if>
-                                                        <c:if test="${ status == -2}">
-                                                            <h:outputText value="Deleted" style="color: black"/>
-                                                        </c:if>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Introduce:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.introduce}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Avatar:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> 
-                                                            <img class="image marginR10" alt="" src="#{userDetailManagedBean.userSelected.avatarUrl}" height="300" width="auto"/>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Registered Date:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static">#{userDetailManagedBean.convertTime(userDetailManagedBean.userSelected.registeredTime)}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Email:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static">#{userDetailManagedBean.userSelected.email}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Facebook:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.loginMethod}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Birthday:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.dob}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Phone:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.phone}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Number recipes:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.numberRecipes}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Number reports:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.numberReport}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Number bans:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.numberBans}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Number follower:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.numberFollower}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Number following:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.numberFollowing}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-lg-4 control-label">Language:</label>
-                                                    <div class="col-lg-8">
-                                                        <p class="form-control-static"> #{userDetailManagedBean.userSelected.language}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center">
-                                                    <c:set var="status"  value="#{userDetailManagedBean.userSelected.activeFlag}"/>
-                                                    <c:if test="${ status == 1 }">
-                                                            <p:commandButton style="width: 100px; " value="Ban"  action="#{userDetailManagedBean.banUser()}" update=":frmMain"/>
-                                                    </c:if>
-                                                    <c:if test="${ status == 0 || status == -1}">
-                                                        <p:commandButton style="width: 100px;" value="Unban" update=":frmMain" action="#{userDetailManagedBean.unBanUser()}"/>
-                                                    </c:if>
-                                                    <c:if test="${ status == -2}">
-                                                        <p:commandButton   style="width: 100px;" value="Removed" update=":frmMain" action="#{userDetailManagedBean.unBanUser()}" disabled="true"/>
+                                    <header class="panel-heading"> Change Password </header>
+                                    <h:form id="frmMain">
+                                        <p:panel id="pnChangePass">
+                                            <div class="panel-body">
+                                                <div class="form form-horizontal">
+                                                    <!--<form id="feedback_form" class="form-validate form-horizontal" action="" method="get" novalidate="novalidate">-->
+                                                    <div class="form-group ">
+                                                        <label class="control-label col-lg-2" for="cname">
+                                                            Current password
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-lg-10">
+                                                            <h:inputSecret  id="txtCrrentPass" class="form-control" required="true" 
+                                                                         requiredMessage="Please Enter Current Pass"
+                                                                         value="#{adminDetailManagedBean.oldPass}">
 
-                                                    </c:if>
+                                                            </h:inputSecret>
+                                                            <span style="color: red;">
+                                                                <p:messages for="txtCrrentPass" id="CrrentPassError" autoUpdate="true" closable="true"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label class="control-label col-lg-2" for="cname">
+                                                            New password
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-lg-10">
+                                                            <h:inputSecret id="txtNewPass" class="form-control" required="true" 
+                                                                         requiredMessage="Please Enter New Pass" 
+                                                                         value="#{adminDetailManagedBean.newPass}"
+                                                                         validatorMessage="Name must content 6 to 50 characters">
+                                                                <f:validateLength minimum="6" maximum="50" />
 
+                                                            </h:inputSecret >
+                                                            <span style="color: red;">
+                                                                <p:messages for="txtNewPass" id="NewPassError" autoUpdate="true" closable="true"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label class="control-label col-lg-2" for="cname">
+                                                            Re-password
+                                                            <span class="required">*</span>
+                                                        </label>
+                                                        <div class="col-lg-10">
+                                                            <h:inputSecret  id="txtRePass" class="form-control" required="true" 
+                                                                         requiredMessage="Please Comfirm Pass."
+                                                                         value="#{adminDetailManagedBean.rePass}"> 
+                                                            </h:inputSecret >
+
+                                                            <span style="color: red;">
+                                                                <p:messages for="txtRePass" id="RePassError" autoUpdate="true" closable="true"/>
+                                                            </span>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <p:commandButton  style="width: 100px;" value="Save" process="@this, pnChangePass " 
+                                                                          action="#{adminDetailManagedBean.changePass()}" update=":frmMain">
+                                                        </p:commandButton>
+                                                        <p:panel id="hiden" visible="false">
+                                                            <h:inputText id="txtSuccess"  />
+                                                        </p:panel>
+                                                        <p:messages id="success" for="txtSuccess"/>
+                                                    </div>
+                                                    <!--</form>-->
                                                 </div>
                                             </div>
+                                        </p:panel>
 
-
-                                        </h:form>
-
-                                    </div>
+                                    </h:form>
                                 </section>
                             </div>
                         </div>
                         <!--content end-->
+
                     </section>
                 </section>
                 <!--main content end-->
@@ -350,7 +291,8 @@
                                     $(".knob").knob({
                                         'draw': function () {
                                             $(this.i).val(this.cv + '%')
-                                        }})
+                                        }
+                                    })
                                 });
 
                                 //carousel
@@ -379,7 +321,8 @@
                                                     values: gdpData,
                                                     scale: ['#000', '#000'],
                                                     normalizeFunction: 'polynomial'
-                                                }]},
+                                                }]
+                                        },
                                         backgroundColor: '#eef3f7',
                                         onLabelShow: function (e, el, code) {
                                             el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');

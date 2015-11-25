@@ -206,7 +206,7 @@
                                                                 <c:forEach items="#{adminManagedBean.users}" var="user">
                                                                     <tr>
                                                                         <td>#{adminManagedBean.users.indexOf(user) + 1}</td>
-                                                                        <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.UserDetail(user)}" 
+                                                                        <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.userDetail(user.id)}" 
                                                                                            style="color: #1C86EE"  /> 
                                                                         </td>
                                                                         <td>#{user.email}</td>
@@ -250,7 +250,7 @@
                                                                             </td>
                                                                             <td>
                                                                                 <h:inputText required="true" value="#{adminManagedBean.userAdmin.email}" class="form-control" id="txtEmail" disabled="#{adminManagedBean.addView}"  
-                                                                                             requiredMessage="Please enter your email address."
+                                                                                             requiredMessage="Please enter your email."
                                                                                              validatorMessage="Invalid email format"
                                                                                              a:placeholder="Enter Email"  >
                                                                                     <f:validateRegex

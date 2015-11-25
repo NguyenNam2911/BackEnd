@@ -46,7 +46,7 @@
                                     <span class="profile-ava">
                                         <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
                                     </span>
-                                    <h:outputText value="#{loginManagedBean.user.role}"/>
+                                    <h:outputText value="#{loginManagedBean.user.email}"/>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu extended logout">
@@ -57,6 +57,11 @@
                                     <li>
                                         <h:form>
                                             <h:commandLink action="#{loginManagedBean.logOut()}" value="Log Out"  />
+                                        </h:form> 
+                                    </li>
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
                                         </h:form> 
                                     </li>
                                 </ul>

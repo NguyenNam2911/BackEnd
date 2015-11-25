@@ -41,9 +41,16 @@ public class JSFutil {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
     }
+    public static void addSuccessMessage(String msg) {
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg);
+        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+    }
     
     public static void addErrorMessageById(String id, String msg){
         FacesContext.getCurrentInstance().addMessage(id,new FacesMessage(FacesMessage.SEVERITY_ERROR, msg,msg));
+    }
+    public static void addSuccessMessageById(String id, String msg){
+        FacesContext.getCurrentInstance().addMessage(id,new FacesMessage(FacesMessage.SEVERITY_INFO, msg,msg));
     }
     
     public static void sentMail(String to, String from, String pass,String title, String content) {

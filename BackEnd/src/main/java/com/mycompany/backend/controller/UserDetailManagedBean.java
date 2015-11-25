@@ -5,11 +5,14 @@
  */
 package com.mycompany.backend.controller;
 
-
+import com.mycompany.backend.model.UserModel;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
+import org.dao.DAOException;
+import org.dao.UserDAO;
 import org.entity.User;
+import util.JSFutil;
 
 /**
  *
@@ -23,9 +26,32 @@ public class UserDetailManagedBean {
      * Creates a new instance of UserDetailManagedBean
      */
     //method
-    User userSelected = new User();
+    User userSelected;
+    UserModel userModel;
 
     public UserDetailManagedBean() {
+        userModel = new UserModel();
+        userSelected = new User();
+    }
+
+    public void banUser() throws DAOException {
+        switch (userSelected.getNumberBans()) {
+            case 0:
+                userModel.banUser(userSelected.getId(), User.BAN_FLAG_ONCE);
+                break;
+            case 1:
+                userModel.banUser(userSelected.getId(), User.BAN_FLAG_SECOND);
+                break;
+            case 2:
+                userModel.banUser(userSelected.getId(), User.DELETED_FLAG);
+                break;
+        }
+        userSelected = userModel.getUserByID(userSelected.getId());
+    }
+    
+    public void unBanUser() throws DAOException{
+        UserDAO.getInstance().unBanUser(userSelected.getId());
+        userSelected = userModel.getUserByID(userSelected.getId());
     }
 
     public String convertTime(long time) {
@@ -33,9 +59,14 @@ public class UserDetailManagedBean {
 
     }
 
-    public String UserDetail(User u) {
-        userSelected = u;
-        return "user_detail?faces-redirect=true";
+    public void link() {
+        JSFutil.navigate("user_detail?faces-redirect=true");
+
+    }
+
+    public void userDetail(String id) throws DAOException {
+        userSelected = userModel.getUserByID(id);
+        JSFutil.navigate("user_detail?faces-redirect=true");
 
     }
     //get and set

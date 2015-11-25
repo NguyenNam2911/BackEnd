@@ -222,13 +222,14 @@
                                                                 <th><i class="icon_document_alt"></i> Number Recipe</th>
                                                                 <th><i class="icon_pencil_alt"></i> Status</th>
                                                             </tr>
-                                                            <h:form>                                                    
+                                                                                                              
                                                                 <c:forEach items="#{userManagedBean.users}" var="user">
                                                                     <tr class="user-row">
                                                                         <td>#{userManagedBean.users.indexOf(user) + 1}</td>
-                                                                        <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.UserDetail(user)}"
+                                                                        <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.userDetail(user.id)}"
                                                                                            style="color: #1C86EE"/> 
                                                                         </td>
+                                                                        
                                                                         <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
                                                                         <td>#{user.email}</td>
                                                                         <td>#{user.numberBans}</td>
@@ -250,7 +251,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 </c:forEach>
-                                                            </h:form>
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </h:form>
