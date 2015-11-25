@@ -5,11 +5,13 @@
  */
 package com.mycompany.backend.model;
 
+import com.mycompany.backend.notification_server.NotiServer;
 import java.util.ArrayList;
 import java.util.List;
 import org.dao.DAOException;
 import org.dao.UserDAO;
 import org.entity.User;
+import org.TimeUtils;
 
 /**
  *
@@ -73,8 +75,36 @@ public class UserModel {
         return UserDAO.getInstance().increateReportNumber(userId);
     }
 
-    public boolean banUser(String userId, int flag) {
+    public boolean banUser(String userId, int flag){
         return UserDAO.getInstance().banUser(userId, flag);
+    }
+    
+    public boolean banUser(String userId) throws DAOException {
+        User user = getUserByID(userId);
+        int flag = User.BAN_FLAG_ONCE;
+        long time = 0;
+        switch(user.getNumberBans()){
+            case 0:
+                flag = User.BAN_FLAG_ONCE;
+                time = User.BAN_FIRST_TIME;
+                break;
+            case 1:
+                flag = User.BAN_FLAG_SECOND;
+                time = User.BAN_SECOND_TIME;
+                break;
+            case 2:
+                flag = User.DELETED_FLAG;
+                break;
+            default:
+                return true;
+        }
+        long banToTime = 0;
+        banToTime = TimeUtils.getCurrentGMTTime() + time;
+        if (UserDAO.getInstance().banUser(userId, flag, banToTime)) {
+            NotiServer.getInstance().notiBanUser(userId);
+            return true;
+        } 
+        return false;
     }
 
     public boolean unBanUser(String userId) {

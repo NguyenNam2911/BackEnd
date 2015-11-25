@@ -147,6 +147,11 @@ public class UserManagedBean {
         return TimeUtils.convertTime(time);
     }
 
+    public void banUser(String userId) throws DAOException{
+        userModel.banUser(userId);
+        users = userModel.getUsersNomrmal();
+    }
+    
 //get and set
     public String getSortBy() {
         return sortBy;
