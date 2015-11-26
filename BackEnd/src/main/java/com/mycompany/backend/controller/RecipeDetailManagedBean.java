@@ -76,8 +76,8 @@ public class RecipeDetailManagedBean implements Serializable{
 
     }
     public void removeRecipe(){
-        recipeModel.removeRecipe(recipe.getId());
-        recipe = recipeModel.getRecipeByID(recipe.getId());
+//        recipeModel.removeRecipe(recipe.getId());
+//        recipe = recipeModel.getRecipeByID(recipe.getId());
     }
 
     //get and set

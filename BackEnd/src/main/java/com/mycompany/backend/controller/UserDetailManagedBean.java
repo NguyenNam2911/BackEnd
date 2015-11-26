@@ -35,17 +35,7 @@ public class UserDetailManagedBean {
     }
 
     public void banUser() throws DAOException {
-        switch (userSelected.getNumberBans()) {
-            case 0:
-                userModel.banUser(userSelected.getId(), User.BAN_FLAG_ONCE);
-                break;
-            case 1:
-                userModel.banUser(userSelected.getId(), User.BAN_FLAG_SECOND);
-                break;
-            case 2:
-                userModel.banUser(userSelected.getId(), User.DELETED_FLAG);
-                break;
-        }
+        userModel.banUser(userSelected.getId());
         userSelected = userModel.getUserByID(userSelected.getId());
     }
     

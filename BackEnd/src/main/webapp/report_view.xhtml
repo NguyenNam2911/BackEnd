@@ -215,14 +215,14 @@
                                                                 <td>#{reportManagedBean.listReport.indexOf(report)+1}</td>
                                                                 <td>
                                                                     <h:commandLink value="#{reportManagedBean.getRecipeName(report.recipe)}" 
-                                                                                   action="#{recipeDetailManagedBean.recipeDetail(reportManagedBean.getRecipe(report.recipe))}"
-                                                                                    style="color: 1C86EE"/>
+                                                                                   action="#{recipeDetailManagedBean.recipeDetail(report.recipe)}"
+                                                                                    style="color: #1C86EE"/>
                                                                 </td>
                                                                 <td>#{report.reason}</td>
                                                                 <td>
                                                                     <h:commandLink value="#{reportManagedBean.getUserName(report.reporter)}"
-                                                                                   action="#{userDetailManagedBean.UserDetail(reportManagedBean.getUser(report.reporter))}"
-                                                                                    style="color: 1C86EE"/>
+                                                                                   action="#{userDetailManagedBean.userDetail(report.reporter)}"
+                                                                                    style="color: #1C86EE"/>
                                                                 </td>
                                                                 <td>#{reportManagedBean.convertTime(report.reportTime)}</td>
                                                                 <td>
