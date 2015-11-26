@@ -194,21 +194,22 @@
                                                     </div>
                                                 </h:form>              
                                             </div>
-                                            <table class="table table-striped table-advance table-hover" var="report" value="#{reportManagedBean.listReport}">
-                                                <tbody>
-                                                    <tr>
-                                                        <th><i></i> No</th>
-                                                        <th><i class="icon_archive_alt"></i> Recipe</th>
-                                                        <th><i class="icon_balance"></i> Reason</th>
-                                                        <th><i class="icon_profile"></i> Reporter</th>
-                                                        <th><i class="icon_calendar"></i> Reported Time</th>
-                                                        <th><i class="icon_tag_alt"></i> Status</th>
-                                                        <th><i class="icon_profile"></i> Verify By</th>
-                                                        <th><i class="icon_calendar"></i> Verify Time</th>
-                                                        <th colspan="2" style="text-align: center"><i class="icon_pencil-edit"></i> Action</th>
-                                                    </tr>
-                                                    <h:form>
-                                                        <p:panel id="tbReport">
+                                            <h:form>
+                                                <p:panel id="tbReport">
+                                                    <table class="table table-striped table-advance table-hover" var="report" value="#{reportManagedBean.listReport}">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th><i></i> No</th>
+                                                                <th><i class="icon_archive_alt"></i> Recipe</th>
+                                                                <th><i class="icon_balance"></i> Reason</th>
+                                                                <th><i class="icon_profile"></i> Reporter</th>
+                                                                <th><i class="icon_calendar"></i> Reported Time</th>
+                                                                <th><i class="icon_tag_alt"></i> Status</th>
+                                                                <th><i class="icon_profile"></i> Verify By</th>
+                                                                <th><i class="icon_calendar"></i> Verify Time</th>
+                                                                <th colspan="2" style="text-align: center"><i class="icon_pencil-edit"></i> Action</th>
+                                                            </tr>
+
                                                             <c:forEach items="#{reportManagedBean.listReport}" var="report">
                                                             <tr>
                                                                 <td>#{reportManagedBean.listReport.indexOf(report)+1}</td>
@@ -247,15 +248,15 @@
                                                                         <td>None</td>
                                                                     </c:otherwise>
                                                                 </c:choose>
-                                                                
+
                                                                 <c:set var="status" value="#{report.status}" />
                                                                 <c:choose>
                                                                     <c:when test="${status==0}">
                                                                         <td>
-                                                                            <h:commandLink value="Approve" action="#{reportManagedBean.approveReportStatus(report.id, loginManagedBean.user.id)}"/>
+                                                                            <p:commandButton style="width: 100px;" value="Approve" action="#{reportManagedBean.approveReportStatus(report.id, loginManagedBean.user.id)}" update="tbReport" />
                                                                         </td>
                                                                         <td>
-                                                                            <h:commandLink value="Remove" action="#{reportManagedBean.removeReportStatus(report.id)}"/>
+                                                                            <p:commandButton style="width: 100px;" value="Remove" action="#{reportManagedBean.removeReportStatus(report.id)}" update="tbReport" />
                                                                         </td>
                                                                     </c:when>
                                                                     <c:otherwise>
@@ -264,11 +265,11 @@
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </tr> 
-                                                            </c:forEach>   
-                                                        </p:panel>    
-                                                    </h:form>
-                                                </tbody>
-                                            </table>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </p:panel>    
+                                            </h:form>
                                             <div>
                                                 <ul class="pagination pull-right">
                                                     <li><a href="#">«</a></li>

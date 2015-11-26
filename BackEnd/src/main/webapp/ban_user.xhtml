@@ -207,7 +207,7 @@
                                                                 <th><i class="icon_error-triangle_alt"></i> Number Recipe</th>
                                                                 <th><i class="icon_blocked"></i> Number Report</th>
                                                                 <th><i class="icon_pencil_alt"></i> Status</th>
-                                                                <th><i class="icon_pencil_alt"></i> Action</th>
+                                                                <th><i class="icon_pencil-edit"></i> Action</th>
                                                             </tr>
 
                                                             <c:forEach var="banUser" items="#{userBanManagedBean.listBanUser}">
@@ -242,7 +242,15 @@
                                                                         </c:choose>
                                                                     </td>
                                                                     <td>
-                                                                        <p:commandButton style="width: 100px;" value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}" update="tbBanUser" />
+                                                                        <c:set var="status" value="#{banUser.activeFlag}"/>
+                                                                        <c:choose>
+                                                                            <c:when test="${status==-2}">
+                                                                                <p:commandButton style="width: 100px;" value="Unban" action="#" disabled="true"/>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <p:commandButton style="width: 100px;" value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}" update="tbBanUser" />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </td>
                                                                 </tr>
                                                             </c:forEach>

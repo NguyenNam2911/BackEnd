@@ -41,4 +41,8 @@ public class ReportModel {
     public long countReport(){
         return ReportDAO.getInstance().getNumberReport();
     }
+    
+    public void addReport(Report report) throws DAOException{
+        ReportDAO.getInstance().save(report);
+    }
 }
