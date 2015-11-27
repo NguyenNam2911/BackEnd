@@ -37,14 +37,15 @@
         <div class="container">
             <h2>Forgot password</h2>
             <div class="panel panel-default">
-                <div class="panel-heading">Retrieve password</div>
                 <h:form id="frInput">
                     <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
                     <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                         <img src="img/ajax-loader.gif" />
                     </p:dialog> 
-                    <div class="panel-body">
+                    
                         <p:panel id="pnInput" visible="#{!forgotPassManagedBean.successFlag}">
+                            <div class="panel-heading">Retrieve password</div>
+                            <div class="panel-body">
                             Enter your email address below to recieve the new password of your account.
                             <br></br>
                             <br></br>
@@ -60,13 +61,17 @@
                             </span>
                             <br></br>
                             <p:commandButton class="btn btn-default btn-sm" value="Continue"  action="#{forgotPassManagedBean.resetPassWord()}" update="frInput"/>
+                        </div>
                         </p:panel>
                         <p:panel id="pnSuccess" visible="#{forgotPassManagedBean.successFlag}">
-                            Please check email for new password.
-                            <br></br>
-                            <h:link outcome="login" value="Return login page" />
+                            <div class="panel-heading">Retrieve password</div>
+                            <div class="panel-body">
+                                Please check email for new password.
+                                <br></br>
+                                <h:link outcome="login" value="Return login page" />
+                            </div>
                         </p:panel>
-                    </div>
+                    
                 </h:form>
             </div>
         </div>

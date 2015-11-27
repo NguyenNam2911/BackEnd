@@ -55,6 +55,11 @@
                                     </li>
                                     <li>
                                         <h:form>
+                                            <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
+                                        </h:form> 
+                                    </li>
+                                    <li>
+                                        <h:form>
                                             <h:commandLink action="#{loginManagedBean.logOut()}" value="Log Out"  />
                                         </h:form> 
                                     </li>
@@ -167,11 +172,11 @@
                                                 <div class="form form-horizontal">
                                                     <!--<form id="feedback_form" class="form-validate form-horizontal" action="" method="get" novalidate="novalidate">-->
                                                     <div class="form-group ">
-                                                        <label class="control-label col-lg-2" for="cname">
+                                                        <label class="control-label col-lg-4" for="cname">
                                                             Current password
                                                             <span class="required">*</span>
                                                         </label>
-                                                        <div class="col-lg-10">
+                                                        <div class="col-lg-3">
                                                             <h:inputSecret  id="txtCrrentPass" class="form-control" required="true" 
                                                                          requiredMessage="Please Enter Current Pass"
                                                                          value="#{adminDetailManagedBean.oldPass}">
@@ -183,11 +188,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label class="control-label col-lg-2" for="cname">
+                                                        <label class="control-label col-lg-4" for="cname">
                                                             New password
                                                             <span class="required">*</span>
                                                         </label>
-                                                        <div class="col-lg-10">
+                                                        <div class="col-lg-3">
                                                             <h:inputSecret id="txtNewPass" class="form-control" required="true" 
                                                                          requiredMessage="Please Enter New Pass" 
                                                                          value="#{adminDetailManagedBean.newPass}"
@@ -201,11 +206,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group ">
-                                                        <label class="control-label col-lg-2" for="cname">
+                                                        <label class="control-label col-lg-4" for="cname">
                                                             Re-password
                                                             <span class="required">*</span>
                                                         </label>
-                                                        <div class="col-lg-10">
+                                                        <div class="col-lg-3">
                                                             <h:inputSecret  id="txtRePass" class="form-control" required="true" 
                                                                          requiredMessage="Please Comfirm Pass."
                                                                          value="#{adminDetailManagedBean.rePass}"> 

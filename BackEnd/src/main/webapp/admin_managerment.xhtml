@@ -65,9 +65,12 @@
                                             <a href="#"><i class="icon_profile"></i>My Profile</a>
                                         </li>
                                         <li>
-
+                                            <h:form>
+                                                <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
+                                            </h:form> 
+                                        </li>
+                                        <li>
                                             <h:commandLink action="#{loginManagedBean.logOut()}" value="Log Out"  />
-
                                         </li>
                                     </ul>
                                 </li>

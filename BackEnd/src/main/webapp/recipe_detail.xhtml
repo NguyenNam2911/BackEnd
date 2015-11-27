@@ -60,6 +60,11 @@
                                         </li>
                                         <li>
                                             <h:form>
+                                                <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
+                                            </h:form> 
+                                        </li>
+                                        <li>
+                                            <h:form>
                                                 <h:commandLink action="#{loginManagedBean.logOut()}" value="Log Out"  />
                                             </h:form> 
                                         </li>
@@ -188,7 +193,7 @@
                                             <div class="text-center">               
                                                 <img src="#{recipeDetailManagedBean.recipe.pictureUrl}" height="300" width="auto"/>
                                             </div>
-                                            <div class="panel-body bio-graph-info form-horizontal">
+                                            <div class="bio-graph-info form-horizontal">
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Description</div>
                                                     <div class="col-lg-9">
@@ -223,7 +228,7 @@
                                                     <div class="col-lg-9">
                                                         <c:forEach items="#{recipeDetailManagedBean.listSteps}" var="step">
 
-                                                            <div class="panel-body">
+                                                            <div class="form-group">
                                                                 <div class="col-lg-5">
                                                                     <img src="#{step.pictureUrl}" height="150" width="auto" alt="images"/>
                                                                 </div>
