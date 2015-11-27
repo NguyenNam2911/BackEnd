@@ -6,6 +6,7 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.RecipeModel;
+import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import org.TimeUtils;
 import org.dao.DAOException;
 import org.entity.Ingredient;
 import org.entity.Recipe;
+import org.entity.Report;
 import org.entity.User;
 import util.JSFutil;
 
@@ -31,6 +33,7 @@ public class RecipeDetailManagedBean implements Serializable{
      * Creates a new instance of RecipeDetailManagedBean
      */
     Recipe recipe;
+    Report report;
     UserModel userModel;
     RecipeModel recipeModel;
     User user;
@@ -56,9 +59,10 @@ public class RecipeDetailManagedBean implements Serializable{
         }
     }
 
-    public void recipeDetail(String id) {
+    public void recipeDetail(String id) throws DAOException {
         if (id != null) {
             recipe = recipeModel.getRecipeByID(id);
+            report = recipeModel.getReportByRecipe(id);
             listIngredients = recipe.getIngredients();
             listSteps = recipe.getSteps();
             JSFutil.navigate("recipe_detail?faces-redirect=true");
@@ -73,11 +77,6 @@ public class RecipeDetailManagedBean implements Serializable{
 
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
-
-    }
-    public void removeRecipe(){
-//        recipeModel.removeRecipe(recipe.getId());
-//        recipe = recipeModel.getRecipeByID(recipe.getId());
     }
 
     //get and set
@@ -103,5 +102,13 @@ public class RecipeDetailManagedBean implements Serializable{
 
     public void setListSteps(List<Recipe.Step> listSteps) {
         this.listSteps = listSteps;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
     }
 }
