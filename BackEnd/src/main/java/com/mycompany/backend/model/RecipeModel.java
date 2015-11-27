@@ -10,7 +10,9 @@ import java.util.List;
 import org.TimeUtils;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
+import org.dao.ReportDAO;
 import org.entity.Recipe;
+import org.entity.Report;
 
 /**
  *
@@ -67,5 +69,10 @@ public class RecipeModel {
     //Update recipe
     public boolean updateRecipeReported(String id) {
         return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.APPROVED_FLAG);
+    }
+    
+    //get report by recipeId
+    public Report getReportByRecipe(String recipeId) throws DAOException{
+        return ReportDAO.getInstance().getReportByRecipe(recipeId);
     }
 }

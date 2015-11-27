@@ -259,7 +259,9 @@
                                                             <c:if test="${ status == -1 }">
                                                                 <h:outputText style="color: black;" value="REMOVED"/>
                                                                 <br></br>
-                                                                <h:outputText value="Remove date : #{recipeDetailManagedBean.convertTime(recipeDetailManagedBean.recipe.deletedTime)}" />
+                                                                <h:outputText value="Remove by : #{recipeDetailManagedBean.getOwnerName(recipeDetailManagedBean.report.veryfyBy)}" />
+                                                                <br></br>
+                                                                <h:outputText value="Remove date : #{recipeDetailManagedBean.convertTime(recipeDetailManagedBean.report.verifyTime)}" />
                                                             </c:if>
 
                                                         </div>
