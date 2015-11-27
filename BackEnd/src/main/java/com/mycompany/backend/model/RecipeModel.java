@@ -5,6 +5,7 @@
  */
 package com.mycompany.backend.model;
 
+import com.mycompany.backend.notification_server.NotiServer;
 import java.util.ArrayList;
 import java.util.List;
 import org.TimeUtils;
@@ -58,6 +59,7 @@ public class RecipeModel {
     }
 // remove recipe
     public boolean removeRecipe(String id) {
+        NotiServer.getInstance().notiRemoveRecipe(id);
         return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.REMOVED_FLAG);
     }
     //get Number all recipe

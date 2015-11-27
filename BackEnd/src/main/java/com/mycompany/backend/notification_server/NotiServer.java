@@ -5,17 +5,20 @@
  */
 package com.mycompany.backend.notification_server;
 
+import com.mycompany.backend.controller.AdminManagedBean;
+import com.mycompany.backend.model.AdminModel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.http.HttpRequest;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.dao.UserDAO;
+import org.json.JSONObject;
 
 /**
  *
@@ -40,7 +43,15 @@ public class NotiServer {
     public void notiBanUser(String userId) {
         try {
             String url = WEBSERVICE_URL + "user/" + userId + "/ban";
+            
+            
             HttpPut put = new HttpPut(url);
+            // TODO
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("email", "admin@gmail.com");
+            jsonObj.put("password", "12345678");
+            
+            put.setEntity(new StringEntity(jsonObj.toString()));
             String result = getResponse(put);
             System.out.println(result);
         } catch (IOException ex) {
@@ -49,10 +60,26 @@ public class NotiServer {
 
     }
 
-    public void notiDeleteRecipe(String recipeId) {
+    public void notiRemoveRecipe(String recipeId) {
+        try {
+            String url = WEBSERVICE_URL + "recipe/" + recipeId + "/remove";
+            
+            
+            HttpPut put = new HttpPut(url);
+            // TODO
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("email", "admin@gmail.com");
+            jsonObj.put("password", "12345678");
+            
+            put.setEntity(new StringEntity(jsonObj.toString()));
+            String result = getResponse(put);
+            System.out.println(result);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
-
+    
     private String getResponse(HttpUriRequest httpRequest) throws IOException {
         HttpResponse httpResponse = client.execute(httpRequest);
         if (httpResponse.getStatusLine().getStatusCode() != 200) {
