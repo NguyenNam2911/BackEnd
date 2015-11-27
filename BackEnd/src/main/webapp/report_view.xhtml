@@ -201,6 +201,7 @@
                                                             <tr>
                                                                 <th><i></i> No</th>
                                                                 <th><i class="icon_archive_alt"></i> Recipe</th>
+                                                                <th><i class="icon_profile"></i> Creator</th>
                                                                 <th><i class="icon_balance"></i> Reason</th>
                                                                 <th><i class="icon_profile"></i> Reporter</th>
                                                                 <th><i class="icon_calendar"></i> Reported Time</th>
@@ -216,6 +217,11 @@
                                                                 <td>
                                                                     <h:commandLink value="#{reportManagedBean.getRecipeName(report.recipe)}" 
                                                                                    action="#{recipeDetailManagedBean.recipeDetail(report.recipe)}"
+                                                                                    style="color: #1C86EE"/>
+                                                                </td>
+                                                                <td>
+                                                                    <h:commandLink value="#{reportManagedBean.getUserName(reportManagedBean.getCreatorId(report.recipe))}"
+                                                                                   action="#{userDetailManagedBean.userDetail(reportManagedBean.getCreatorId(report.recipe))}"
                                                                                     style="color: #1C86EE"/>
                                                                 </td>
                                                                 <td>#{report.reason}</td>
