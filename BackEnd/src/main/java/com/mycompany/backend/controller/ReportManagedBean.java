@@ -41,7 +41,7 @@ public class ReportManagedBean {
     String filterText;
     int filter;
     
-    public ReportManagedBean() {
+    public ReportManagedBean() throws DAOException {
         listReport = reportModel.getListReports();
     }
 
@@ -95,7 +95,7 @@ public class ReportManagedBean {
         return TimeUtils.convertTime(time);
     }
     
-    public void searchReport(){
+    public void searchReport() throws DAOException{
        List<Report> reports = new ArrayList<Report>();
        listReport = reportModel.getListReports();
        if (searchText != null){
@@ -108,7 +108,7 @@ public class ReportManagedBean {
        }
     }
     
-    public void filter(){
+    public void filter() throws DAOException{
         List<Report> reports = new ArrayList<Report>();
         listReport = reportModel.getListReports();
         if (filterText != null){
@@ -169,5 +169,19 @@ public class ReportManagedBean {
     
     public boolean updateAdminReport(String reportId, String adminId){
         return reportModel.updateAdminReport(reportId, adminId);
+    }
+    
+    public void reportRecipe(String reporterId, String recipeId) throws DAOException{
+        //create new report
+        Report report = new Report();
+        report.setReporter(reporterId);
+        report.setRecipe(recipeId);
+        report.setReason("Reported by Admin");
+        
+        //add new report
+        reportModel.addReport(report);
+        
+        //approve report
+        approveReportStatus(report.getId(), reporterId);
     }
 }
