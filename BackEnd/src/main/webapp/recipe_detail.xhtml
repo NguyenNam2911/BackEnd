@@ -272,10 +272,15 @@
 
                                                             <c:set var="status" value="#{recipeDetailManagedBean.recipe.statusFlag}"></c:set>
                                                             <c:if test="${ status == 1 }">
-                                                                <p:commandButton value="Remove" process="@this" action="#{recipeDetailManagedBean.removeRecipe()}"
-                                                                                 update="action" style="width: 100px;"  >
+                                                                <!-- demo -->
+                                                                <p:commandButton value="Remove" process="@this" 
+                                                                                 action="#{reportManagedBean.reportRecipe(loginManagedBean.user.id, recipeDetailManagedBean.recipe.id)}"
+                                                                                 update="action" style="width: 100px;">
                                                                     <p:confirm header="Confirmation" message="Are you sure delete admin"  />
-                                                                </p:commandButton>
+                                                                </p:commandButton>   
+                                                                <!-- end demo -->
+                                                                
+                                                               
 
                                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
                                                                     <div align="center">

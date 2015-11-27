@@ -17,7 +17,7 @@ import org.entity.Report;
  */
 public class ReportModel {
 
-    public List<Report> getListReports() {
+    public List<Report> getListReports() throws DAOException {
         List<Report> listReport = ReportDAO.getInstance().getAllReport();
         return listReport;
     }
@@ -30,7 +30,7 @@ public class ReportModel {
         ReportDAO.getInstance().delete(id, Report.class);
     }
 
-    public Report getReportByID(String id) {
+    public Report getReportByID(String id) throws DAOException {
         return ReportDAO.getInstance().getReport(id);
     }
 
@@ -45,4 +45,9 @@ public class ReportModel {
     public void addReport(Report report) throws DAOException{
         ReportDAO.getInstance().save(report);
     }
+    
+    public Report getReportByRecipe(String recipeId) throws DAOException{
+        return ReportDAO.getInstance().getReportByRecipe(recipeId);
+    }
+    
 }
