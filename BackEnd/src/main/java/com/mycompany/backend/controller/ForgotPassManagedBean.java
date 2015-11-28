@@ -41,6 +41,9 @@ public class ForgotPassManagedBean implements Serializable{
             JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", pass);
             successFlag = true;
         }
+        else{
+            JSFutil.addErrorMessageById("frInput:txtEmail", "Email do not exist");
+        }
         user = new User();
     }
     

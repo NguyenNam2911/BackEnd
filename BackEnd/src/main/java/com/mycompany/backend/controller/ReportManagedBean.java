@@ -188,5 +188,6 @@ public class ReportManagedBean {
         
         //approve report
         approveReportStatus(report.getId(), reporterId);
+        
     }
 }

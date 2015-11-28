@@ -219,8 +219,8 @@
                                                                 <tr>
                                                                     <td>#{userBanManagedBean.listBanUser.indexOf(banUser)+1}</td>
                                                                     <td>
-                                                                        <h:commandLink value="#{banUser.displayName}" action="#{userDetailManagedBean.UserDetail(banUser)}"
-                                                                                       style="color: 1C86EE" />
+                                                                        <h:commandLink value="#{banUser.displayName}" action="#{userDetailManagedBean.userDetail(banUser.id)}"
+                                                                                       style="color: #1C86EE" />
                                                                     </td>
                                                                     <td>#{userBanManagedBean.convertTime(banUser.registeredTime)}</td>
                                                                     <td>#{banUser.email}</td>

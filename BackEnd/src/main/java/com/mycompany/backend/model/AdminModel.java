@@ -40,7 +40,14 @@ public class AdminModel {
     }
     //get admin by email
     public User  getAdminByEmail(String email) throws DAOException{
-        return UserDAO.getInstance().getUserInfoByEmail(email);
+       User user =  UserDAO.getInstance().getUserInfoByEmail(email);
+       if(user.getRole().equals(User.ADMIN_ROLE) || user.getRole().equals(User.SUPER_ADMIN_ROLE)){
+           return user;
+       }
+       else{
+           user = null;
+       }
+       return user;
     }
 
 }

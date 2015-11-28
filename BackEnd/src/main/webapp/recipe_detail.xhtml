@@ -35,7 +35,7 @@
     </h:head>
     <h:body>
         <f:view>
-            <h:form>
+            <h:form id="frmMain">
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
                 <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                     <img src="img/ajax-loader.gif" />
@@ -250,7 +250,6 @@
                                                     </div>
                                                 </div>
 
-                                                <h:form id="action">
                                                     <div class="form-group">
                                                         <div class="col-lg-2">Status</div>
                                                         <div class="col-lg-9">
@@ -282,8 +281,8 @@
                                                                 <!-- demo -->
                                                                 <p:commandButton value="Remove" process="@this" 
                                                                                  action="#{reportManagedBean.reportRecipe(loginManagedBean.user.id, recipeDetailManagedBean.recipe.id)}"
-                                                                                 update="action" style="width: 100px;">
-                                                                    <p:confirm header="Confirmation" message="Are you sure delete admin"  />
+                                                                                 update=":frmMain" style="width: 100px;">
+                                                                    <p:confirm header="Confirmation" message="Are you sure delete recipe"  />
                                                                 </p:commandButton>   
                                                                 <!-- end demo -->
                                                                 
@@ -291,8 +290,8 @@
 
                                                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
                                                                     <div align="center">
-                                                                        <p:commandButton style="text-align: center;" value="Yes"  styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
-                                                                        <p:commandButton style="text-align: center;" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                                        <p:commandButton style="text-align: center;" value="Yes"  styleClass="ui-confirmdialog-yes" icon="ui-icon-close" update=":frmMain" />
+                                                                        <p:commandButton style="text-align: center;" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" update=":frmMain" />
 
                                                                     </div>
                                                                 </p:confirmDialog>
@@ -309,7 +308,7 @@
                                                         </div>
                                                     </div>
 
-                                                </h:form>
+                                               
                                             </div>
                                         </div>
                                     </section>
