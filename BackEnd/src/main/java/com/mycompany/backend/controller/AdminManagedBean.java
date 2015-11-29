@@ -117,9 +117,9 @@ public class AdminManagedBean extends Object implements Serializable {
         date = new Date();
     }
 
-    public void deleteUser(User u) {
+    public void deleteUser(User u) throws DAOException {
         UserModel userModel = new UserModel();
-        userModel.banUser(u.getId(), User.DELETED_FLAG);
+        userModel.banAdminUser(u.getId());
         users = adminModel.getUsersAdmin();
     }
 

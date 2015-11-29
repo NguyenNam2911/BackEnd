@@ -106,6 +106,18 @@ public class UserModel {
         } 
         return false;
     }
+    public boolean banAdminUser(String userId) throws DAOException {
+        User user = getUserByID(userId);
+        int flag = User.DELETED_FLAG;
+        long time = 0;
+        long banToTime = 0;
+        banToTime = TimeUtils.getCurrentGMTTime() + time;
+        if (UserDAO.getInstance().banUser(userId, flag, banToTime)) {
+            NotiServer.getInstance().notiBanUser(userId);
+            return true;
+        } 
+        return false;
+    }
 
     public boolean unBanUser(String userId) {
         return UserDAO.getInstance().unBanUser(userId);
