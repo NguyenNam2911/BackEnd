@@ -50,13 +50,13 @@ public class UserDetailManagedBean {
     }
 
     public void link() {
-        JSFutil.navigate("user_detail?faces-redirect=true");
+        JSFutil.navigate("user_detail");
 
     }
 
     public void userDetail(String id) throws DAOException {
         userSelected = userModel.getUserByID(id);
-        JSFutil.navigate("user_detail?faces-redirect=true");
+        JSFutil.navigate("user_detail");
 
     }
     //get and set

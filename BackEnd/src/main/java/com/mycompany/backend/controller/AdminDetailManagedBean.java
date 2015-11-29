@@ -39,7 +39,7 @@ public class AdminDetailManagedBean implements Serializable{
     
     public void adminDetail(String email) throws DAOException{
         userAdmin = adminModel.getAdminByEmail(email);
-        JSFutil.navigate("change_pass?faces-redirect=true");
+        JSFutil.navigate("change_pass");
     }
     public void changePass() throws DAOException{
         if(userAdmin.getPassword().equals(oldPass)){

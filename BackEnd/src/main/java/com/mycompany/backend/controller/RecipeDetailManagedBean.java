@@ -6,7 +6,6 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.RecipeModel;
-import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,14 +64,14 @@ public class RecipeDetailManagedBean implements Serializable{
             report = recipeModel.getReportByRecipe(id);
             listIngredients = recipe.getIngredients();
             listSteps = recipe.getSteps();
-            JSFutil.navigate("recipe_detail?faces-redirect=true");
+            JSFutil.navigate("recipe_detail");
         }
         else{
-            JSFutil.navigate("recipe_view?faces-redirect=true");
+            JSFutil.navigate("recipe_view");
         }
     }
     public void reportPage(){
-        JSFutil.navigate("report_view?faces-redirect=true");
+        JSFutil.navigate("report_view");
     }
 
     public String convertTime(long time) {

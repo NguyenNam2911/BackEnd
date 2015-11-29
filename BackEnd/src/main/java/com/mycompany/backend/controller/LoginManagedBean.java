@@ -35,7 +35,8 @@ public class LoginManagedBean implements Serializable{
             if (user_check.getPassword().equals(user.getPassword())) {
                 user = user_check;
                 flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
-                JSFutil.navigate("index?faces-redirect=true");
+                JSFutil.setSessionValue("user", user);
+                JSFutil.navigate("index");
             } else {
 
                 JSFutil.addErrorMessage("PassWord incorect");
@@ -48,10 +49,11 @@ public class LoginManagedBean implements Serializable{
 
     public void logOut() {
         user = new User();
-        JSFutil.navigate("login?faces-redirect=true");
+        JSFutil.setSessionValue("user", user);
+        JSFutil.navigate("logout");
     }
     public void preResetPass(){
-        JSFutil.navigate("forgot_pass?faces-redirect=true");
+        JSFutil.navigate("forgot_pass");
     }
 
     // contructer

@@ -30,11 +30,14 @@ public class SecurityFilter implements PhaseListener {
     }
     
 
+    @Override
     public void afterPhase(PhaseEvent event) {
         FacesContext fc = event.getFacesContext();
         boolean loginPage = fc.getViewRoot().getViewId().lastIndexOf("login")
                 > -1;
-        if (!loginPage && !isUserLogged()) {
+        boolean forgotPassPage = fc.getViewRoot().getViewId().lastIndexOf("forgot_pass")
+                > -1;
+        if ( !forgotPassPage  && !loginPage && !isUserLogged()) {
             navigate(event, "logout");
         }
     }
