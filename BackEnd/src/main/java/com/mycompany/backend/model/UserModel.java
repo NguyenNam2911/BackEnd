@@ -112,8 +112,9 @@ public class UserModel {
     }
 
     public String getUserName(String id) throws DAOException {
-        User u = UserDAO.getInstance().getUser(id);
-        if (u != null) {
+        
+        if (id != null) {
+            User u = UserDAO.getInstance().getUser(id);
             String name = u.getDisplayName();
             return name;
         }

@@ -46,15 +46,21 @@ public class RecipeDetailManagedBean implements Serializable{
     }
 
     public String getOwnerName(String id) throws DAOException {
-        userModel = new UserModel();
+        if(!id.equals("") && id != null){
+             userModel = new UserModel();
         String name = userModel.getUserName(id);
         return name;
+        }
+        else{
+            return  "Not available!";
+        }
+       
     }
 
     public RecipeDetailManagedBean() {
         recipeModel =  new RecipeModel();
         if(recipe == null){
-//            JSFutil.navigate("recipe_view?faces-redirect=true");
+            JSFutil.navigate("recipe_view.xhtml");
         }
     }
 
@@ -70,6 +76,7 @@ public class RecipeDetailManagedBean implements Serializable{
             JSFutil.navigate("recipe_view");
         }
     }
+    
     public void reportPage(){
         JSFutil.navigate("report_view");
     }

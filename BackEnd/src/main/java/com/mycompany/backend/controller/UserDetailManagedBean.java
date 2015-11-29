@@ -31,7 +31,9 @@ public class UserDetailManagedBean {
 
     public UserDetailManagedBean() {
         userModel = new UserModel();
-        userSelected = new User();
+        if(userSelected == null){
+            JSFutil.navigate("user_view.xhtml");
+        }
     }
 
     public void banUser() throws DAOException {
