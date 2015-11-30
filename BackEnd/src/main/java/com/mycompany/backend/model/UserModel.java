@@ -172,7 +172,7 @@ public class UserModel {
         //sent mail
         if (user !=null && user.getEmail() !=null){
                 String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is unbanned. "
-                                            +"Because you are violated the rule of DailyCook.\r\n\r\nDailyCook";
+                                            +"\r\n\r\nDailyCook";
                 JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
                         contentMail);
             }
