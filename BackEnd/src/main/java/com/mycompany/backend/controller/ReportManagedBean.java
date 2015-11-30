@@ -68,9 +68,11 @@ public class ReportManagedBean {
     }
     
     public String getUserName(String id) throws DAOException{
-        User user = userModel.getUserByID(id);
-        if (user != null)
-            return user.getDisplayName();
+        if(!id.equals("") && id != null){
+            User user = userModel.getUserByID(id);
+            if (user != null)
+                return user.getDisplayName();
+        }
         return "";
     }
     
@@ -88,9 +90,11 @@ public class ReportManagedBean {
     }
     
     public String getRecipeName(String id){
+        if(!id.equals("") && id != null){
         Recipe recipe = recipeModel.getRecipeByID(id);
         if (recipe != null)
             return recipe.getTitle();
+        }
         return "";
     }
     
