@@ -100,9 +100,11 @@ public class ReportManagedBean {
     }
     
     public String getRecipeName(String id){
+        if(!id.equals("") && id != null){
         Recipe recipe = recipeModel.getRecipeByID(id);
         if (recipe != null)
             return recipe.getTitle();
+        }
         return "";
     }
     
