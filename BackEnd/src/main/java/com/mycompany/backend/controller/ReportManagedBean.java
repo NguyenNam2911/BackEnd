@@ -19,6 +19,7 @@ import org.dao.UserDAO;
 import org.entity.Recipe;
 import org.entity.Report;
 import org.entity.User;
+import util.JSFutil;
 
 /**
  *
@@ -38,6 +39,15 @@ public class ReportManagedBean {
     String searchText;
     String filterText;
     int filter;
+    String reason;
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
     
     public ReportManagedBean() throws DAOException {
         listReport = reportModel.getListReports();
@@ -189,6 +199,7 @@ public class ReportManagedBean {
         
         //approve report
         approveReportStatus(report.getId(), reporterId);
+        JSFutil.navigate("recipe_view");
         
     }
 }

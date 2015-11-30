@@ -42,18 +42,12 @@
                     <div class="top-nav notification-row">
                         <ul class="nav pull-right top-menu">
                             <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="profile-ava">
-                                        <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
-                                    </span>
-                                    <h:outputText value="#{loginManagedBean.user.email}"/>
+                                <a class="dropdown-toggle"  data-toggle="dropdown">
+                                   
+                                    <h:outputText value="#{loginManagedBean.user.displayName}"/>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu extended logout">
-                                    <div class="log-arrow-up"></div>
-                                    <li class="eborder-top">
-                                        <a href="#"><i class="icon_profile"></i>My Profile</a>
-                                    </li>
                                     <li>
                                         <h:form>
                                             <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
