@@ -10,6 +10,7 @@ import com.mycompany.backend.model.UserModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.entity.User;
@@ -20,7 +21,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class UserBanManagedBean {
 
     /**

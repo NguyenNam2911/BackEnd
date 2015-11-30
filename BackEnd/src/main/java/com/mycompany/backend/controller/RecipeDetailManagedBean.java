@@ -26,7 +26,7 @@ import util.JSFutil;
  */
 @ManagedBean
 @SessionScoped
-public class RecipeDetailManagedBean implements Serializable{
+public class RecipeDetailManagedBean implements Serializable {
 
     /**
      * Creates a new instance of RecipeDetailManagedBean
@@ -46,38 +46,36 @@ public class RecipeDetailManagedBean implements Serializable{
     }
 
     public String getOwnerName(String id) throws DAOException {
-        if(!id.equals("") && id != null){
-             userModel = new UserModel();
-        String name = userModel.getUserName(id);
-        return name;
+        if (id.equals("") || id == null) {
+            return "Not available!";
+        } else {
+            userModel = new UserModel();
+            String name = userModel.getUserName(id);
+            return name;
         }
-        else{
-            return  "Not available!";
-        }
-       
+
     }
 
     public RecipeDetailManagedBean() {
-        recipeModel =  new RecipeModel();
-        if(recipe == null){
+        recipeModel = new RecipeModel();
+        if (recipe == null) {
             JSFutil.navigate("recipe_view.xhtml");
         }
     }
 
     public void recipeDetail(String id) throws DAOException {
-        if (id != null) {
+        if (id == null || id.equals("")) {
+            JSFutil.navigate("recipe_view");
+        } else {
             recipe = recipeModel.getRecipeByID(id);
             report = recipeModel.getReportByRecipe(id);
             listIngredients = recipe.getIngredients();
             listSteps = recipe.getSteps();
             JSFutil.navigate("recipe_detail");
         }
-        else{
-            JSFutil.navigate("recipe_view");
-        }
     }
-    
-    public void reportPage(){
+
+    public void reportPage() {
         JSFutil.navigate("report_view");
     }
 
