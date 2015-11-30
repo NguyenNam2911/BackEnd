@@ -42,7 +42,7 @@ public class UserDetailManagedBean {
     }
     
     public void unBanUser() throws DAOException{
-        UserDAO.getInstance().unBanUser(userSelected.getId());
+        userModel.unBanUser(userSelected.getId());
         userSelected = userModel.getUserByID(userSelected.getId());
     }
 

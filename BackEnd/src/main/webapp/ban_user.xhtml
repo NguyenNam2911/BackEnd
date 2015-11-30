@@ -230,16 +230,16 @@
                                                                         <c:set var="status" value="#{banUser.activeFlag}"/>
                                                                         <c:choose>
                                                                             <c:when test="${status==1}">
-                                                                                <h:outputText value="Active"/>
+                                                                                <h:outputText value="Active" style="color: green"/>
                                                                             </c:when>
                                                                             <c:when test="${status==0}">
-                                                                                <h:outputText value="Ban Once"/>
+                                                                                <h:outputText value="Banned Once" style="color: red"/>
                                                                             </c:when>
                                                                             <c:when test="${status==-1}">
-                                                                                <h:outputText value="Ban Second"/>
+                                                                                <h:outputText value="Banned Second" style="color: red"/>
                                                                             </c:when>
                                                                             <c:when test="${status==-2}">
-                                                                                <h:outputText value="Deleted"/>
+                                                                                <h:outputText value="Deleted" style="color: black"/>
                                                                             </c:when>
                                                                             <c:otherwise>
                                                                                 <h:outputText value=""/>

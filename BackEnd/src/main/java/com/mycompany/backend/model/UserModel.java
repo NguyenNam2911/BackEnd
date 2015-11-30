@@ -80,25 +80,36 @@ public class UserModel {
         return UserDAO.getInstance().increateReportNumber(userId);
     }
 
-    public boolean banUser(String userId, int flag){
-        return UserDAO.getInstance().banUser(userId, flag);
+    public boolean removeAdmin(String userId) throws DAOException{
+        User user = getUserByID(userId);
+        if (user !=null && user.getEmail() !=null){
+                String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is removed."
+                                            +"Because you are violated the rule of DailyCook.\r\n\r\nDailyCook";
+                JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                        contentMail);
+            }
+        return UserDAO.getInstance().banUser(userId, User.DELETED_FLAG);
     }
     
     public boolean banUser(String userId) throws DAOException {
         User user = getUserByID(userId);
         int flag = User.BAN_FLAG_ONCE;
         long time = 0;
+        String notiFlag = "";
         switch(user.getNumberBans()){
             case 0:
                 flag = User.BAN_FLAG_ONCE;
                 time = User.BAN_FIRST_TIME;
+                notiFlag = "BANNED ONCE";
                 break;
             case 1:
                 flag = User.BAN_FLAG_SECOND;
                 time = User.BAN_SECOND_TIME;
+                notiFlag = "BANNED SECOND";
                 break;
             case 2:
                 flag = User.DELETED_FLAG;
+                notiFlag = "DELETED";
                 break;
             default:
                 return true;
@@ -111,13 +122,13 @@ public class UserModel {
             
             //sent mail
             if (user !=null && user.getEmail() !=null){
-                String notyDelete = "";
+                String notiDelete = "";
                 if (flag == User.DELETED_FLAG)
-                    notyDelete = "All recipes in DailyCook is also removed.";
+                    notiDelete = "All recipes in DailyCook is also removed.";
                 String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is '"
-                                            +flag
+                                            +notiFlag
                                             +"'. Because you are violated the rule of DailyCook."
-                                            +notyDelete+"\r\n\r\nDailyCook";
+                                            +notiDelete+"\r\n\r\nDailyCook";
                 JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
                         contentMail);
             }
@@ -160,10 +171,8 @@ public class UserModel {
         User user = getUserByID(userId);
         //sent mail
         if (user !=null && user.getEmail() !=null){
-                String notyDelete = "";
                 String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is unbanned. "
-                                            +"Because you are violated the rule of DailyCook."
-                                            +notyDelete+"\r\n\r\nDailyCook";
+                                            +"Because you are violated the rule of DailyCook.\r\n\r\nDailyCook";
                 JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
                         contentMail);
             }

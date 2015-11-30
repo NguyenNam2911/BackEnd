@@ -30,7 +30,7 @@ public class IndexManagedBean implements Serializable {
 
     public IndexManagedBean() {
         numberUser = userModel.countUser();
-        numberReport = reportModel.countReport();
+        numberReport = reportModel.countCheckingReport();
         numberRecipe = recipeModel.getNumberRecipe();
     }
 
