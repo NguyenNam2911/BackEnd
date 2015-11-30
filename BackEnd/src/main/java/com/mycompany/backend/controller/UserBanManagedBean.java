@@ -12,6 +12,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
+import org.dao.DAOException;
 import org.entity.User;
 
 
@@ -80,7 +81,7 @@ public class UserBanManagedBean {
         return TimeUtils.convertTime(time);
     }
     
-    public void unbanUser(String userId){
+    public void unbanUser(String userId) throws DAOException{
         userModel.unBanUser(userId);
         listBanUser = userModel.getBanUser();
     }

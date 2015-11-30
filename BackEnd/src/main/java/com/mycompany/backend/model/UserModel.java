@@ -12,6 +12,11 @@ import org.dao.DAOException;
 import org.dao.UserDAO;
 import org.entity.User;
 import org.TimeUtils;
+import org.dao.RecipeDAO;
+import org.dao.ReportDAO;
+import org.entity.Recipe;
+import org.entity.Report;
+import util.JSFutil;
 
 /**
  *
@@ -98,16 +103,58 @@ public class UserModel {
             default:
                 return true;
         }
+        //ban in DB and notify to server
         long banToTime = 0;
-        banToTime = TimeUtils.getCurrentGMTTime() + time;
+        banToTime = TimeUtils.getCurrentGMTTime() + time;        
         if (UserDAO.getInstance().banUser(userId, flag, banToTime)) {
             NotiServer.getInstance().notiBanUser(userId);
+            
+            //sent mail
+            if (user !=null && user.getEmail() !=null){
+                String notyDelete = "";
+                if (flag == User.DELETED_FLAG)
+                    notyDelete = "All recipes in DailyCook is also removed.";
+                String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is '"
+                                            +flag
+                                            +"'. Because you are violated the rule of DailyCook."
+                                            +notyDelete+"\r\n\r\nDailyCook";
+                JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                        contentMail);
+            }
+            
+            //remove all recipes of user
+            if (flag == User.DELETED_FLAG){
+                List<Recipe> recipes = RecipeDAO.getInstance().getRecipeOfUser(userId);
+                for (Recipe recipe : recipes){
+                    if (recipe.getStatusFlag() != Recipe.REMOVED_FLAG){
+                        if (recipe.getStatusFlag() == Recipe.REPORTED_FLAG){
+                            List<Report> reports = ReportDAO.getInstance().getListCheckingReportByRecipe(recipe.getId());
+                            for (Report rp : reports){
+                                ReportDAO.getInstance().delete(rp.getId(), Report.class);
+                            }
+                        }
+                        RecipeDAO.getInstance().updateRecipeStatus(recipe.getId(), Recipe.REMOVED_FLAG);
+                    }
+                }
+
+            }
+            
             return true;
         } 
         return false;
     }
 
-    public boolean unBanUser(String userId) {
+    public boolean unBanUser(String userId) throws DAOException {
+        User user = getUserByID(userId);
+        //sent mail
+        if (user !=null && user.getEmail() !=null){
+                String notyDelete = "";
+                String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is unbanned. "
+                                            +"Because you are violated the rule of DailyCook."
+                                            +notyDelete+"\r\n\r\nDailyCook";
+                JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                        contentMail);
+            }
         return UserDAO.getInstance().unBanUser(userId);
     }
 

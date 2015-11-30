@@ -147,9 +147,8 @@ public class ReportManagedBean {
         recipeModel.removeRecipe(report.getRecipe());
         
         //remove other the same reports
-        List<Report>reports = reportModel.getListReports();
+        List<Report> reports = reportModel.getListCheckingReportByRecipe(report.getRecipe());
         for(Report rp : reports){
-            if (rp.getRecipe().equals(report.getRecipe()) && rp.getStatus()==0)
                 reportModel.removeReportStatus(rp.getId());
         }
         

@@ -12,8 +12,11 @@ import org.TimeUtils;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.dao.ReportDAO;
+import org.dao.UserDAO;
 import org.entity.Recipe;
 import org.entity.Report;
+import org.entity.User;
+import util.JSFutil;
 
 /**
  *
@@ -60,9 +63,25 @@ public class RecipeModel {
         return RecipeDAO.getInstance().getRecipe(id);
     }
 // remove recipe
-    public boolean removeRecipe(String id) {
-        NotiServer.getInstance().notiRemoveRecipe(id);
-        return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.REMOVED_FLAG);
+    public boolean removeRecipe(String id) throws DAOException {
+        if (id !=null && !id.equals("")){
+            NotiServer.getInstance().notiRemoveRecipe(id);
+            
+            //send mail
+            Recipe recipe = getRecipeByID(id);
+            if (recipe.getOwner() !=null && !recipe.getOwner().equals("")){
+                User user = UserDAO.getInstance().getUser(recipe.getOwner());
+                if (user !=null && user.getEmail() !=null){
+                    String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your recipe '"
+                                                +recipe.getTitle()
+                                                +"' is removed. Because the content of your recipe is not appropriate to DailyCook.\r\n\\r\\nDailyCook";
+                    JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                            contentMail);
+                }
+            }
+            return RecipeDAO.getInstance().updateRecipeStatus(id, Recipe.REMOVED_FLAG);
+        }
+        return false;
     }
     //get Number all recipe
     public long getNumberRecipe() {

@@ -46,4 +46,8 @@ public class ReportModel {
         ReportDAO.getInstance().save(report);
     }
     
+    public List<Report> getListCheckingReportByRecipe(String recipeId) throws DAOException{
+        return ReportDAO.getInstance().getListCheckingReportByRecipe(recipeId);
+    }
+    
 }
