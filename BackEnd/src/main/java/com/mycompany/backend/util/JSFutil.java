@@ -20,6 +20,9 @@ import org.mail.MailWorker;
  */
 public class JSFutil {
 
+    public static final String EMAIL = "dailycookapp@gmail.com";
+    public static final String PASSWORD = "dailycook2015";
+    
     public static void navigate(String page) {
         FacesContext fc = FacesContext.getCurrentInstance();
         NavigationHandler nh = fc.getApplication().getNavigationHandler();

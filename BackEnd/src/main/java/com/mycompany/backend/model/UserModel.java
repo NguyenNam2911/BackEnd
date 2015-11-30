@@ -83,9 +83,9 @@ public class UserModel {
     public boolean removeAdmin(String userId) throws DAOException{
         User user = getUserByID(userId);
         if (user !=null && user.getEmail() !=null){
-                String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is removed."
+                String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is removed. "
                                             +"Because you are violated the rule of DailyCook.\r\n\r\nDailyCook";
-                JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                JSFutil.sentMail(user.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Notification From DailyCook!!!", 
                         contentMail);
             }
         return UserDAO.getInstance().banUser(userId, User.DELETED_FLAG);
@@ -129,7 +129,7 @@ public class UserModel {
                                             +notiFlag
                                             +"'. Because you are violated the rule of DailyCook."
                                             +notiDelete+"\r\n\r\nDailyCook";
-                JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                JSFutil.sentMail(user.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Notification From DailyCook!!!", 
                         contentMail);
             }
             
@@ -173,7 +173,7 @@ public class UserModel {
         if (user !=null && user.getEmail() !=null){
                 String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your account in DailyCook is unbanned. "
                                             +"\r\n\r\nDailyCook";
-                JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                JSFutil.sentMail(user.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Notification From DailyCook!!!", 
                         contentMail);
             }
         return UserDAO.getInstance().unBanUser(userId);
