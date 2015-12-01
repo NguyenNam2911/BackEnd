@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.dao.DAOException;
@@ -23,7 +24,7 @@ import util.JSFutil;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class AdminManagedBean extends Object implements Serializable {
 
     /**
@@ -119,7 +120,7 @@ public class AdminManagedBean extends Object implements Serializable {
 
     public void deleteUser(User u) throws DAOException {
         UserModel userModel = new UserModel();
-        userModel.banAdminUser(u.getId());
+        userModel.banUser(u.getId(),User.DELETED_FLAG);
         users = adminModel.getUsersAdmin();
     }
 
