@@ -28,7 +28,12 @@ public class UserModel {
     public long countUser() {
         return UserDAO.getInstance().getNumberUserNomal();
     }
-
+    
+    //count all ban user
+    public long countBanUser() {
+        return UserDAO.getInstance().getNumberBanUser();
+    }
+    
     public long countNumberResultSearch(String name, int flag, String role) {
         if (flag == 2) {
             return UserDAO.getInstance().getNumberResultSearchUserNomal(name,role);

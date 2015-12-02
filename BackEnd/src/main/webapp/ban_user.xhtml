@@ -180,22 +180,28 @@
                                         </header>
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="search-panel">
-                                                    <!--  search form start -->
-                                                    <h:form >
+                                                <h:form>
+                                                    <div class="search-panel">
+                                                        <!--  search form start -->
                                                         <h:commandButton class="button-search" action="#{userBanManagedBean.searchBanUser()}"/>
                                                         <h:inputText a:type="text" class="input-search"  a:placeholder="Search By Name" value="#{userBanManagedBean.searchText}"/>
-                                                    </h:form>
-                                                    <!--  search form end -->                
-                                                </div>
-                                                <h:form>
+                                                        <!--  search form end -->                
+                                                    </div>
                                                     <div class="ddl-filter">
                                                         <h:commandButton class="button-filter" action="#{userBanManagedBean.filterBanUser()}"/>
                                                         <h:selectOneMenu value="" onclick="">
                                                             <f:selectItem itemValue="1" itemLabel="All status"/>
                                                             <f:selectItem itemValue="0" itemLabel="Ban Once"/>
                                                             <f:selectItem itemValue="-1" itemLabel="Ban Second"/>
-                                                            <f:selectItem itemValue="-2" itemLabel="Deleted"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <div class="ddl-sort">
+                                                        <h:commandButton class="button-sort" action="#{userManagedBean.searchUser()}"/>
+                                                        <h:selectOneMenu value="#{userManagedBean.sortBy}" onclick="">
+                                                            <f:selectItem itemValue="name" itemLabel="Sort By Name"/>
+                                                            <f:selectItem itemValue="date" itemLabel="Sort By Date"/>
+                                                            <f:selectItem itemValue="n_ban" itemLabel="Sort By Number Ban"/>
+                                                            <f:selectItem itemValue="n_recipe" itemLabel="Sort By Number Recipe"/>
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </h:form>     
@@ -209,8 +215,8 @@
                                                                 <th><i class="icon_profile"></i> User Name</th>
                                                                 <th><i class="icon_calendar"></i> Date</th>
                                                                 <th><i class="icon_mail_alt"></i> Email</th>
-                                                                <th><i class="icon_error-triangle_alt"></i> Number Recipe</th>
-                                                                <th><i class="icon_blocked"></i> Number Report</th>
+                                                                <th><i class="icon_error-triangle_alt"></i> Number Banned</th>
+                                                                <th><i class="icon_blocked"></i> Number Recipes</th>
                                                                 <th><i class="icon_pencil_alt"></i> Status</th>
                                                                 <th><i class="icon_pencil-edit"></i> Action</th>
                                                             </tr>
@@ -224,8 +230,8 @@
                                                                     </td>
                                                                     <td>#{userBanManagedBean.convertTime(banUser.registeredTime)}</td>
                                                                     <td>#{banUser.email}</td>
+                                                                    <td>#{banUser.numberBans}</td>
                                                                     <td>#{banUser.numberRecipes}</td>
-                                                                    <td>#{banUser.numberReport}</td>
                                                                     <td>
                                                                         <c:set var="status" value="#{banUser.activeFlag}"/>
                                                                         <c:choose>
@@ -268,15 +274,40 @@
 
                                             </h:form>
                                             <div>
-                                                <ul class="pagination pull-right">
-                                                    <li><a href="#">«</a></li>
-                                                    <li><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#">5</a></li>
-                                                    <li><a href="#">»</a></li>
-                                                </ul>
+                                                <h:form id="frmPage">
+                                                    <p:panel id="paging">
+                                                        <ul class="pagination pull-right" id="pageMenu">
+                                                            <li><p:commandButton disabled="#{userBanManagedBean.currentPage == 0}" value="&#60;&#60;" action="#{userBanManagedBean.updateUsers(0,-3)}" update=":frBanUser :frmPage:paging" /></li>
+                                                            <li><p:commandButton disabled="#{userBanManagedBean.currentPage == 0}" value="&#60;" action="#{userBanManagedBean.updateUsers(userBanManagedBean.currentPage-1,-2)}" update=":frBanUser :frmPage:paging" /></li>
+                                                            <c:choose>
+                                                                <c:when test="${userBanManagedBean.currentPage == userBanManagedBean.pagePrevious}">
+                                                                    <li><p:commandButton style="color: red;" value="#{userBanManagedBean.pagePrevious+1}" action="#{userBanManagedBean.updateUsers(userBanManagedBean.pagePrevious,-1)}" update=":frBanUser :frmPage:paging" /></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><p:commandButton value="#{userBanManagedBean.pagePrevious+1}" action="#{userBanManagedBean.updateUsers(userBanManagedBean.pagePrevious,-1)}" update=":frBanUser :frmPage:paging" /></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${userBanManagedBean.currentPage == userBanManagedBean.pageMiddle}">
+                                                                    <li><p:commandButton style="color: red;" disabled="#{userBanManagedBean.pageMiddle > userBanManagedBean.numberPage}" value="#{userBanManagedBean.pageMiddle+1}" action="#{userBanManagedBean.updateUsers(userBanManagedBean.pageMiddle,0)}" update=":frBanUser :frmPage:paging" /></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><p:commandButton disabled="#{userBanManagedBean.pageMiddle > userBanManagedBean.numberPage}" value="#{userBanManagedBean.pageMiddle+1}" action="#{userBanManagedBean.updateUsers(userBanManagedBean.pageMiddle,0)}" update=":frBanUser :frmPage:paging" /></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${userBanManagedBean.currentPage == userBanManagedBean.pageNext}">
+                                                                    <li><p:commandButton style="color: red;" disabled="#{userBanManagedBean.pageNext > userBanManagedBean.numberPage}" value="#{userBanManagedBean.pageNext+1}" action="#{userBanManagedBean.updateUsers(userBanManagedBean.pageNext,1)}" update=":frBanUser :frmPage:paging" /></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><p:commandButton disabled="#{userBanManagedBean.pageNext > userBanManagedBean.numberPage}" value="#{userBanManagedBean.pageNext+1}" action="#{userBanManagedBean.updateUsers(userBanManagedBean.pageNext,1)}" update=":frBanUser :frmPage:paging" /></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <li><p:commandButton disabled="#{userBanManagedBean.currentPage >= userBanManagedBean.numberPage}" value="&#62;" action="#{userBanManagedBean.updateUsers(userBanManagedBean.currentPage+1,2)}" update=":frBanUser :frmPage:paging"/></li>
+                                                            <li><p:commandButton disabled="#{userBanManagedBean.currentPage >= userBanManagedBean.numberPage}" value="&#62;&#62;" action="#{userBanManagedBean.updateUsers(userBanManagedBean.numberPage,3)}" update=":frBanUser :frmPage:paging" /></li>
+                                                        </ul>
+                                                    </p:panel>
+                                                </h:form>
                                             </div>
                                         </div>
                                     </div>
