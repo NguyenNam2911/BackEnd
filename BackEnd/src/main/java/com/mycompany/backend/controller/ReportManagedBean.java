@@ -32,6 +32,7 @@ public class ReportManagedBean {
     /**
      * Creates a new instance of ReportManagedBean
      */
+    
     ReportModel reportModel = new ReportModel();
     RecipeModel recipeModel = new RecipeModel();
     UserModel userModel = new UserModel();
@@ -216,10 +217,10 @@ public class ReportManagedBean {
     //phan trang
     public final long getNumberPage(long number) {
         long n;
-        if (number % 10 == 0) {
-            n = (number / 10) - 1;
+        if (number % ReportModel.NUMBER_RECORDS == 0) {
+            n = (number / ReportModel.NUMBER_RECORDS) - 1;
         } else {
-            n = number / 10;
+            n = number / ReportModel.NUMBER_RECORDS;
         }
         return n;
     }

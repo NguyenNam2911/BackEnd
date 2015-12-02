@@ -42,24 +42,21 @@
 
     <h:body>
         <f:view>
-            <section id="container" class="">
-                <header class="header dark-bg">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="img/ajax-loader.gif" />
+            </p:dialog>
+            <header class="header dark-bg">
                     <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
                     <div class="top-nav notification-row">
                         <ul class="nav pull-right top-menu">
                             <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="profile-ava">
-                                        <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
-                                    </span>
+                                <a class="dropdown-toggle"  data-toggle="dropdown">
+
                                     <h:outputText value="#{loginManagedBean.user.displayName}"/>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu extended logout">
-                                    <div class="log-arrow-up"></div>
-                                    <li class="eborder-top">
-                                        <a href="#"><i class="icon_profile"></i>My Profile</a>
-                                    </li>
                                     <li>
                                         <h:form>
                                             <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
@@ -75,12 +72,12 @@
                         </ul>
                     </div>
                 </header>
-                <!--header end-->
+                <!-- header end -->
 
-                <!--sidebar start-->
+                <!-- sidebar start -->
                 <aside>
                     <div id="sidebar"  class="nav-collapse ">
-                        <!-- sidebar menu start-->
+                        <!-- sidebar menu start -->
                         <ul class="sidebar-menu">                
                             <li class="active">
                                 <a class="" href="index.xhtml">
@@ -95,7 +92,7 @@
                                     <span class="menu-arrow arrow_carrot-right"></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
+                                    <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
                                 </ul>
                             </li> 
                             <script>
@@ -103,6 +100,7 @@
                                 if (role) {
                                     var element = document.getElementById("li-admin");
                                     element.parentNode.removeChild(element);
+
                                 }
                             </script> 
                             <li class="sub-menu">
@@ -148,10 +146,10 @@
                                 </ul>                   
                             </li>
                         </ul>
-                        <!-- sidebar menu end-->
+                        <!--sidebar menu end-->
                     </div>
                 </aside>
-                <!--sidebar end-->
+
                 <!--sidebar end-->
 
                 <!--main content start-->
@@ -178,15 +176,8 @@
                                             <b>Recipes Table</b>
                                         </header>
                                         <div class="panel-body">
-                                            <div class="row">
+                                            <div class="row" style="margin-bottom: 50px">
                                                 <h:form>
-                                                    <div class="search-panel">
-                                                        <!--  search form start -->
-                                                            <h:commandButton class="button-search" action="#{reportManagedBean.searchReport()}"/>
-                                                            <h:inputText a:type="text" class="input-search"  a:placeholder="Search By Name" value="#{reportManagedBean.searchText}"/>
-                                                        <!--  search form end -->                
-                                                    </div>
-                                                
                                                     <div class="ddl-filter">
                                                         <h:commandButton class="button-filter" action="#{reportManagedBean.searchReport()}"/>
                                                         <h:selectOneMenu value="#{reportManagedBean.filterText}" onclick="">

@@ -18,6 +18,8 @@ import org.entity.Report;
  */
 public class ReportModel {
 
+    public static final int NUMBER_RECORDS = 5;
+    
     public List<Report> getListReports() throws DAOException {
         List<Report> listReport = ReportDAO.getInstance().getAllReport();
         return listReport;
@@ -61,7 +63,7 @@ public class ReportModel {
     
      public List<Report> getReportSearchAndFillter(int page, String order, int flag) throws DAOException {
         List<Report> reports = new ArrayList<>();
-        reports = ReportDAO.getInstance().searchAndFillAllReport(page * 10, 10, order, flag);
+        reports = ReportDAO.getInstance().searchAndFillAllReport(page * NUMBER_RECORDS, NUMBER_RECORDS, order, flag);
         return reports;
     }
 }
