@@ -19,7 +19,7 @@ import util.JSFutil;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ForgotPassManagedBean implements Serializable{
 
     /**
