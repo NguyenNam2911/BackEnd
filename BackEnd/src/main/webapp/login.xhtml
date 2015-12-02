@@ -30,17 +30,24 @@
                         <p class="login-img"><i class="icon_lock_alt"></i></p>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icon_profile"></i></span>
-                            <h:inputText class="form-control" value="#{loginManagedBean.user.email}" a:placeholder="Username"/>
+                            <h:inputText class="form-control" value="#{loginManagedBean.user.email}" 
+                                         validatorMessage="Invalid email format"
+                                         a:placeholder="Enter Email">
+                                <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icon_key_alt"></i></span>
                             <h:inputSecret class="form-control" value="#{loginManagedBean.user.password}" a:placeholder="Password"/>
                         </div>
-                        <label class="checkbox">
-                            <span class="pull-right"> <a href="#"> </a>
-                                <p:commandLink value="Forgot Password?" action="#{loginManagedBean.preResetPass()}"/>
-                            </span>
-                        </label>
+                        <div style="text-align: center;">
+                             <h:link outcome="forgot_pass"> Forgot Password</h:link>
+                        </div>
+                        
+                        
+                        <br></br>
+                       
                         <p:commandButton class="btn btn-primary btn-lg btn-block"  style="background-color:#CC0000; border-color:#CC0000" action="#{loginManagedBean.checkLogin()}" value="Login" process="@this, loginForm" update=":loginForm:sss"/>
                     </div>
                 </h:form>

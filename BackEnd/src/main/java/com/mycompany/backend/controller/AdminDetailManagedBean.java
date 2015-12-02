@@ -19,7 +19,7 @@ import util.JSFutil;
  */
 @ManagedBean
 @SessionScoped
-public class AdminDetailManagedBean implements Serializable{
+public class AdminDetailManagedBean implements Serializable {
 
     /**
      * Creates a new instance of AdminDetailManagedBean
@@ -29,6 +29,7 @@ public class AdminDetailManagedBean implements Serializable{
     String oldPass;
     String newPass;
     String rePass;
+
     public AdminDetailManagedBean() {
         userAdmin = new User();
         adminModel = new AdminModel();
@@ -36,31 +37,34 @@ public class AdminDetailManagedBean implements Serializable{
         newPass = "";
         rePass = "";
     }
-    
-    public void adminDetail(String email) throws DAOException{
+
+    public void adminDetail(String email) throws DAOException {
         userAdmin = adminModel.getAdminByEmail(email);
         JSFutil.navigate("change_pass");
     }
-    public void changePass() throws DAOException{
-        if(userAdmin.getPassword().equals(oldPass)){
-            if(newPass.equals(rePass)){
-                adminModel.resetPass(userAdmin.getId(), newPass);
-                userAdmin = adminModel.getAdminByEmail(userAdmin.getEmail());
-                oldPass = "";
-                newPass = "";
-                rePass = "";
-                JSFutil.addSuccessMessageById("frmMain:txtSuccess","Password have been changed");
+
+    public void changePass() throws DAOException {
+        if (userAdmin.getPassword().equals(oldPass)) {
+            if (!userAdmin.getPassword().equals(newPass)) {
+                if (newPass.equals(rePass)) {
+                    adminModel.resetPass(userAdmin.getId(), newPass);
+                    userAdmin = adminModel.getAdminByEmail(userAdmin.getEmail());
+                    oldPass = "";
+                    newPass = "";
+                    rePass = "";
+                    JSFutil.addSuccessMessageById("frmMain:txtSuccess", "Password have been changed");
+                } else {
+                    JSFutil.addErrorMessageById("frmMain:txtRePass", "Password not match");
+                }
+
+            }else {
+                JSFutil.addErrorMessageById("frmMain:txtCrrentPass", "New passWord the same current password");
             }
-            else{
-                JSFutil.addErrorMessageById("frmMain:txtRePass", "Password not match");
-            }
-            
-        }
-        else{
+
+        } else {
             JSFutil.addErrorMessageById("frmMain:txtCrrentPass", "PassWord incorect");
         }
-        
-        
+
     }
 //    getter and setter
 
@@ -95,10 +99,5 @@ public class AdminDetailManagedBean implements Serializable{
     public void setRePass(String rePass) {
         this.rePass = rePass;
     }
-    
-    
-    
-    
-    
-    
+
 }

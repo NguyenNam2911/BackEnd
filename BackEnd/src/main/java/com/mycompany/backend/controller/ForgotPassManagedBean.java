@@ -38,7 +38,12 @@ public class ForgotPassManagedBean implements Serializable{
         if(userAdmin != null){
             String pass = JSFutil.ramdomString(8);
             adminModel.resetPass(userAdmin.getId(), pass);
-            JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", pass);
+            try {
+                JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", pass);
+            } catch (Exception e) {
+                JSFutil.addErrorMessageById("frInput:txtEmail", e.getMessage());
+            }
+            
             successFlag = true;
         }
         else{
