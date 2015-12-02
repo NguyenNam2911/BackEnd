@@ -179,26 +179,40 @@
                                         </header>
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="search-panel">
-                                                    <!--  search form start -->
-                                                    <h:form >
-                                                        <h:commandButton class="button-search" action="#{reportManagedBean.searchReport()}"/>
-                                                        <h:inputText a:type="text" class="input-search"  a:placeholder="Search By Name" value="#{reportManagedBean.searchText}"/>
-                                                    </h:form>
-                                                    <!--  search form end -->                
-                                                </div>
                                                 <h:form>
+                                                    <div class="search-panel">
+                                                        <!--  search form start -->
+                                                            <h:commandButton class="button-search" action="#{reportManagedBean.searchReport()}"/>
+                                                            <h:inputText a:type="text" class="input-search"  a:placeholder="Search By Name" value="#{reportManagedBean.searchText}"/>
+                                                        <!--  search form end -->                
+                                                    </div>
+                                                
                                                     <div class="ddl-filter">
-                                                        <h:commandButton class="button-filter" action="#{reportManagedBean.filter()}"/>
+                                                        <h:commandButton class="button-filter" action="#{reportManagedBean.searchReport()}"/>
                                                         <h:selectOneMenu value="#{reportManagedBean.filterText}" onclick="">
                                                             <f:selectItem itemValue="2" itemLabel="All status"/>
                                                             <f:selectItem itemValue="0" itemLabel="Checking"/>
                                                             <f:selectItem itemValue="1" itemLabel="Approved"/>
                                                         </h:selectOneMenu>
                                                     </div>
+                                                    <div class="ddl-sort">
+                                                        <h:commandButton class="button-sort" action="#{reportManagedBean.searchReport()}"/>
+                                                        <h:selectOneMenu value="#{reportManagedBean.sortText}" onclick="">
+                                                            <f:selectItem itemValue="-reported_time" itemLabel="Sort By Date"/>
+                                                            <f:selectItem itemValue="verify_by" itemLabel="Sort By Verified Admin"/>
+                                                            <f:selectItem itemValue="-verify_time" itemLabel="Sort By Verified Time"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <h:commandButton value="Search"
+                                                                     style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                     onmouseover="$(this).addClass('ui-state-hover')"
+                                                                     onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                     onmousedown="$(this).addClass('ui-state-active')"
+                                                                     onmouseup="$(this).removeClass('ui-state-active')"
+                                                                     action="#{reportManagedBean.searchReport()}"/>
                                                 </h:form>              
                                             </div>
-                                            <h:form>
+                                            <h:form id="frReport">
                                                 <p:panel id="tbReport">
                                                     <table class="table table-striped table-advance table-hover" var="report" value="#{reportManagedBean.listReport}">
                                                         <tbody>
@@ -281,15 +295,40 @@
                                                 </p:panel>    
                                             </h:form>
                                             <div>
-                                                <ul class="pagination pull-right">
-                                                    <li><a href="#">«</a></li>
-                                                    <li><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#">5</a></li>
-                                                    <li><a href="#">»</a></li>
-                                                </ul>
+                                                <h:form id="frmPage">
+                                                    <p:panel id="paging">
+                                                        <ul class="pagination pull-right" id="pageMenu">
+                                                            <li><p:commandButton disabled="#{reportManagedBean.currentPage == 0}" value="&#60;&#60;" action="#{reportManagedBean.updateUsers(0,-3)}" update=":frReport :frmPage:paging" /></li>
+                                                            <li><p:commandButton disabled="#{reportManagedBean.currentPage == 0}" value="&#60;" action="#{reportManagedBean.updateUsers(reportManagedBean.currentPage-1,-2)}" update=":frReport :frmPage:paging" /></li>
+                                                            <c:choose>
+                                                                <c:when test="${reportManagedBean.currentPage == reportManagedBean.pagePrevious}">
+                                                                    <li><p:commandButton style="color: red;" value="#{reportManagedBean.pagePrevious+1}" action="#{reportManagedBean.updateUsers(reportManagedBean.pagePrevious,-1)}" update=":frReport :frmPage:paging" /></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><p:commandButton value="#{reportManagedBean.pagePrevious+1}" action="#{reportManagedBean.updateUsers(reportManagedBean.pagePrevious,-1)}" update=":frReport :frmPage:paging" /></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${reportManagedBean.currentPage == reportManagedBean.pageMiddle}">
+                                                                    <li><p:commandButton style="color: red;" disabled="#{reportManagedBean.pageMiddle > reportManagedBean.numberPage}" value="#{reportManagedBean.pageMiddle+1}" action="#{reportManagedBean.updateUsers(reportManagedBean.pageMiddle,0)}" update=":frReport :frmPage:paging" /></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><p:commandButton disabled="#{reportManagedBean.pageMiddle > reportManagedBean.numberPage}" value="#{reportManagedBean.pageMiddle+1}" action="#{reportManagedBean.updateUsers(reportManagedBean.pageMiddle,0)}" update=":frReport :frmPage:paging" /></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${reportManagedBean.currentPage == reportManagedBean.pageNext}">
+                                                                    <li><p:commandButton style="color: red;" disabled="#{reportManagedBean.pageNext > reportManagedBean.numberPage}" value="#{reportManagedBean.pageNext+1}" action="#{reportManagedBean.updateUsers(reportManagedBean.pageNext,1)}" update=":frReport :frmPage:paging" /></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><p:commandButton disabled="#{reportManagedBean.pageNext > reportManagedBean.numberPage}" value="#{reportManagedBean.pageNext+1}" action="#{reportManagedBean.updateUsers(reportManagedBean.pageNext,1)}" update=":frReport :frmPage:paging" /></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <li><p:commandButton disabled="#{reportManagedBean.currentPage >= reportManagedBean.numberPage}" value="&#62;" action="#{reportManagedBean.updateUsers(reportManagedBean.currentPage+1,2)}" update=":frReport :frmPage:paging"/></li>
+                                                            <li><p:commandButton disabled="#{reportManagedBean.currentPage >= reportManagedBean.numberPage}" value="&#62;&#62;" action="#{reportManagedBean.updateUsers(reportManagedBean.numberPage,3)}" update=":frReport :frmPage:paging" /></li>
+                                                        </ul>
+                                                    </p:panel>
+                                                </h:form>
                                             </div>
                                         </div>
                                     </div>

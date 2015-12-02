@@ -204,6 +204,13 @@
                                                             <f:selectItem itemValue="-n_recipes" itemLabel="Sort By Number Recipe"/>
                                                         </h:selectOneMenu>
                                                     </div>
+                                                    <h:commandButton value="Search"
+                                                                     style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                     onmouseover="$(this).addClass('ui-state-hover')"
+                                                                     onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                     onmousedown="$(this).addClass('ui-state-active')"
+                                                                     onmouseup="$(this).removeClass('ui-state-active')"
+                                                                     action="#{userBanManagedBean.searchBanUser()}"/>
                                                 </h:form>     
                                             </div>
                                             <h:form id="frBanUser">

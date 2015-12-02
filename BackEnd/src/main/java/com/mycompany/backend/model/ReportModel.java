@@ -5,6 +5,7 @@
  */
 package com.mycompany.backend.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.TimeUtils;
 import org.dao.DAOException;
@@ -56,5 +57,11 @@ public class ReportModel {
     
     public long countNumberResultSearch(int flag) {
         return ReportDAO.getInstance().getNumberResultSearchAndFillReport(flag);
+    }
+    
+     public List<Report> getReportSearchAndFillter(int page, String order, int flag) throws DAOException {
+        List<Report> reports = new ArrayList<>();
+        reports = ReportDAO.getInstance().searchAndFillAllReport(page * 10, 10, order, flag);
+        return reports;
     }
 }

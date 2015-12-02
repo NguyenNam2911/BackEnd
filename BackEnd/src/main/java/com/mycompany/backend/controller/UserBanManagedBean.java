@@ -94,7 +94,7 @@ public class UserBanManagedBean {
 //       }
 //    }
     
-    public int getFilterNumber(){
+    private int getFilterNumber(){
         int filterNumber;
         if (filterText != null){
            try{
@@ -218,6 +218,38 @@ public class UserBanManagedBean {
     public void setSortText(String sortText) {
         this.sortText = sortText;
     }
+
+    public static int getNUMBER_RECORDS() {
+        return NUMBER_RECORDS;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public void setPagePrevious(int pagePrevious) {
+        this.pagePrevious = pagePrevious;
+    }
+
+    public void setPageMiddle(int pageMiddle) {
+        this.pageMiddle = pageMiddle;
+    }
+
+    public void setPageNext(int pageNext) {
+        this.pageNext = pageNext;
+    }
+
+    public void setNumberPage(long numberPage) {
+        this.numberPage = numberPage;
+    }
     
-   
+    
 }
