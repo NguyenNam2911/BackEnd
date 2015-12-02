@@ -41,15 +41,13 @@
                             <span class="input-group-addon"><i class="icon_key_alt"></i></span>
                             <h:inputSecret class="form-control" value="#{loginManagedBean.user.password}" a:placeholder="Password"/>
                         </div>
-                        
-                        <div style="text-align: center">
-                            <h:commandLink value="Forgot password" action="#{loginManagedBean.preForgot()}" immediate="true"/>
+                        <div style="text-align: center;">
+                             <h:link outcome="forgot_pass"> Forgot Password</h:link>
                         </div>
                         
                         
-
                         <br></br>
-
+                       
                         <p:commandButton class="btn btn-primary btn-lg btn-block"  style="background-color:#CC0000; border-color:#CC0000" action="#{loginManagedBean.checkLogin()}" value="Login" process="@this, loginForm" update=":loginForm:sss"/>
                     </div>
                 </h:form>
