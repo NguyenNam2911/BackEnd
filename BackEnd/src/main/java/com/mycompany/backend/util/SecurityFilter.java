@@ -38,7 +38,7 @@ public class SecurityFilter implements PhaseListener {
         boolean forgotPassPage = fc.getViewRoot().getViewId().lastIndexOf("forgot_pass")
                 > -1;
         if ( !forgotPassPage  && !loginPage && !isUserLogged()) {
-            JSFutil.navigate("logout");
+            JSFutil.navigate("login");
         }
     }
 

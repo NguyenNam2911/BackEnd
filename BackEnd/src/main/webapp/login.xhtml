@@ -16,6 +16,7 @@
         <!-- font icon -->
         <link href="css/elegant-icons-style.css" rel="stylesheet" />
         <link href="css/font-awesome.css" rel="stylesheet" />
+        <h:outputStylesheet name="css/style.css"  />
         <!-- Custom styles -->
         <link href="css/style.css" rel="stylesheet">
             <link href="css/style-responsive.css" rel="stylesheet" /></link>
@@ -42,7 +43,7 @@
                             <h:inputSecret class="form-control" value="#{loginManagedBean.user.password}" a:placeholder="Password"/>
                         </div>
                         <div style="text-align: center;">
-                             <h:link outcome="forgot_pass"> Forgot Password</h:link>
+                            <h:commandLink actionListener="#{loginManagedBean.preResetPass()}" value="Forgot password" immediate="true"/>
                         </div>
                         
                         

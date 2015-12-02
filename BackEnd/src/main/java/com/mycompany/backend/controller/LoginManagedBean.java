@@ -51,6 +51,9 @@ public class LoginManagedBean implements Serializable{
         JSFutil.setSessionValue("user", null);
         JSFutil.navigate("logout");
     }
+    public void preResetPass(){
+        JSFutil.navigate("forgot_pass");
+    }
  
     // contructer
     public LoginManagedBean() {
