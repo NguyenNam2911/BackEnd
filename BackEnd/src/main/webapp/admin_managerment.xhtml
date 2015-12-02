@@ -198,6 +198,13 @@
                                                                 <f:selectItem itemValue="deleted" itemLabel="Deleted"/>
                                                             </h:selectOneMenu>
                                                         </div> 
+                                                        <h:commandButton value="Search"
+                                                                         style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                         onmouseover="$(this).addClass('ui-state-hover')"
+                                                                         onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                         onmousedown="$(this).addClass('ui-state-active')"
+                                                                         onmouseup="$(this).removeClass('ui-state-active')"
+                                                                         action="#{adminManagedBean.searchUser()}"/>
 
                                                     </div>
 
@@ -258,7 +265,7 @@
                                                                     <li><p:commandButton disabled="#{adminManagedBean.page  >=  adminManagedBean.numberP}"
                                                                                          value="&#62;&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.numberP)}" update=":frmMain:tbAdmin" /></li>
                                                                 </ul>
-                                                                
+
                                                             </p:panel>
                                                             <p:panel id="number1" visible="#{adminManagedBean.typePageBtn == 2}" >
                                                                 <ul class="pagination pull-right" id="pageMenu">
@@ -435,43 +442,43 @@
         <script src="js/charts.js"></script>
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
-                                    //knob
-                                    $(function () {
-                                        $(".knob").knob({
-                                            'draw': function () {
-                                                $(this.i).val(this.cv + '%')
-                                            }
-                                        })
-                                    });
-                                    //carousel
-                                    $(document).ready(function () {
-                                        $("#owl-slider").owlCarousel({
-                                            navigation: true,
-                                            slideSpeed: 300,
-                                            paginationSpeed: 400,
-                                            singleItem: true
-                                        });
-                                    });
-                                    //custom select box
-                                    $(function () {
-                                        $('select.styled').customSelect();
-                                    });
-                                    /* ---------- Map ---------- */
-                                    $(function () {
-                                        $('#map').vectorMap({
-                                            map: 'world_mill_en',
-                                            series: {
-                                                regions: [{
-                                                        values: gdpData,
-                                                        scale: ['#000', '#000'],
-                                                        normalizeFunction: 'polynomial'
-                                                    }]
-                                            },
-                                            backgroundColor: '#eef3f7',
-                                            onLabelShow: function (e, el, code) {
-                                                el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                            }
-                                        });
-                                    });</script>
+                                                                         //knob
+                                                                         $(function () {
+                                                                             $(".knob").knob({
+                                                                                 'draw': function () {
+                                                                                     $(this.i).val(this.cv + '%')
+                                                                                 }
+                                                                             })
+                                                                         });
+                                                                         //carousel
+                                                                         $(document).ready(function () {
+                                                                             $("#owl-slider").owlCarousel({
+                                                                                 navigation: true,
+                                                                                 slideSpeed: 300,
+                                                                                 paginationSpeed: 400,
+                                                                                 singleItem: true
+                                                                             });
+                                                                         });
+                                                                         //custom select box
+                                                                         $(function () {
+                                                                             $('select.styled').customSelect();
+                                                                         });
+                                                                         /* ---------- Map ---------- */
+                                                                         $(function () {
+                                                                             $('#map').vectorMap({
+                                                                                 map: 'world_mill_en',
+                                                                                 series: {
+                                                                                     regions: [{
+                                                                                             values: gdpData,
+                                                                                             scale: ['#000', '#000'],
+                                                                                             normalizeFunction: 'polynomial'
+                                                                                         }]
+                                                                                 },
+                                                                                 backgroundColor: '#eef3f7',
+                                                                                 onLabelShow: function (e, el, code) {
+                                                                                     el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                                                                 }
+                                                                             });
+                                                                         });</script>
     </h:body>
 </html>

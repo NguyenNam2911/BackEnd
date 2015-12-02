@@ -10,6 +10,7 @@ import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
 
 /**
@@ -17,7 +18,7 @@ import javax.faces.view.ViewScoped;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 
 public class IndexManagedBean implements Serializable {
 

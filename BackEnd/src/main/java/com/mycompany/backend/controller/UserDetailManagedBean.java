@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
-import org.dao.UserDAO;
 import org.entity.User;
 import util.JSFutil;
 

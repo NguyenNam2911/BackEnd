@@ -209,6 +209,13 @@
                                                             <f:selectItem itemValue="n_recipe" itemLabel="Sort By Number Recipe"/>
                                                         </h:selectOneMenu>
                                                     </div>
+                                                    <h:commandButton value="Search"
+                                                                     style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                     onmouseover="$(this).addClass('ui-state-hover')"
+                                                                     onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                     onmousedown="$(this).addClass('ui-state-active')"
+                                                                     onmouseup="$(this).removeClass('ui-state-active')"
+                                                                     action="#{userManagedBean.searchUser()}"/>
 
                                                 </h:form>
                                                 <!--end fill form-->
@@ -227,36 +234,36 @@
                                                                 <th><i class="icon_document_alt"></i> Number Recipe</th>
                                                                 <th><i class="icon_pencil_alt"></i> Status</th>
                                                             </tr>
-                                                                                                              
-                                                                <c:forEach items="#{userManagedBean.users}" var="user">
-                                                                    <tr class="user-row">
-                                                                        <td>#{userManagedBean.users.indexOf(user) + 1}</td>
-                                                                        <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.userDetail(user.id)}"
-                                                                                           style="color: #1C86EE"  target="_blank"/> 
-                                                                        </td>
-                                                                        
-                                                                        <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
-                                                                        <td>#{user.email}</td>
-                                                                        <td>#{user.numberBans}</td>
-                                                                        <td>#{user.numberRecipes}</td>
-                                                                        <td>
-                                                                            <c:set var="status"  value="#{user.activeFlag}"/>
-                                                                            <c:if test="${ status == 1 }">
-                                                                                <h:outputText value="Active" style="color: green"/>
-                                                                            </c:if>
-                                                                            <c:if test="${ status == 0}">
-                                                                                <h:outputText value="Banned Once" style="color: red"/>
-                                                                            </c:if>
-                                                                            <c:if test="${  status == -1}">
-                                                                                <h:outputText value="Banned Second" style="color: red"/>
-                                                                            </c:if>
-                                                                            <c:if test="${ status == -2}">
-                                                                                <h:outputText value="Deleted" style="color: black"/>
-                                                                            </c:if>
-                                                                        </td>
-                                                                    </tr>
-                                                                </c:forEach>
-                                                            
+
+                                                            <c:forEach items="#{userManagedBean.users}" var="user">
+                                                                <tr class="user-row">
+                                                                    <td>#{userManagedBean.users.indexOf(user) + 1}</td>
+                                                                    <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.userDetail(user.id)}"
+                                                                                       style="color: #1C86EE"  target="_blank"/> 
+                                                                    </td>
+
+                                                                    <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
+                                                                    <td>#{user.email}</td>
+                                                                    <td>#{user.numberBans}</td>
+                                                                    <td>#{user.numberRecipes}</td>
+                                                                    <td>
+                                                                        <c:set var="status"  value="#{user.activeFlag}"/>
+                                                                        <c:if test="${ status == 1 }">
+                                                                            <h:outputText value="Active" style="color: green"/>
+                                                                        </c:if>
+                                                                        <c:if test="${ status == 0}">
+                                                                            <h:outputText value="Banned Once" style="color: red"/>
+                                                                        </c:if>
+                                                                        <c:if test="${  status == -1}">
+                                                                            <h:outputText value="Banned Second" style="color: red"/>
+                                                                        </c:if>
+                                                                        <c:if test="${ status == -2}">
+                                                                            <h:outputText value="Deleted" style="color: black"/>
+                                                                        </c:if>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:forEach>
+
                                                         </tbody>
                                                     </table>
                                                 </h:form>
@@ -375,70 +382,70 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
 
-                                //knob
-                                $(function () {
-                                    $(".knob").knob({
-                                        'draw': function () {
-                                            $(this.i).val(this.cv + '%')
-                                        }
-                                    })
-                                });
-                                //carousel
-                                $(document).ready(function () {
-                                    $("#owl-slider").owlCarousel({
-                                        navigation: true,
-                                        slideSpeed: 300,
-                                        paginationSpeed: 400,
-                                        singleItem: true
+                                                                         //knob
+                                                                         $(function () {
+                                                                             $(".knob").knob({
+                                                                                 'draw': function () {
+                                                                                     $(this.i).val(this.cv + '%')
+                                                                                 }
+                                                                             })
+                                                                         });
+                                                                         //carousel
+                                                                         $(document).ready(function () {
+                                                                             $("#owl-slider").owlCarousel({
+                                                                                 navigation: true,
+                                                                                 slideSpeed: 300,
+                                                                                 paginationSpeed: 400,
+                                                                                 singleItem: true
 
-                                    });
-                                });
-                                //custom select box
+                                                                             });
+                                                                         });
+                                                                         //custom select box
 
-                                $(function () {
-                                    $('select.styled').customSelect();
-                                });
-                                /* ---------- Map ---------- */                             $(function () {
-                                    $('#map').vectorMap({
-                                        map: 'world_mill_en',
-                                        series: {
-                                            regions: [{
-                                                    values: gdpData,
-                                                    scale: ['#000', '#000'],
-                                                    normalizeFunction: 'polynomial'
-                                                }]
-                                        },
-                                        backgroundColor: '#eef3f7',
-                                        onLabelShow: function (e, el, code) {
-                                            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                        }
-                                    });
-                                });
-                                jQuery(document).ready(function () {
-                                    jQuery('.ui-datatable-tablewrapper td:last-child').each(function () {
-                                        var str = jQuery(this).text();
-                                        str = str.replace("-2", "Deleted");
-                                        str = str.replace("-1", "Banned");
-                                        str = str.replace("0", "Banned");
-                                        str = str.replace("1", "Active");
-                                        jQuery(this).text(str);
-                                        if (str == "Deleted") {
-                                            jQuery(this).css('color', 'black');
-                                        }
+                                                                         $(function () {
+                                                                             $('select.styled').customSelect();
+                                                                         });
+                                                                         /* ---------- Map ---------- */                             $(function () {
+                                                                             $('#map').vectorMap({
+                                                                                 map: 'world_mill_en',
+                                                                                 series: {
+                                                                                     regions: [{
+                                                                                             values: gdpData,
+                                                                                             scale: ['#000', '#000'],
+                                                                                             normalizeFunction: 'polynomial'
+                                                                                         }]
+                                                                                 },
+                                                                                 backgroundColor: '#eef3f7',
+                                                                                 onLabelShow: function (e, el, code) {
+                                                                                     el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                                                                 }
+                                                                             });
+                                                                         });
+                                                                         jQuery(document).ready(function () {
+                                                                             jQuery('.ui-datatable-tablewrapper td:last-child').each(function () {
+                                                                                 var str = jQuery(this).text();
+                                                                                 str = str.replace("-2", "Deleted");
+                                                                                 str = str.replace("-1", "Banned");
+                                                                                 str = str.replace("0", "Banned");
+                                                                                 str = str.replace("1", "Active");
+                                                                                 jQuery(this).text(str);
+                                                                                 if (str == "Deleted") {
+                                                                                     jQuery(this).css('color', 'black');
+                                                                                 }
 
-                                        if (str == "Banned") {
-                                            jQuery(this).css('color', 'red');
-                                        }
+                                                                                 if (str == "Banned") {
+                                                                                     jQuery(this).css('color', 'red');
+                                                                                 }
 
-                                        if (str == "Active") {
-                                            jQuery(this).css('color', 'green');
-                                        }
+                                                                                 if (str == "Active") {
+                                                                                     jQuery(this).css('color', 'green');
+                                                                                 }
 
-                                    });
-                                    jQuery(".ui-datatable-tablewrapper th").each(function (i) {
-                                        this.addClass("item" + (i + 1));
-                                    });
-                                });
+                                                                             });
+                                                                             jQuery(".ui-datatable-tablewrapper th").each(function (i) {
+                                                                                 this.addClass("item" + (i + 1));
+                                                                             });
+                                                                         });
         </script>
     </h:body>
 </html>
