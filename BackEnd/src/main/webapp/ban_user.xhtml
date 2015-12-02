@@ -188,20 +188,20 @@
                                                         <!--  search form end -->                
                                                     </div>
                                                     <div class="ddl-filter">
-                                                        <h:commandButton class="button-filter" action="#{userBanManagedBean.filterBanUser()}"/>
-                                                        <h:selectOneMenu value="" onclick="">
-                                                            <f:selectItem itemValue="1" itemLabel="All status"/>
+                                                        <h:commandButton class="button-filter" action="#{userBanManagedBean.searchBanUser()}"/>
+                                                        <h:selectOneMenu value="#{userBanManagedBean.filterText}" onclick="">
+                                                            <f:selectItem itemValue="3" itemLabel="All status"/>
                                                             <f:selectItem itemValue="0" itemLabel="Ban Once"/>
                                                             <f:selectItem itemValue="-1" itemLabel="Ban Second"/>
                                                         </h:selectOneMenu>
                                                     </div>
                                                     <div class="ddl-sort">
-                                                        <h:commandButton class="button-sort" action="#{userManagedBean.searchUser()}"/>
-                                                        <h:selectOneMenu value="#{userManagedBean.sortBy}" onclick="">
-                                                            <f:selectItem itemValue="name" itemLabel="Sort By Name"/>
-                                                            <f:selectItem itemValue="date" itemLabel="Sort By Date"/>
-                                                            <f:selectItem itemValue="n_ban" itemLabel="Sort By Number Ban"/>
-                                                            <f:selectItem itemValue="n_recipe" itemLabel="Sort By Number Recipe"/>
+                                                        <h:commandButton class="button-sort" action="#{userBanManagedBean.searchBanUser()}"/>
+                                                        <h:selectOneMenu value="#{userBanManagedBean.sortText}" onclick="">
+                                                            <f:selectItem itemValue="display_name" itemLabel="Sort By Name"/>
+                                                            <f:selectItem itemValue="-registered_time" itemLabel="Sort By Date"/>
+                                                            <f:selectItem itemValue="-n_bans" itemLabel="Sort By Number Ban"/>
+                                                            <f:selectItem itemValue="-n_recipes" itemLabel="Sort By Number Recipe"/>
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </h:form>     

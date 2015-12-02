@@ -45,18 +45,18 @@ public class UserBanManagedBean {
     private long numberPage; 
 
     public UserBanManagedBean() throws DAOException {
-        filterText = "all";
+        filterText = "3";
         flag = 3;
         searchText = "";
 //        sortBy = "display_name";
 //        stringSearch = search;
-        sortText = "display_name";
+        sortText = "-registered_time";
         currentPage = 0;
         pagePrevious = 0;
         pageMiddle = 1;
         pageNext = 2;
 //        typePageBtn = 1;
-        long n = userModel.countBanUser();
+        long n = userModel.countUser();
         numberPage = getNumberPage(n);
         listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
@@ -70,40 +70,42 @@ public class UserBanManagedBean {
         listBanUser = userModel.getBanUser();
     }
     
-    public void searchBanUser(){
-       List<User> users = new ArrayList<>();
-       if (searchText != null){
-           for (User user : listBanUser){
-               if (user.getDisplayName().contains(searchText)){
-                    users.add(user);
-               }
-           }
-           listBanUser = users;
-       }
+    
+    public void searchBanUser() throws DAOException{
+        flag = getFilterNumber();
+        currentPage = 0;
+        pagePrevious = 0;
+        pageMiddle = 1;
+        pageNext = 2;
+        long n = userModel.countNumberResultSearch(searchText, flag, User.NORMAL_USER_ROLE);
+        numberPage = getNumberPage(n);
+        listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
     
-    public void filterBanUser(){
-        List<User> users = new ArrayList<>();
-        listBanUser = userModel.getBanUser();
+//    public void searchBanUser(){
+//       List<User> users = new ArrayList<>();
+//       if (searchText != null){
+//           for (User user : listBanUser){
+//               if (user.getDisplayName().contains(searchText)){
+//                    users.add(user);
+//               }
+//           }
+//           listBanUser = users;
+//       }
+//    }
+    
+    public int getFilterNumber(){
+        int filterNumber;
         if (filterText != null){
            try{
-               filter = Integer.parseInt(filterText);
-               if (filter != 0 && filter !=-1 && filter !=-2)
-                   filter=2;
+               filterNumber = Integer.parseInt(filterText);
            }catch(Exception ex){
-               filter=2;
+               filterNumber=4;
            }
        }else{
-            filter=2;
+            filterNumber=4;
        }
-       
-        if (filter!=2 && filter!=1){
-                for (User user : listBanUser){
-                    if (user.getActiveFlag() == filter)
-                        users.add(user);
-                }
-           listBanUser = users;
-        }
+        return filterNumber;
     }
     
     // phan trang
@@ -207,6 +209,14 @@ public class UserBanManagedBean {
 
     public int getPageNext() {
         return pageNext;
+    }
+
+    public String getSortText() {
+        return sortText;
+    }
+
+    public void setSortText(String sortText) {
+        this.sortText = sortText;
     }
     
    
