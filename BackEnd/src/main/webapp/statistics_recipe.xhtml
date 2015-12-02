@@ -28,6 +28,11 @@
 
     <h:body>
         <f:view>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="img/ajax-loader.gif" />
+            </p:dialog> 
+            <section id="container" class="">
             <header class="header dark-bg">
                     <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
                     <div class="top-nav notification-row">
@@ -186,6 +191,58 @@
                                 </div>
                             </div>
                         </div>
+                          <div class="row">
+                                <!-- Top Recipes -->
+                                <div class="col-sm-6">
+                                    <section class="panel">
+                                        <header class="panel-heading"> Top Favorite Recipes </header>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Recipe</th>
+                                                    <th>Number Favorite</th>
+                                                    <th>Number View</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach var="recipe" items="#{statisticsRecipeManagedBean.listRecipes}">
+                                                    <tr>
+                                                        <td>#{statisticsRecipeManagedBean.listRecipes.indexOf(recipe)+1}</td>
+                                                        <td>#{recipe.title}</td>
+                                                        <td>#{recipe.favoriteNumber}</td>
+                                                        <td>#{recipe.view}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                                <!-- Top Recipes -->
+                                <div class="col-sm-6">
+                                    <section class="panel">
+                                        <header class="panel-heading"> Top Tagged Tags </header>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tag</th>
+                                                    <th>Number Tagged</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach var="tag" items="#{statisticsRecipeManagedBean.listTags}">
+                                                    <tr>
+                                                        <td>#{statisticsRecipeManagedBean.listTags.indexOf(tag)+1}</td>
+                                                        <td>#{tag.tag}</td>
+                                                        <td>#{tag.numberTaged}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                          </div>
                       </div>
                     </section>
               </div>

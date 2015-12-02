@@ -11,6 +11,7 @@ import com.mycompany.backend.model.UserModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
@@ -26,7 +27,7 @@ import util.JSFutil;
  * @author KhanhDN
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ReportManagedBean {
 
     /**
@@ -123,43 +124,6 @@ public class ReportManagedBean {
        }
         return filterNumber;
     }
-    
-//    public void searchReport() throws DAOException{
-//       List<Report> reports = new ArrayList<Report>();
-//       listReport = reportModel.getListReports();
-//       if (searchText != null){
-//           for (Report report : listReport){
-//               if (getRecipeName(report.getId()).contains(searchText)){
-//                    reports.add(report);
-//               }
-//           }
-//           listReport = reports;
-//       }
-//    }
-    
-//    public void filter() throws DAOException{
-//        List<Report> reports = new ArrayList<Report>();
-//        listReport = reportModel.getListReports();
-//        if (filterText != null){
-//           try{
-//               filter = Integer.parseInt(filterText);
-//               if (filter != 1 && filter !=0 && filter !=2)
-//                   filter=-1;
-//           }catch(Exception ex){
-//               filter=-1;
-//           }
-//       }else{
-//            filter=-1;
-//       }
-//       
-//        if (filter!=-1 && filter!=2){
-//                for (Report report : listReport){
-//                    if (report.getStatus() == filter)
-//                        reports.add(report);
-//                }
-//           listReport = reports;
-//        }
-//    }
     
     public void approveReportStatus(String reportId, String adminId) throws DAOException{
         

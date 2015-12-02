@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
 import org.dao.UserDAO;
 import org.entity.User;
@@ -22,7 +23,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class StatisticsUserManagedBean implements Serializable{
 
     /**

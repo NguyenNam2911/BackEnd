@@ -46,6 +46,11 @@
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                 <img src="img/ajax-loader.gif" />
             </p:dialog>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="img/ajax-loader.gif" />
+            </p:dialog> 
+            <section id="container" class="">
             <header class="header dark-bg">
                     <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
                     <div class="top-nav notification-row">
@@ -332,6 +337,7 @@
                 <!--main content end-->
 
             </section>
+            </f:view>
             <!-- container section start -->
 
             <!-- javascripts -->
@@ -420,7 +426,6 @@
                                     });
                                 });
             </script>
-        </f:view>
     </h:body>
 </html>
 

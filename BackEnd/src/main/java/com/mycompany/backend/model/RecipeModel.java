@@ -7,14 +7,17 @@ package com.mycompany.backend.model;
 
 import com.mycompany.backend.notification_server.NotiServer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.TimeUtils;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.dao.ReportDAO;
+import org.dao.TagDAO;
 import org.dao.UserDAO;
 import org.entity.Recipe;
 import org.entity.Report;
+import org.entity.Tag;
 import org.entity.User;
 import util.JSFutil;
 
@@ -95,5 +98,15 @@ public class RecipeModel {
     //get report by recipeId
     public Report getReportByRecipe(String recipeId) throws DAOException{
         return ReportDAO.getInstance().getReportByRecipe(recipeId);
+    }
+    
+    //get list top tags in tagging
+    public Iterator<Tag> getTopTags(int top) throws DAOException{
+         return TagDAO.getInstance().getTop(top);
+    }
+    
+    //get list top recipe in tagging
+    public Iterator<Recipe> getTopRecipes(int top) throws DAOException{
+         return RecipeDAO.getInstance().getTop(top);
     }
 }
