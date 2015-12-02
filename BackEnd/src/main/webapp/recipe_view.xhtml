@@ -206,6 +206,14 @@
                                                         </h:selectOneMenu>
                                                     </div>
 
+                                                    <h:commandButton value="Search"
+                                                                     style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                     onmouseover="$(this).addClass('ui-state-hover')"
+                                                                     onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                     onmousedown="$(this).addClass('ui-state-active')"
+                                                                     onmouseup="$(this).removeClass('ui-state-active')"
+                                                                     action="#{recipeManagedBean.searchRecipe()}"/>
+
                                                 </h:form>
                                             </div>
                                             <h:form id="frmRcipe"> 
@@ -368,47 +376,47 @@
             <script src="js/jquery.slimscroll.min.js"></script>
             <script>
 
-                                //knob
-                                $(function () {
-                                    $(".knob").knob({
-                                        'draw': function () {
-                                            $(this.i).val(this.cv + '%')
-                                        }
-                                    })
-                                });
+        //knob
+        $(function () {
+            $(".knob").knob({
+                'draw': function () {
+                    $(this.i).val(this.cv + '%')
+                }
+            })
+        });
 
-                                //carousel
-                                $(document).ready(function () {
-                                    $("#owl-slider").owlCarousel({
-                                        navigation: true,
-                                        slideSpeed: 300, paginationSpeed: 400,
-                                        singleItem: true
+        //carousel
+        $(document).ready(function () {
+            $("#owl-slider").owlCarousel({
+                navigation: true,
+                slideSpeed: 300, paginationSpeed: 400,
+                singleItem: true
 
-                                    });
-                                });
+            });
+        });
 
-                                //custom select box
+        //custom select box
 
-                                $(function () {
-                                    $('select.styled').customSelect();
-                                });
+        $(function () {
+            $('select.styled').customSelect();
+        });
 
-                                /* ---------- Map ---------- */
-                                $(function () {
-                                    $('#map').vectorMap({
-                                        map: 'world_mill_en',
-                                        series: {
-                                            regions: [{
-                                                    values: gdpData,
-                                                    scale: ['#000', '#000'],
-                                                    normalizeFunction: 'polynomial'
-                                                }]
-                                        }, backgroundColor: '#eef3f7',
-                                        onLabelShow: function (e, el, code) {
-                                            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                        }
-                                    });
-                                });
+        /* ---------- Map ---------- */
+        $(function () {
+            $('#map').vectorMap({
+                map: 'world_mill_en',
+                series: {
+                    regions: [{
+                            values: gdpData,
+                            scale: ['#000', '#000'],
+                            normalizeFunction: 'polynomial'
+                        }]
+                }, backgroundColor: '#eef3f7',
+                onLabelShow: function (e, el, code) {
+                    el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                }
+            });
+        });
             </script>
         </f:view>
 
