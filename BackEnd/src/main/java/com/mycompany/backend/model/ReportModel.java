@@ -54,4 +54,7 @@ public class ReportModel {
         return ReportDAO.getInstance().getListCheckingReportByRecipe(recipeId);
     }
     
+    public long countNumberResultSearch(int flag) {
+        return ReportDAO.getInstance().getNumberResultSearchAndFillReport(flag);
+    }
 }

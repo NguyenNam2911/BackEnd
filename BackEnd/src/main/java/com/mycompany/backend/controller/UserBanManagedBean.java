@@ -56,7 +56,7 @@ public class UserBanManagedBean {
         pageMiddle = 1;
         pageNext = 2;
 //        typePageBtn = 1;
-        long n = userModel.countUser();
+        long n = userModel.countBanUser();
         numberPage = getNumberPage(n);
         listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
