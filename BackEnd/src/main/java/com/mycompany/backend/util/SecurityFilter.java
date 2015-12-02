@@ -35,10 +35,8 @@ public class SecurityFilter implements PhaseListener {
         FacesContext fc = event.getFacesContext();
         boolean loginPage = fc.getViewRoot().getViewId().lastIndexOf("login")
                 > -1;
-        boolean forgotPassPage = fc.getViewRoot().getViewId().lastIndexOf("forgot_pass")
-                > -1;
-        if ( !forgotPassPage  && !loginPage && !isUserLogged()) {
-            navigate(event, "logout");
+        if (  !loginPage && !isUserLogged()) {
+            JSFutil.navigate("login");
         }
     }
 

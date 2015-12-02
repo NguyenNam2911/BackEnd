@@ -10,6 +10,7 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.entity.User;
 import org.mail.MailCompose;
 import org.mail.MailManagement;
 import org.mail.MailWorker;
@@ -33,6 +34,12 @@ public class JSFutil {
         FacesContext fCtx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(true);
         return session;
+    }
+    public static boolean isUserLogged() {
+        //looks session for user
+        HttpSession session = getSession();
+        User user = (User) session.getAttribute("user");
+        return user != null;
     }
 
     public static void setSessionValue(String strKey, Object objValue) {

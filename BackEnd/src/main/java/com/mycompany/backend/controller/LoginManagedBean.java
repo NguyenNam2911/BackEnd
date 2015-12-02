@@ -46,10 +46,15 @@ public class LoginManagedBean implements Serializable{
             JSFutil.addErrorMessage("Email incorect");
         }
     }
-
-    public void logOut() {
+    
+    public void preForgot(){
         user = new User();
         JSFutil.setSessionValue("user", user);
+        JSFutil.navigate("forgot_pass");
+    }
+
+    public void logOut() {
+        JSFutil.setSessionValue("user", null);
         JSFutil.navigate("logout");
     }
  

@@ -11,7 +11,6 @@ import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.view.ViewScoped;
 
 /**
  *
@@ -30,13 +29,15 @@ public class IndexManagedBean implements Serializable {
     long numberReport = 0;
 
     public IndexManagedBean() {
-        numberUser = userModel.countUser();
-        numberReport = reportModel.countCheckingReport();
-        numberRecipe = recipeModel.getNumberRecipe();
+        
+            numberUser = userModel.countUser();
+            numberReport = reportModel.countCheckingReport();
+            numberRecipe = recipeModel.getNumberRecipe();
+        
+
     }
 
     //get and set
-
     public long getNumberUser() {
         return numberUser;
     }
@@ -60,5 +61,5 @@ public class IndexManagedBean implements Serializable {
     public void setNumberReport(long numberReport) {
         this.numberReport = numberReport;
     }
-   
+
 }

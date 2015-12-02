@@ -47,18 +47,12 @@
                         <div class="top-nav notification-row">
                             <ul class="nav pull-right top-menu">
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                        <span class="profile-ava">
-                                            <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
-                                        </span>
+                                    <a class="dropdown-toggle"  data-toggle="dropdown">
+
                                         <h:outputText value="#{loginManagedBean.user.displayName}"/>
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu extended logout">
-                                        <div class="log-arrow-up"></div>
-                                        <li class="eborder-top">
-                                            <a href="#"><i class="icon_profile"></i>My Profile</a>
-                                        </li>
                                         <li>
                                             <h:form>
                                                 <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
@@ -94,7 +88,7 @@
                                         <span class="menu-arrow arrow_carrot-right"></span>
                                     </a>
                                     <ul class="sub">
-                                        <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
+                                        <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
                                     </ul>
                                 </li> 
                                 <script>
@@ -291,11 +285,7 @@
 
                                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
                                                                 <div align="center">
-                                                                    <p:inputText value="#{reportManagedBean.reason}" class="form-control" 
-                                                                                 a:placeholder="Enter Reason" required="true"
-                                                                                 requiredMessage="Please enter reasion..!" id="txtReason">
-
-                                                                    </p:inputText>
+                                                                   
                                                                     <span style="color: red;">
                                                                         <p:messages for="txtReason" id="reasonError" autoUpdate="true" closable="true"/>
                                                                     </span>

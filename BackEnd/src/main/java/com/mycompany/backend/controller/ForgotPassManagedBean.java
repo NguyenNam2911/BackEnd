@@ -33,6 +33,7 @@ public class ForgotPassManagedBean implements Serializable{
         user = new User();
         adminModel =  new AdminModel();
         successFlag = false;
+        JSFutil.setSessionValue("user", null);
     }
     public void resetPassWord() throws DAOException {
         User userAdmin =  adminModel.getAdminByEmail(user.getEmail());
@@ -40,7 +41,7 @@ public class ForgotPassManagedBean implements Serializable{
             String pass = JSFutil.ramdomString(8);
             adminModel.resetPass(userAdmin.getId(), pass);
             try {
-                JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", pass);
+                JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", pass);
             } catch (Exception e) {
                 JSFutil.addErrorMessageById("frInput:txtEmail", e.getMessage());
             }

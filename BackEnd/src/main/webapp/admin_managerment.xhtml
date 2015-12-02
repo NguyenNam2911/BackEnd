@@ -52,18 +52,12 @@
                         <div class="top-nav notification-row">
                             <ul class="nav pull-right top-menu">
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                        <span class="profile-ava">
-                                            <img src="#{loginManagedBean.user.avatarUrl}" alt="" style="width:30px;height:30px;"/>
-                                        </span>
+                                    <a class="dropdown-toggle"  data-toggle="dropdown">
+
                                         <h:outputText value="#{loginManagedBean.user.displayName}"/>
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu extended logout">
-                                        <div class="log-arrow-up"></div>
-                                        <li class="eborder-top">
-                                            <a href="#"><i class="icon_profile"></i>My Profile</a>
-                                        </li>
                                         <li>
                                             <h:commandLink action="#{adminDetailManagedBean.adminDetail(loginManagedBean.user.email)}" value="Change Pass"  />
                                         </li>
@@ -95,7 +89,7 @@
                                         <span class="menu-arrow arrow_carrot-right"></span>
                                     </a>
                                     <ul class="sub">
-                                        <li><a class="" href="admin_managerment.xhtml">View Managerment</a></li>  
+                                        <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
                                     </ul>
                                 </li> 
                                 <script>
@@ -442,43 +436,43 @@
         <script src="js/charts.js"></script>
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
-                                                                         //knob
-                                                                         $(function () {
-                                                                             $(".knob").knob({
-                                                                                 'draw': function () {
-                                                                                     $(this.i).val(this.cv + '%')
-                                                                                 }
-                                                                             })
-                                                                         });
-                                                                         //carousel
-                                                                         $(document).ready(function () {
-                                                                             $("#owl-slider").owlCarousel({
-                                                                                 navigation: true,
-                                                                                 slideSpeed: 300,
-                                                                                 paginationSpeed: 400,
-                                                                                 singleItem: true
+                                                                             //knob
+                                                                             $(function () {
+                                                                                 $(".knob").knob({
+                                                                                     'draw': function () {
+                                                                                         $(this.i).val(this.cv + '%')
+                                                                                     }
+                                                                                 })
                                                                              });
-                                                                         });
-                                                                         //custom select box
-                                                                         $(function () {
-                                                                             $('select.styled').customSelect();
-                                                                         });
-                                                                         /* ---------- Map ---------- */
-                                                                         $(function () {
-                                                                             $('#map').vectorMap({
-                                                                                 map: 'world_mill_en',
-                                                                                 series: {
-                                                                                     regions: [{
-                                                                                             values: gdpData,
-                                                                                             scale: ['#000', '#000'],
-                                                                                             normalizeFunction: 'polynomial'
-                                                                                         }]
-                                                                                 },
-                                                                                 backgroundColor: '#eef3f7',
-                                                                                 onLabelShow: function (e, el, code) {
-                                                                                     el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                                                                 }
+                                                                             //carousel
+                                                                             $(document).ready(function () {
+                                                                                 $("#owl-slider").owlCarousel({
+                                                                                     navigation: true,
+                                                                                     slideSpeed: 300,
+                                                                                     paginationSpeed: 400,
+                                                                                     singleItem: true
+                                                                                 });
                                                                              });
-                                                                         });</script>
+                                                                             //custom select box
+                                                                             $(function () {
+                                                                                 $('select.styled').customSelect();
+                                                                             });
+                                                                             /* ---------- Map ---------- */
+                                                                             $(function () {
+                                                                                 $('#map').vectorMap({
+                                                                                     map: 'world_mill_en',
+                                                                                     series: {
+                                                                                         regions: [{
+                                                                                                 values: gdpData,
+                                                                                                 scale: ['#000', '#000'],
+                                                                                                 normalizeFunction: 'polynomial'
+                                                                                             }]
+                                                                                     },
+                                                                                     backgroundColor: '#eef3f7',
+                                                                                     onLabelShow: function (e, el, code) {
+                                                                                         el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                                                                     }
+                                                                                 });
+                                                                             });</script>
     </h:body>
 </html>
