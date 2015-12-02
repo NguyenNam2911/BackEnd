@@ -61,7 +61,7 @@ public class UserManagedBean {
             flag_Active = filter();
             page = 0;
             typePageBtn = 1;
-            long n = userModel.countNumberResultSearch(stringSearch,flag_Active);
+            long n = userModel.countNumberResultSearch(stringSearch,flag_Active, User.NORMAL_USER_ROLE);
             numberP = getNumberPage(n);
             users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
             search = "";

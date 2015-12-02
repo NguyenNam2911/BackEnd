@@ -29,11 +29,11 @@ public class UserModel {
         return UserDAO.getInstance().getNumberUserNomal();
     }
 
-    public long countNumberResultSearch(String name, int flag) {
+    public long countNumberResultSearch(String name, int flag, String role) {
         if (flag == 2) {
-            return UserDAO.getInstance().getNumberResultSearchUserNomal(name);
+            return UserDAO.getInstance().getNumberResultSearchUserNomal(name,role);
         } else {
-            return UserDAO.getInstance().getNumberResultSearchAndFillUserNomal(name, flag);
+            return UserDAO.getInstance().getNumberResultSearchAndFillUserNomal(name, flag,role);
         }
     }
 
@@ -59,7 +59,7 @@ public class UserModel {
 
         return users;
     }
-
+    
     public List<User> getBanUser() {
         List<User> normalUsers = new ArrayList<>();
         normalUsers = getUsersNomrmal();
@@ -181,7 +181,7 @@ public class UserModel {
 
     public String getUserName(String id) throws DAOException {
         
-        if (id != null || id != "") {
+        if (id != null || !"".equals(id)) {
             User u = UserDAO.getInstance().getUser(id);
             String name = u.getDisplayName();
             return name;

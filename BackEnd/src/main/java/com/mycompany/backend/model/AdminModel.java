@@ -49,5 +49,16 @@ public class AdminModel {
        }
        return user;
     }
+    public List<User> getUserAdminByName(String name, int page, int flag) throws DAOException {
+        List<User> users = new ArrayList<>();
+        if (flag == 2) {
+            users = UserDAO.getInstance().searchAllUserAdmin(name, page * 10, 10);
+        } else {
+            users = UserDAO.getInstance().searchAndFillAllUserAdmin(name, page * 10, 10, flag);
+        }
+
+        return users;
+    }
+
 
 }

@@ -38,6 +38,7 @@ public class JSFutil {
     public static void setSessionValue(String strKey, Object objValue) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().put(strKey, objValue);
+        System.out.println("time" + context.getExternalContext().getSessionMaxInactiveInterval());
     }
 
     public static void addErrorMessage(String msg) {
