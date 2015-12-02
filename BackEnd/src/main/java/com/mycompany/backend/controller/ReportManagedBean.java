@@ -38,43 +38,26 @@ public class ReportManagedBean {
     List<Report> listReport = new ArrayList<>();
     String searchText;
     String filterText;
-    int filter;
-    String reason;
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
+    String sortText;
+    int flag;
+    private int currentPage;
+    private int pagePrevious;
+    private int pageMiddle;
+    private int pageNext;
+    private long numberPage; 
     
-    public ReportManagedBean() throws DAOException {
-        listReport = reportModel.getListReports();
-    }
-
-    public List<Report> getListReport() {
-        return listReport;
-    }
-
-    public void setListReport(List<Report> listReport) {
-        this.listReport = listReport;
-    }
-
-    public String getSearchText() {
-        return searchText;
-    }
-
-    public void setSearchText(String searchText) {
-        this.searchText = searchText;
-    }
-
-    public String getFilterText() {
-        return filterText;
-    }
-
-    public void setFilterText(String filterText) {
-        this.filterText = filterText;
+     public ReportManagedBean() throws DAOException {
+        filterText = "2";
+        flag = 2;
+        searchText = "";
+        sortText = "-reported_time";
+        currentPage = 0;
+        pagePrevious = 0;
+        pageMiddle = 1;
+        pageNext = 2;
+        long n = reportModel.countReport();
+        numberPage = getNumberPage(n);
+        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
     
     public String getUserName(String id) throws DAOException{
@@ -87,8 +70,11 @@ public class ReportManagedBean {
     }
     
     public String getCreatorId(String recipeId) throws DAOException{
-        Recipe recipe = recipeModel.getRecipeByID(recipeId);
-        return recipe.getOwner();
+        if (recipeId != null && !recipeId.equals("")){
+            Recipe recipe = recipeModel.getRecipeByID(recipeId);
+            return recipe.getOwner();
+        }
+        return null;
     }
     
     public User getUser(String id) throws DAOException{
@@ -113,41 +99,66 @@ public class ReportManagedBean {
     }
     
     public void searchReport() throws DAOException{
-       List<Report> reports = new ArrayList<Report>();
-       listReport = reportModel.getListReports();
-       if (searchText != null){
-           for (Report report : listReport){
-               if (getRecipeName(report.getId()).contains(searchText)){
-                    reports.add(report);
-               }
-           }
-           listReport = reports;
-       }
+        flag = getFilterNumber();
+        currentPage = 0;
+        pagePrevious = 0;
+        pageMiddle = 1;
+        pageNext = 2;
+        long n = reportModel.countNumberResultSearch(flag);
+        numberPage = getNumberPage(n);
+        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
     
-    public void filter() throws DAOException{
-        List<Report> reports = new ArrayList<Report>();
-        listReport = reportModel.getListReports();
+    private int getFilterNumber(){
+        int filterNumber;
         if (filterText != null){
            try{
-               filter = Integer.parseInt(filterText);
-               if (filter != 1 && filter !=0 && filter !=2)
-                   filter=-1;
+               filterNumber = Integer.parseInt(filterText);
            }catch(Exception ex){
-               filter=-1;
+               filterNumber=3;
            }
        }else{
-            filter=-1;
+            filterNumber=3;
        }
-       
-        if (filter!=-1 && filter!=2){
-                for (Report report : listReport){
-                    if (report.getStatus() == filter)
-                        reports.add(report);
-                }
-           listReport = reports;
-        }
+        return filterNumber;
     }
+    
+//    public void searchReport() throws DAOException{
+//       List<Report> reports = new ArrayList<Report>();
+//       listReport = reportModel.getListReports();
+//       if (searchText != null){
+//           for (Report report : listReport){
+//               if (getRecipeName(report.getId()).contains(searchText)){
+//                    reports.add(report);
+//               }
+//           }
+//           listReport = reports;
+//       }
+//    }
+    
+//    public void filter() throws DAOException{
+//        List<Report> reports = new ArrayList<Report>();
+//        listReport = reportModel.getListReports();
+//        if (filterText != null){
+//           try{
+//               filter = Integer.parseInt(filterText);
+//               if (filter != 1 && filter !=0 && filter !=2)
+//                   filter=-1;
+//           }catch(Exception ex){
+//               filter=-1;
+//           }
+//       }else{
+//            filter=-1;
+//       }
+//       
+//        if (filter!=-1 && filter!=2){
+//                for (Report report : listReport){
+//                    if (report.getStatus() == filter)
+//                        reports.add(report);
+//                }
+//           listReport = reports;
+//        }
+//    }
     
     public void approveReportStatus(String reportId, String adminId) throws DAOException{
         
@@ -200,6 +211,129 @@ public class ReportManagedBean {
         //approve report
         approveReportStatus(report.getId(), reporterId);
         JSFutil.navigate("recipe_view");
-        
     }
+    
+    //phan trang
+    public final long getNumberPage(long number) {
+        long n;
+        if (number % 10 == 0) {
+            n = (number / 10) - 1;
+        } else {
+            n = number / 10;
+        }
+        return n;
+    }
+    
+    public void updateUsers(int page, int changeNumber) throws DAOException {
+        listReport = reportModel.getReportSearchAndFillter(page, sortText, flag);
+        currentPage = page;
+        
+        //change page number
+        if (changeNumber == 1 || changeNumber ==-1){
+            if (currentPage > 1 && currentPage < numberPage)
+            changePageNumber(changeNumber);
+        }
+        if (changeNumber ==-2 && currentPage == pagePrevious && currentPage >1){
+            changePageNumber(-1);
+        }
+        if (changeNumber ==2 && currentPage == pageNext && currentPage < (int)numberPage){
+            changePageNumber(1);
+        }
+        if (changeNumber == -3){
+            pagePrevious = 0;
+            changePageNumber(0);
+        }
+        if (changeNumber == 3 && numberPage>3){
+            pagePrevious = (int)numberPage - 2;
+            changePageNumber(0);
+        }
+    }
+    
+    private void changePageNumber(int changeNumber){
+        pagePrevious += changeNumber;
+        pageMiddle = pagePrevious + 1;
+        pageNext = pageMiddle +1;
+    }
+    
+    //get and set
+    public List<Report> getListReport() {
+        return listReport;
+    }
+
+    public void setListReport(List<Report> listReport) {
+        this.listReport = listReport;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public String getFilterText() {
+        return filterText;
+    }
+
+    public void setFilterText(String filterText) {
+        this.filterText = filterText;
+    }
+
+    public String getSortText() {
+        return sortText;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public int getPagePrevious() {
+        return pagePrevious;
+    }
+
+    public int getPageMiddle() {
+        return pageMiddle;
+    }
+
+    public int getPageNext() {
+        return pageNext;
+    }
+
+    public void setSortText(String sortText) {
+        this.sortText = sortText;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public void setPagePrevious(int pagePrevious) {
+        this.pagePrevious = pagePrevious;
+    }
+
+    public void setPageMiddle(int pageMiddle) {
+        this.pageMiddle = pageMiddle;
+    }
+
+    public void setPageNext(int pageNext) {
+        this.pageNext = pageNext;
+    }
+
+    public void setNumberPage(long numberPage) {
+        this.numberPage = numberPage;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public long getNumberPage() {
+        return numberPage;
+    }
+    
 }
