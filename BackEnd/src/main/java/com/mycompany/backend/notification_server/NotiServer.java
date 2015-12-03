@@ -32,8 +32,6 @@ public class NotiServer {
         return instance;
     }
 
-    public static final String WEBSERVICE_URL = "http://dailycook.cloudapp.net:8998/dailycook/";
-
     public void notiBanUser(String userId) {
         try {
             String path = "/dailycook/user/" + userId + "/ban";
@@ -61,7 +59,7 @@ public class NotiServer {
             String path = "/dailycook/user/" + userId + "/ban";
             
             Map<String,String> parameters = new HashMap<>();
-            parameters.put("flag", "ban");
+            parameters.put("flag", "unban");
             URI uri = DCAHttpRequest.getInstance().buildUrl(HOST, PORT, path, parameters);
 
             JSONObject jsonObj = new JSONObject();
@@ -86,7 +84,7 @@ public class NotiServer {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("email", "admin@gmail.com");
             jsonObj.put("password", "12345678");
-            int status = DCAHttpRequest.getInstance().put(uri, path);
+            int status = DCAHttpRequest.getInstance().put(uri, jsonObj.toString());
             if (status == 200) {
                 logger.info("NotiServer -> notiRemoveRecipe successful");
             } else {

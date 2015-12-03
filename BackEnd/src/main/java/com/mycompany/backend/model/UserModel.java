@@ -181,6 +181,7 @@ public class UserModel {
                 JSFutil.sentMail(user.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Notification From DailyCook!!!", 
                         contentMail);
             }
+        NotiServer.getInstance().notiUnbanUser(userId);
         return UserDAO.getInstance().unBanUser(userId);
     }
 
