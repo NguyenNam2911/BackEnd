@@ -29,6 +29,8 @@ public class StatisticsUserManagedBean implements Serializable{
     /**
      * Creates a new instance of StatisticsUserManagedBean
      */
+    public static final long TIME_DAY = 24 * 60 * 60 * 1000L;
+    
     UserModel userModel = new UserModel();
     String dateFrom;
     String dateTo;
@@ -39,6 +41,8 @@ public class StatisticsUserManagedBean implements Serializable{
         countUsers = 0;
 //    long dfrom;
 //    long dto;
+    String mondayText;
+    long mondayNumber;
     
     public StatisticsUserManagedBean() throws ParseException {
         countUsers = getCountAllUser();
@@ -46,6 +50,8 @@ public class StatisticsUserManagedBean implements Serializable{
         countUserBanOnce = getCountUserFollowFlag(User.BAN_FLAG_ONCE);
         countUserBanSecond = getCountUserFollowFlag(User.BAN_FLAG_SECOND);
         countUserDeleted = getCountUserFollowFlag(User.DELETED_FLAG);
+        mondayText = getDateMonday();
+        mondayNumber = getTime(mondayText);
     }
 
 //    public long getDfrom() {
@@ -62,27 +68,7 @@ public class StatisticsUserManagedBean implements Serializable{
 //
 //    public void setDto(long dto) {
 //        this.dto = dto;
-//    }
-
-    public long getCountUserActive() {
-        return countUserActive;
-    }
-
-    public long getCountUserBanOnce() {
-        return countUserBanOnce;
-    }
-
-    public long getCountUserBanSecond() {
-        return countUserBanSecond;
-    }
-
-    public long getCountUserDeleted() {
-        return countUserDeleted;
-    }
-
-    public long getCountUsers() {
-        return countUsers;
-    }
+//    } 
     
     private long getCountUserFollowFlag(int flag){
         return UserDAO.getInstance().getNumberUserWithFlag(flag);
@@ -132,6 +118,35 @@ public class StatisticsUserManagedBean implements Serializable{
         long from = getTime(dateFrom);
         long to = getTime(dateTo);
         return UserDAO.getInstance().getNumberRegisteredUser(from, to);
+    }
+    
+    public String getDateMonday(){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        Date date = c.getTime();
+        DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
+        return DATE_FORMAT.format(date);
+    }
+    
+    //get and set
+    public long getCountUserActive() {
+        return countUserActive;
+    }
+
+    public long getCountUserBanOnce() {
+        return countUserBanOnce;
+    }
+
+    public long getCountUserBanSecond() {
+        return countUserBanSecond;
+    }
+
+    public long getCountUserDeleted() {
+        return countUserDeleted;
+    }
+
+    public long getCountUsers() {
+        return countUsers;
     }
     
 }

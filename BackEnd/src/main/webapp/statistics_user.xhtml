@@ -159,6 +159,7 @@
                             <!-- chart morris start -->
                             <div class="col-lg-12">
                   <section class="panel">
+                      <h1>#{statisticsUserManagedBean.datedemo}</h1>
                       <header class="panel-heading">
                           <h3>User Chart</h3>
                       </header>
@@ -166,6 +167,19 @@
                         <div class="tab-pane" id="chartjs">
                             <div class="row">
                                 <!-- Line -->
+                                <div class="col-lg-12">
+                                    <section class="panel">
+                                        <header class="panel-heading">
+                                            Line
+                                        </header>
+                                        <div class="panel-body text-center">
+                                            <canvas id="line" height="400" width="800"></canvas>
+                                        </div>
+                                    </section>
+                                </div>    
+                            </div>
+                            <div class="row">
+                                <!-- Bar -->
                                 <div class="col-lg-12">
                                     <section class="panel">
                                         <header class="panel-heading">
@@ -222,27 +236,51 @@
     <script src="js/scripts.js"></script>
     
     <script>
+        var lineChartData = {
+            labels : [  "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""],
+            datasets : [
+                {
+                    fillColor : "rgba(151,187,205,0.5)",
+                    strokeColor : "rgba(151,187,205,1)",
+                    pointColor : "rgba(151,187,205,1)",
+                    pointStrokeColor : "#fff",
+                    data : [28,48,40,19,96,27,100]
+                }
+            ]
+
+        };
+        new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
+    </script>
+    
+    <script>
         var barChartData = {
             labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
             datasets : [
                 {
                     fillColor : "rgba(151,187,205,0.5)",
                     strokeColor : "rgba(151,187,205,1)",
-                    data : [    #{statisticsUserManagedBean.getCountRegisteredUser(1)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(2)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(3)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(4)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(5)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(6)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(7)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(8)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(9)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(10)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(11)},
-                                #{statisticsUserManagedBean.getCountRegisteredUser(12)}
-                            ]
+                    data :[ #{statisticsUserManagedBean.getCountRegisteredUser(1)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(2)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(3)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(4)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(5)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(6)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(7)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(8)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(9)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(10)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(11)},
+                            #{statisticsUserManagedBean.getCountRegisteredUser(12)}                
+                    ]
                 }
             ]
+            
 
         };
         new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
@@ -251,7 +289,8 @@
         var pieData = [
             {
                 value: #{statisticsUserManagedBean.countUserActive},
-                color: "#F38630"
+                color: "#FFA500"
+                
             },
             {
                 value : #{statisticsUserManagedBean.countUserBanOnce},

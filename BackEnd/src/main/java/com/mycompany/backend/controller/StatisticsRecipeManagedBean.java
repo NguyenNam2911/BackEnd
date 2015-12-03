@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -21,7 +22,6 @@ import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.entity.Recipe;
 import org.entity.Tag;
-import org.apache.commons.collections.IteratorUtils;
 
 /**
  *
@@ -105,14 +105,20 @@ public class StatisticsRecipeManagedBean implements Serializable{
     
     //get top tags in tagging
     public List<Tag> getTopTag(int top) throws DAOException{
+        List<Tag> myList = new ArrayList<Tag>();
         Iterator<Tag> tags = recipeModel.getTopTags(top);
-        return IteratorUtils.toList(tags);
+        while (tags.hasNext())
+            myList.add(tags.next());
+        return myList;
     }
     
     //get top recipes in tagging
     public List<Recipe> getTopRecipe(int top) throws DAOException{
+        List<Recipe> myList = new ArrayList<Recipe>();
         Iterator<Recipe> recipes = recipeModel.getTopRecipes(top);
-        return IteratorUtils.toList(recipes);
+        while (recipes.hasNext())
+            myList.add(recipes.next());
+        return myList;
     }
     
     //get and set
