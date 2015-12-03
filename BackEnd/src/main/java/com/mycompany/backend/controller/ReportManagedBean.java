@@ -27,7 +27,7 @@ import util.JSFutil;
  * @author KhanhDN
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ReportManagedBean {
 
     /**
