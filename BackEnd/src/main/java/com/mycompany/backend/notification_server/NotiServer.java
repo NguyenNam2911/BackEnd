@@ -5,20 +5,13 @@
  */
 package com.mycompany.backend.notification_server;
 
-import com.mycompany.backend.controller.AdminManagedBean;
-import com.mycompany.backend.model.AdminModel;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.dao.UserDAO;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import org.DCAHttpRequest;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,75 +19,83 @@ import org.json.JSONObject;
  */
 public class NotiServer {
 
+    private static final String HOST = "dailycook.cloudapp.net";
+    private static final int PORT = 8998;
+    Logger logger = LoggerFactory.getLogger(getClass());
+
     private static NotiServer instance = new NotiServer();
 
     private NotiServer() {
-        client = HttpClientBuilder.create().build();
     }
 
     public static NotiServer getInstance() {
         return instance;
     }
 
-    CloseableHttpClient client;
-
     public static final String WEBSERVICE_URL = "http://dailycook.cloudapp.net:8998/dailycook/";
 
     public void notiBanUser(String userId) {
         try {
-            String url = WEBSERVICE_URL + "user/" + userId + "/ban";
+            String path = "/dailycook/user/" + userId + "/ban";
             
-            
-            HttpPut put = new HttpPut(url);
-            // TODO
+            Map<String,String> parameters = new HashMap<>();
+            parameters.put("flag", "ban");
+            URI uri = DCAHttpRequest.getInstance().buildUrl(HOST, PORT, path, parameters);
+
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("email", "admin@gmail.com");
             jsonObj.put("password", "12345678");
-            
-            put.setEntity(new StringEntity(jsonObj.toString()));
-            String result = getResponse(put);
-            System.out.println(result);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            int status = DCAHttpRequest.getInstance().put(uri, jsonObj.toString());
+            if (status == 200) {
+                logger.info("NotiServer -> notiBanUser successful");
+            } else {
+                logger.info("NotiServer -> notiBanUser fail");
+            }
+        } catch (Exception ex) {
+            logger.error("NotiServer -> notiBanUser error", ex);
         }
+    }
 
+    public void notiUnbanUser(String userId) {
+        try {
+            String path = "/dailycook/user/" + userId + "/ban";
+            
+            Map<String,String> parameters = new HashMap<>();
+            parameters.put("flag", "ban");
+            URI uri = DCAHttpRequest.getInstance().buildUrl(HOST, PORT, path, parameters);
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("email", "admin@gmail.com");
+            jsonObj.put("password", "12345678");
+            int status = DCAHttpRequest.getInstance().put(uri, jsonObj.toString());
+            if (status == 200) {
+                logger.info("NotiServer -> notiBanUser successful");
+            } else {
+                logger.info("NotiServer -> notiBanUser fail");
+            }
+        } catch (Exception ex) {
+            logger.error("NotiServer -> notiBanUser error", ex);
+        }
     }
 
     public void notiRemoveRecipe(String recipeId) {
         try {
-            String url = WEBSERVICE_URL + "recipe/" + recipeId + "/remove";
-            
-            
-            HttpPut put = new HttpPut(url);
-            // TODO
+            String path = "/dailycook/recipe/" + recipeId + "/remove";
+            URI uri = DCAHttpRequest.getInstance().buildUrl(HOST, PORT, path, null);
+
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("email", "admin@gmail.com");
             jsonObj.put("password", "12345678");
-            
-            put.setEntity(new StringEntity(jsonObj.toString()));
-            String result = getResponse(put);
-            System.out.println(result);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            int status = DCAHttpRequest.getInstance().put(uri, path);
+            if (status == 200) {
+                logger.info("NotiServer -> notiRemoveRecipe successful");
+            } else {
+                logger.info("NotiServer -> notiRemoveRecipe fail");
+            }
+        } catch (Exception ex) {
+            logger.error("NotiServer -> notiRemoveRecipe error", ex);
         }
 
     }
-    
-    private String getResponse(HttpUriRequest httpRequest) throws IOException {
-        HttpResponse httpResponse = client.execute(httpRequest);
-        if (httpResponse.getStatusLine().getStatusCode() != 200) {
-            System.out.println("Noti fail");
-        }
 
-        BufferedReader rd = new BufferedReader(
-                new InputStreamReader(httpResponse.getEntity().getContent()));
-
-        StringBuilder result = new StringBuilder();
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
-        }
-
-        return result.toString();
-    }
 }
