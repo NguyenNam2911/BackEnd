@@ -24,6 +24,10 @@
 
     <h:body class="login-img3-body">
         <f:view>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <img src="img/ajax-loader2.gif" />
+                </p:dialog>
             <div class="container">
                 <h:form class="login-form" id="loginForm">  
                     <p:messages id="sss"/>
