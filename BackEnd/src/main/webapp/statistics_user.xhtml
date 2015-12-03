@@ -27,6 +27,20 @@
     </h:head>
 
     <h:body>
+        <!-- javascripts -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-1.8.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- nice scroll -->
+        <script src="js/jquery.scrollTo.min.js"></script>
+        <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+        <!-- chartjs -->
+        <script src="assets/chart-master/Chart.js"></script>
+        <!-- custom chart script for this page only-->
+
+        <!--custome script for all page-->
+        <script src="js/scripts.js"></script>
+        <!-- javascripts -->
         <f:view>
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
@@ -164,19 +178,54 @@
                                     </header>
                                     <div class="panel-body">
                                       <div class="tab-pane" id="chartjs">
-                                          <div class="row">
-                                              <!-- Line -->
-                                              <div class="col-lg-12">
-                                                  <section class="panel">
-                                                      <header class="panel-heading">
-                                                          Line
-                                                      </header>
-                                                      <div class="panel-body text-center">
-                                                          <canvas id="line" height="400" width="800"></canvas>
-                                                      </div>
-                                                  </section>
-                                              </div>    
-                                          </div>
+                                          <h:form id="frmChart">
+                                                <p:panel id="pagingCal">
+                                                    <div class="row">
+                                                        <!-- Line -->
+                                                        <div class="col-lg-1" style="margin-top: 430px">
+                                                            <p:commandButton value="&#60;" action="#{statisticsUserManagedBean.updateCalendar(-1)}" update=":frmChart:pagingCal :frmChart:myScript" />
+                                                        </div>
+                                                        <div class="col-lg-10">
+                                                            <section class="panel">
+                                                                <header class="panel-heading">
+                                                                    Line
+                                                                </header>
+                                                                <div class="panel-body text-center">
+                                                                    <canvas id="line" height="400" width="800"></canvas>
+                                                                </div>
+                                                            </section>
+                                                        </div>  
+                                                        <div class="col-lg-1" style="margin-top: 430px">
+                                                            <p:commandButton value="&#62;" action="#{statisticsUserManagedBean.updateCalendar(1)}" update=":frmChart:pagingCal :frmChart:myScript" />
+                                                        </div>
+                                                    </div>
+                                                    <h:panelGroup id="myScript">
+                                                        <script type="text/javascript">
+                                                            var lineChartData = {
+                                                                labels : [  "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(0))}",
+                                                                            "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(1))}",
+                                                                            "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(2))}",
+                                                                            "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(3))}",
+                                                                            "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(4))}",
+                                                                            "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(5))}",
+                                                                            "#{statisticsUserManagedBean.getTextDate(statisticsUserManagedBean.getDate(6))}"],
+                                                                datasets : [
+                                                                    {
+                                                                        fillColor : "rgba(151,187,205,0.5)",
+                                                                        strokeColor : "rgba(151,187,205,1)",
+                                                                        pointColor : "rgba(151,187,205,1)",
+                                                                        pointStrokeColor : "#fff",
+
+                                                                        data : [1,2,3,4,5,6,7]
+                                                                    }
+                                                                ]
+
+                                                            };
+                                                            new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+                                                        </script>
+                                                    </h:panelGroup>
+                                                </p:panel>
+                                          </h:form>
                                           <div class="row">
                                               <!-- Bar -->
                                               <div class="col-lg-12">
@@ -218,45 +267,7 @@
         </f:view>
         <!-- container section start -->
 
-        <!-- javascripts -->
         
-        <!-- javascripts -->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- nice scroll -->
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <!-- chartjs -->
-    <script src="assets/chart-master/Chart.js"></script>
-    <!-- custom chart script for this page only-->
-    
-    <!--custome script for all page-->
-    <script src="js/scripts.js"></script>
-    
-    <script>
-        var lineChartData = {
-            labels : [  "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""],
-            datasets : [
-                {
-                    fillColor : "rgba(151,187,205,0.5)",
-                    strokeColor : "rgba(151,187,205,1)",
-                    pointColor : "rgba(151,187,205,1)",
-                    pointStrokeColor : "#fff",
-                    data : [28,48,40,19,96,27,100]
-                }
-            ]
-
-        };
-        new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-    </script>
-    
     <script>
         var barChartData = {
             labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],

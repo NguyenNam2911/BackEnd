@@ -7,13 +7,17 @@ package com.mycompany.backend.model;
 
 import com.mycompany.backend.notification_server.NotiServer;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.dao.DAOException;
 import org.dao.UserDAO;
 import org.entity.User;
 import org.TimeUtils;
+import org.dao.ActivityLogDAO;
 import org.dao.RecipeDAO;
 import org.dao.ReportDAO;
+import org.entity.ActivityLog;
 import org.entity.Recipe;
 import org.entity.Report;
 import util.JSFutil;
@@ -195,4 +199,7 @@ public class UserModel {
         return "Not available";
     }
     
+    public Iterator<ActivityLog.Count> getCountUserViewByDay(Date from, Date to) throws DAOException{
+        return ActivityLogDAO.getInstance().statistics(from, to);
+    }
 }

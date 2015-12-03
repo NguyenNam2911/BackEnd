@@ -10,12 +10,17 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
+import org.dao.DAOException;
 import org.dao.UserDAO;
+import org.entity.ActivityLog.Count;
 import org.entity.User;
 
 /**
@@ -42,16 +47,26 @@ public class StatisticsUserManagedBean implements Serializable{
 //    long dfrom;
 //    long dto;
     String mondayText;
-    long mondayNumber;
+    Date mondayDate;
+    String sundayText;
+    Date sundayDate;
+    List<Count> listCountView;
     
-    public StatisticsUserManagedBean() throws ParseException {
+    public StatisticsUserManagedBean() throws ParseException, DAOException {
         countUsers = getCountAllUser();
         countUserActive = getCountUserFollowFlag(User.ACTIVE_FLAG);
         countUserBanOnce = getCountUserFollowFlag(User.BAN_FLAG_ONCE);
         countUserBanSecond = getCountUserFollowFlag(User.BAN_FLAG_SECOND);
         countUserDeleted = getCountUserFollowFlag(User.DELETED_FLAG);
-        mondayText = getDateMonday();
-        mondayNumber = getTime(mondayText);
+        
+        //get date from to
+        mondayDate = getMondayCurrentWeek();
+        mondayText = getTextDate(mondayDate);
+        sundayDate = getDate(6);
+        sundayText = getTextDate(sundayDate);
+        
+        //get list count view
+//        listCountView = getCountUserViewByDay(mondayDate, sundayDate);
     }
 
 //    public long getDfrom() {
@@ -120,12 +135,44 @@ public class StatisticsUserManagedBean implements Serializable{
         return UserDAO.getInstance().getNumberRegisteredUser(from, to);
     }
     
-    public String getDateMonday(){
+    public List<Count> getCountUserViewByDay(Date from, Date to) throws DAOException{
+        Iterator<Count> iter = userModel.getCountUserViewByDay(from, to);
+        List<Count> myList = new ArrayList<Count>();
+        while (iter.hasNext())
+            myList.add(iter.next());
+        return myList;
+    }
+    
+    public Date getDate(int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mondayDate);
+        calendar.add(Calendar.DAY_OF_YEAR, day);
+        return calendar.getTime();
+    }
+    
+    public Date getMondayCurrentWeek(){
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         Date date = c.getTime();
-        DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
-        return DATE_FORMAT.format(date);
+        return date;
+    }
+    
+    public String getTextDate(Date date){
+        DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
+        String dateText = (String)DATE_FORMAT.format(date);
+        return dateText;
+    }
+    
+    public void updateCalendar(int i) throws DAOException{
+        mondayDate = getDate(7*i);
+        mondayText = getTextDate(mondayDate);
+        sundayDate = getDate(6);
+        sundayText = getTextDate(sundayDate);
+//        listCountView = getCountUserViewByDay(mondayDate, sundayDate);
+    } 
+    
+    public int getCountById(int i){
+        return listCountView.get(i).getCount();
     }
     
     //get and set
@@ -147,6 +194,30 @@ public class StatisticsUserManagedBean implements Serializable{
 
     public long getCountUsers() {
         return countUsers;
+    }
+
+    public List<Count> getListCountView() {
+        return listCountView;
+    }
+
+    public void setListCountView(List<Count> listCountView) {
+        this.listCountView = listCountView;
+    }
+
+    public String getMondayText() {
+        return mondayText;
+    }
+
+    public void setMondayText(String mondayText) {
+        this.mondayText = mondayText;
+    }
+
+    public String getSundayText() {
+        return sundayText;
+    }
+
+    public void setSundayText(String sundayText) {
+        this.sundayText = sundayText;
     }
     
 }
