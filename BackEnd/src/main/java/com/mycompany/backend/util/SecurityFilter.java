@@ -40,6 +40,9 @@ public class SecurityFilter implements PhaseListener {
         if ( !forgotPassPage  && !loginPage && !isUserLogged()) {
             JSFutil.navigate("login");
         }
+        if(loginPage && isUserLogged()){
+            JSFutil.navigate("index");
+        }
     }
 
    
