@@ -17,8 +17,8 @@ import org.entity.User;
  */
 public class LoginModel {
 
-    public User CheckLogin(User user) throws DAOException {
-        User u = UserDAO.getInstance().getUserInfoByEmail(user.getEmail());
+    public User CheckLogin(String email) throws DAOException {
+        User u = UserDAO.getInstance().getUserInfoByEmail(email);
         if (u != null) {
             if (u.getRole().equals(User.ADMIN_ROLE) || u.getRole().equals(User.SUPER_ADMIN_ROLE)) {
                 if(u.getActiveFlag() == User.ACTIVE_FLAG){

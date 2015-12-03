@@ -49,7 +49,7 @@ public class StatisticsRecipeManagedBean implements Serializable{
         countRecipeApproved = getCountRecipeFollowFlag(Recipe.APPROVED_FLAG);
         countRecipeRemoved = getCountRecipeFollowFlag(Recipe.REMOVED_FLAG);
         listTags = getTopTag(10);
-//        listRecipes = getTopRecipe(10);
+        listRecipes = getTopRecipe(10);
     }
     
     private long getCountRecipeFollowFlag(int flag){

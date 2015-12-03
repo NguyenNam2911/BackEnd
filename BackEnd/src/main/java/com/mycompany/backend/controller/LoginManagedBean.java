@@ -5,7 +5,6 @@
  */
 package com.mycompany.backend.controller;
 
-
 import com.mycompany.backend.model.LoginModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
@@ -20,19 +19,22 @@ import util.JSFutil;
  */
 @ManagedBean
 @SessionScoped
-public class LoginManagedBean implements Serializable{
+public class LoginManagedBean implements Serializable {
 
     /**
      * Creates a new instance of LoginManagedBean
      */
-    User user = new User();
+    User user;
     LoginModel loginModel = new LoginModel();
     boolean flagAdmin;
+    String email;
+    String password;
+
     //method
     public void checkLogin() throws DAOException {
-        User user_check = loginModel.CheckLogin(user);
+        User user_check = loginModel.CheckLogin(email);
         if (user_check != null) {
-            if (user_check.getPassword().equals(user.getPassword())) {
+            if (user_check.getPassword().equals(password)) {
                 user = user_check;
                 flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
                 JSFutil.setSessionValue("user", user);
@@ -51,24 +53,44 @@ public class LoginManagedBean implements Serializable{
         JSFutil.setSessionValue("user", null);
         JSFutil.navigate("logout");
     }
-    public void preResetPass(){
+
+    public void preResetPass() {
         JSFutil.navigate("forgot_pass");
     }
- 
+
     // contructer
     public LoginManagedBean() {
         flagAdmin = false;
     }
+
+//get and set
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
-    //get and set
+    
+    
     public boolean isFlagAdmin() {
         return flagAdmin;
     }
 
-    
-    public void setFlagAdmin(boolean flagAdmin) {    
+    public void setFlagAdmin(boolean flagAdmin) {
         this.flagAdmin = flagAdmin;
     }
+
     public User getUser() {
         return user;
     }
