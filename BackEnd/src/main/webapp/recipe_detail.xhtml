@@ -182,7 +182,7 @@
                                                 <span>
                                                     <i class="icon_profile"></i>
                                                     <h:commandLink value="#{recipeDetailManagedBean.getOwnerName(recipeDetailManagedBean.recipe.owner)}"
-                                                                   action="#{userDetailManagedBean.userDetail(recipeDetailManagedBean.recipe.owner)}"/>
+                                                                   action="#{userDetailManagedBean.userDetail(recipeDetailManagedBean.recipe.owner)}" target="_blank"/>
                                                 </span>
                                             </h6>
                                             <div class="text-center" style="margin-bottom:   30px;">              
@@ -208,8 +208,8 @@
                                                     <div class="col-lg-2">Category</div>
                                                     <div class="col-lg-9">
                                                         <c:forEach items="#{recipeDetailManagedBean.listTag}" var="tag">
-                                                            <h:outputText value="#"/>
-                                                            <h:outputText value="#{tag}"/>                                                
+                                                            <h:outputText value="#" style="color: #1C86EE"/>
+                                                            <h:outputText value="#{tag}&nbsp;&nbsp;&nbsp;" style="color: #1C86EE"/>                                                
                                                         </c:forEach>
                                                     </div>
                                                 </div>

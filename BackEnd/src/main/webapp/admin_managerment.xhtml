@@ -36,7 +36,7 @@
         <link href="css/xcharts.min.css" rel=" stylesheet"/>	
         <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet"/>
 
-        <title>DailyCook.Admin</title>
+        <title>DailyCook.Manager</title>
     </h:head>
 
     <h:body>
@@ -48,7 +48,7 @@
                 </p:dialog> 
                 <section id="container" class="">
                     <header class="header dark-bg">
-                        <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
+                        <a class="logo" href="index.xhtml">DailyCook <span class="lite">Manager</span></a>
                         <div class="top-nav notification-row">
                             <ul class="nav pull-right top-menu">
                                 <li class="dropdown">
@@ -85,7 +85,7 @@
                                 <li class="sub-menu" id="li-admin">
                                     <a href="javascript:;" class="">
                                         <i class="icon_archive"></i>
-                                        <span>Admin</span>
+                                        <span>Manager</span>
                                         <span class="menu-arrow arrow_carrot-right"></span>
                                     </a>
                                     <ul class="sub">
@@ -154,11 +154,11 @@
                             <!--title page-->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h3 class="page-header"><i class="fa fa-eye"></i> Admin</h3>
+                                    <h3 class="page-header"><i class="fa fa-eye"></i> Manager</h3>
                                     <ol class="breadcrumb">
                                         <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
-                                        <li><i class="fa fa-eye"></i>Admin</li>
-                                        <li><i class="fa fa-eye"></i>View Admin</li>
+                                        <li><i class="fa fa-eye"></i>Manager</li>
+                                        <li><i class="fa fa-eye"></i>View Manager</li>
                                     </ol>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                     <section class="panel">
                                         <div class="content noPad clearfix">
                                             <header class="panel-heading">
-                                                <b>Admin Table</b>
+                                                <b>Manager Table</b>
                                             </header>
                                             <div class="panel-body">
                                                 <section class="panel">
@@ -212,17 +212,17 @@
                                                                         <th><i class="icon_profile"></i> Name</th>
                                                                         <th><i class="icon_mail_alt"></i> Email</th>
                                                                         <th><i class="icon_phone"></i> Phone</th>
+                                                                        <th><i class="icon-calendar-l"></i> Registered Date</th>
                                                                         <th><i class="icon_close_alt"></i> Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <c:forEach items="#{adminManagedBean.users}" var="user">
                                                                     <tr>
                                                                         <td>#{adminManagedBean.users.indexOf(user) + 1}</td>
-                                                                        <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.userDetail(user.id)}" 
-                                                                                           style="color: #1C86EE"  /> 
-                                                                        </td>
+                                                                        <td>#{user.displayName}</td>
                                                                         <td>#{user.email}</td>
                                                                         <td>#{user.phone}</td>
+                                                                        <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
                                                                         <td>
                                                                             <p:commandButton value="Removed" disabled="true" rendered="#{user.activeFlag != 1}" style="width: 100px;"></p:commandButton>
                                                                             <p:commandButton value="Remove" process="@this" action="#{adminManagedBean.deleteUser(user)}"
@@ -313,7 +313,7 @@
                                                 <section class="panel"  >
                                                     <div style="text-align: center;margin-top: 100px;" id="addAdmin" >
                                                         <div align="center">
-                                                            <p:panel header="Create Admin" id="pnlInput">
+                                                            <p:panel header="Create Manager" id="pnlInput">
 
                                                                 <p:commandButton id="cmdCreate" disabled="#{!adminManagedBean.addView}" value="Create" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.preAdd(event)}" update=":frmMain:pnlInput"/>
                                                                 <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.cancel(event)}" update=":frmMain:pnlInput" immediate="true"/>

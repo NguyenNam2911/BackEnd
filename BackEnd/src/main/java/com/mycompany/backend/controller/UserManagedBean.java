@@ -44,9 +44,9 @@ public class UserManagedBean {
         filter = "all";
         flag_Active = filter();
         search = "";
-        sortBy = "display_name";
+        sortBy = "date";
         stringSearch = search;
-        stringSort = sortBy;
+        stringSort = sort();
         page = 0;
         typePageBtn = 1;
         long n = userModel.countUser();
@@ -55,7 +55,7 @@ public class UserManagedBean {
     }
 
     public void searchUser() throws DAOException {
-        if (!search.equals("") || !sortBy.equals("display_name") || !filter.equals("all")) {
+        if (!search.equals("") || !sortBy.equals("date") || !filter.equals("all")) {
             stringSort = sort();
             stringSearch = search;
             flag_Active = filter();
@@ -66,7 +66,7 @@ public class UserManagedBean {
             users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
             search = "";
             filter = "All";
-            sortBy = "display_name";
+            sortBy = "date";
             
         } else {
             page = 0;
@@ -100,18 +100,17 @@ public class UserManagedBean {
     }
 
     private String sort() {
-        if (!sortBy.equals("name")) {
+        if (!sortBy.equals("date")) {
             switch (sortBy) {
                 case "n_ban":
                     return User.SORT_BY_BAN;
-                case "date":
-                    return User.SORT_BY_DATE;
+                case "name":
+                    return User.SORT_BY_Name;
                 case "n_recipe":
                     return User.SORT_BY_RECIPE;
             }
         }
-//        return User.SORT_BY_NAME;
-        return "display_name";
+        return User.SORT_BY_DATE;
     }
 
     public final long getNumberPage(long number) {
