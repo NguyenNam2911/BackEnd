@@ -9,6 +9,8 @@ import com.mycompany.backend.model.AdminModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.EncryptDataException;
+import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
 import util.JSFutil;
@@ -43,11 +45,11 @@ public class AdminDetailManagedBean implements Serializable {
         JSFutil.navigate("change_pass");
     }
 
-    public void changePass() throws DAOException {
-        if (userAdmin.getPassword().equals(oldPass)) {
+    public void changePass() throws DAOException, EncryptDataException {
+        if (userAdmin.getPassword().equals(EncryptHelper.encrypt(oldPass))) {
             if (!userAdmin.getPassword().equals(newPass)) {
                 if (newPass.equals(rePass)) {
-                    adminModel.resetPass(userAdmin.getId(), newPass);
+                    adminModel.resetPass(userAdmin.getId(),EncryptHelper.encrypt(newPass));
                     userAdmin = adminModel.getAdminByEmail(userAdmin.getEmail());
                     oldPass = "";
                     newPass = "";

@@ -9,6 +9,8 @@ import com.mycompany.backend.model.AdminModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
+import org.EncryptDataException;
+import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
 import util.JSFutil;
@@ -34,13 +36,14 @@ public class ForgotPassManagedBean implements Serializable{
         successFlag = false;
         JSFutil.setSessionValue("user", null);
     }
-    public void resetPassWord() throws DAOException {
+    public void resetPassWord() throws DAOException, EncryptDataException {
         User userAdmin =  adminModel.getAdminByEmail(user.getEmail());
         if(userAdmin != null){
             String pass = JSFutil.ramdomString(8);
-            adminModel.resetPass(userAdmin.getId(), pass);
+            adminModel.resetPass(userAdmin.getId(), EncryptHelper.encrypt(pass));
             try {
                 JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", pass);
+               
             } catch (Exception e) {
                 JSFutil.addErrorMessageById("frInput:txtEmail", e.getMessage());
             }

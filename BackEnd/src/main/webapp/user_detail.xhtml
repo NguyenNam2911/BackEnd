@@ -200,7 +200,17 @@
                                                     <label class="col-lg-4 control-label">Avatar:</label>
                                                     <div class="col-lg-8">
                                                         <p class="form-control-static"> 
-                                                            <img class="image marginR10" alt="" src="#{userDetailManagedBean.userSelected.avatarUrl}" height="300" width="auto"/>
+                                                            <c:set var="image" value="#{userDetailManagedBean.userSelected.avatarUrl}"></c:set>
+
+                                                            <c:if test="${ image == '' || image == null }">
+                                                                <img src="img/no_images.jpg" height="72" width="72" alt="No Image"/>
+                                                            </c:if>
+
+                                                            <c:if test="${ image != ''}">
+                                                                <c:if test="${image != null}">
+                                                                    <img src="#{userDetailManagedBean.userSelected.avatarUrl}" height="72" width="72" alt="No Imagem"/>
+                                                                </c:if>
+                                                            </c:if>
                                                         </p>
                                                     </div>
                                                 </div>
