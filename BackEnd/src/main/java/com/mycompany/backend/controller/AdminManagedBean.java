@@ -53,7 +53,7 @@ public class AdminManagedBean extends Object implements Serializable {
         addView = true;
         userAdmin = new User();
         userModel = new UserModel();
-        users = adminModel.getUsersAdmin();
+//        users = adminModel.getUsersAdmin();
         date = new Date();
         filter = "all";
         flag_Active = filter();
