@@ -17,6 +17,7 @@ import org.dao.DAOException;
 import org.entity.Ingredient;
 import org.entity.Recipe;
 import org.entity.Report;
+import org.entity.Tag;
 import org.entity.User;
 import util.JSFutil;
 
@@ -38,6 +39,7 @@ public class RecipeDetailManagedBean implements Serializable {
     User user;
     List<Ingredient> listIngredients = new ArrayList<>();
     List<Recipe.Step> listSteps = new ArrayList<>();
+    List<String> listTag = new ArrayList<>();
 
     //method
     public User getOwner(String id) throws DAOException {
@@ -71,6 +73,7 @@ public class RecipeDetailManagedBean implements Serializable {
             report = recipeModel.getReportByRecipe(id);
             listIngredients = recipe.getIngredients();
             listSteps = recipe.getSteps();
+            listTag = recipe.getCategoryIds();
             JSFutil.navigate("recipe_detail");
         }
     }
@@ -84,6 +87,18 @@ public class RecipeDetailManagedBean implements Serializable {
     }
 
     //get and set
+
+    public List<String> getListTag() {
+        return listTag;
+    }
+
+    public void setListTag(List<String> listTag) {
+        this.listTag = listTag;
+    }
+
+   
+    
+    
     public Recipe getRecipe() {
         return recipe;
     }

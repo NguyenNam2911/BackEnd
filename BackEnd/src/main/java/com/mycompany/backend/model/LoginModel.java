@@ -16,6 +16,8 @@ import org.entity.User;
  * @author Nguyen Hoai Nam
  */
 public class LoginModel {
+    
+    
 
     public User CheckLogin(String email) throws DAOException {
         User u = UserDAO.getInstance().getUserInfoByEmail(email);

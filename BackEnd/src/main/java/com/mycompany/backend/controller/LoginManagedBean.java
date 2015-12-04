@@ -9,6 +9,8 @@ import com.mycompany.backend.model.LoginModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.EncryptDataException;
+import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
 import util.JSFutil;
@@ -31,8 +33,9 @@ public class LoginManagedBean implements Serializable {
     String password;
 
     //method
-    public void checkLogin() throws DAOException {
+    public void checkLogin() throws DAOException, EncryptDataException {
         User user_check = loginModel.CheckLogin(email);
+        password = EncryptHelper.encrypt(password);
         if (user_check != null) {
             if (user_check.getPassword().equals(password)) {
                 user = user_check;

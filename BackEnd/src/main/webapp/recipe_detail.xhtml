@@ -185,20 +185,32 @@
                                                                    action="#{userDetailManagedBean.userDetail(recipeDetailManagedBean.recipe.owner)}"/>
                                                 </span>
                                             </h6>
-                                            <div class="text-center">               
-                                                <img src="#{recipeDetailManagedBean.recipe.pictureUrl}" height="300" width="auto"/>
+                                            <div class="text-center" style="margin-bottom:   30px;">              
+
+                                                <c:set var="image" value="#{recipeDetailManagedBean.recipe.pictureUrl}"></c:set>
+                                                <c:if test="${ image == '' }">
+                                                    <img src="img/no_images.jpg" height="300" width="auto" alt="No Image"/>
+                                                </c:if>
+                                                <c:if test="${ image != '' }">
+                                                    <img src="#{recipeDetailManagedBean.recipe.pictureUrl}" height="300" width="auto" alt="No Image"/>
+                                                </c:if>
                                             </div>
+
                                             <div class="bio-graph-info form-horizontal">
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Description</div>
                                                     <div class="col-lg-9">
-                                                        <h:outputText value="#{recipeDetailManagedBean.recipe.story}"/>
+                                                        <h:outputText value="#{recipeDetailManagedBean.recipe.story}" />
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Category</div>
                                                     <div class="col-lg-9">
-
+                                                        <c:forEach items="#{recipeDetailManagedBean.listTag}" var="tag">
+                                                            <h:outputText value="#"/>
+                                                            <h:outputText value="#{tag}"/>                                                
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -225,7 +237,15 @@
 
                                                             <div class="form-group">
                                                                 <div class="col-lg-5">
-                                                                    <img src="#{step.pictureUrl}" height="150" width="auto" alt="images"/>
+                                                                    <c:set var="image" value="#{step.pictureUrl}"></c:set>
+                                                                    <c:if test="${ image == '' }">
+                                                                        <img src="img/no_images.jpg" height="200" width="200" alt="No Image"/>
+                                                                    </c:if>
+                                                                    <c:if test="${ image != '' }">
+                                                                        <img src="#{step.pictureUrl}" height="200" width="200" alt="No Image"/>
+                                                                    </c:if>
+
+
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <span><b>Step #{recipeDetailManagedBean.listSteps.indexOf(step) + 1}:</b></span>
@@ -285,7 +305,7 @@
 
                                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
                                                                 <div align="center">
-                                                                   
+
                                                                     <span style="color: red;">
                                                                         <p:messages for="txtReason" id="reasonError" autoUpdate="true" closable="true"/>
                                                                     </span>

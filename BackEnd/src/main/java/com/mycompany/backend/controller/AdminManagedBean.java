@@ -14,6 +14,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import org.EncryptDataException;
+import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
 import util.JSFutil;
@@ -44,6 +46,7 @@ public class AdminManagedBean extends Object implements Serializable {
     UserModel userModel;
     int flag;
     int flag_Active;
+    String password;
 
     //method
     public AdminManagedBean() throws DAOException {
@@ -129,12 +132,13 @@ public class AdminManagedBean extends Object implements Serializable {
         return 2;
     }
 
-    public void save(ActionEvent event) throws DAOException {
+    public void save(ActionEvent event) throws DAOException, EncryptDataException {
         if (checkEmail(userAdmin.getEmail())) {
             if (checkName(userAdmin.getDisplayName())) {
-                userAdmin.setRole(User.ADMIN_ROLE);
-//                userAdmin.setPassword(JSFutil.ramdomString(8));
-                userAdmin.setPassword("12345678");
+                userAdmin.setRole(User.ADMIN_ROLE);  
+                password = JSFutil.ramdomString(8);
+                userAdmin.setPassword(EncryptHelper.encrypt(password));
+//                userAdmin.setPassword("12345678");
                 userAdmin.setRegisteredTime(date.getTime());
                 adminModel = new AdminModel();
                 adminModel.insertAdmin(userAdmin);
@@ -148,8 +152,10 @@ public class AdminManagedBean extends Object implements Serializable {
                 numberP = getNumberPage(n);
                 users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
                 addView = true;
-                JSFutil.sentMail(userAdmin.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Welcome to dalycook management", userAdmin.getPassword());
+                JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", password);
                 userAdmin = new User();
+                password = "";
+                
             } else {
                 JSFutil.addErrorMessageById("frmMain:txtName", "Name already exists");
 

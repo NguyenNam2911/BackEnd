@@ -20,15 +20,10 @@ public class AdminModel {
     //get list admin namnh
 
     public List<User> getUsersAdmin() {
-        List<User> users = UserDAO.getInstance().getAllUser();
-        List<User> users_admin = new ArrayList<>();
-        for (User user : users) {
-            if (user.getRole().equals(User.ADMIN_ROLE)) {
-                users_admin.add(user);
-            }
-
-        }
-        return users_admin;
+       
+         List<User> users_admin = UserDAO.getInstance().getAllUserAdmin();
+         return users_admin;
+        
     }
 
     //add new admin namnh
