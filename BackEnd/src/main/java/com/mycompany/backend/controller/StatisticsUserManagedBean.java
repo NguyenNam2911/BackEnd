@@ -66,7 +66,7 @@ public class StatisticsUserManagedBean implements Serializable{
         sundayText = getTextDate(sundayDate);
         
         //get list count view
-//        listCountView = getCountUserViewByDay(mondayDate, sundayDate);
+        listCountView = getCountUserViewByDay(mondayDate, sundayDate);
     }
 
 //    public long getDfrom() {
@@ -168,10 +168,12 @@ public class StatisticsUserManagedBean implements Serializable{
         mondayText = getTextDate(mondayDate);
         sundayDate = getDate(6);
         sundayText = getTextDate(sundayDate);
-//        listCountView = getCountUserViewByDay(mondayDate, sundayDate);
+        listCountView = getCountUserViewByDay(mondayDate, sundayDate);
     } 
     
     public int getCountById(int i){
+        if (i>=listCountView.size()) 
+            return 0;
         return listCountView.get(i).getCount();
     }
     

@@ -40,6 +40,7 @@ public class StatisticsRecipeManagedBean implements Serializable{
     String dateTo;
     long countRecipeApproved = 0,
         countRecipeRemoved = 0,
+        countRecipeReported = 0,
         countRecipes = 0;
     List<Tag> listTags;
     List<Recipe> listRecipes;
@@ -48,6 +49,7 @@ public class StatisticsRecipeManagedBean implements Serializable{
         countRecipes = getCountAllRecipe();
         countRecipeApproved = getCountRecipeFollowFlag(Recipe.APPROVED_FLAG);
         countRecipeRemoved = getCountRecipeFollowFlag(Recipe.REMOVED_FLAG);
+        countRecipeReported = getCountRecipeFollowFlag(Recipe.REPORTED_FLAG);
         listTags = getTopTag(10);
         listRecipes = getTopRecipe(10);
     }
@@ -148,6 +150,14 @@ public class StatisticsRecipeManagedBean implements Serializable{
 
     public void setListRecipes(List<Recipe> listRecipes) {
         this.listRecipes = listRecipes;
+    }
+
+    public long getCountRecipeReported() {
+        return countRecipeReported;
+    }
+
+    public void setCountRecipeReported(long countRecipeReported) {
+        this.countRecipeReported = countRecipeReported;
     }
     
     

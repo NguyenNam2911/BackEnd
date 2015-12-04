@@ -27,6 +27,22 @@
     </h:head>
 
     <h:body>
+            <!-- javascripts -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-1.8.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- nice scroll -->
+        <script src="js/jquery.scrollTo.min.js"></script>
+        <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+        <!-- chartjs -->
+        <script src="assets/chart-master/Chart.js"></script>
+        <!-- custom chart script for this page only-->
+
+        <!--custome script for all page-->
+        <script src="js/scripts.js"></script>
+        <!-- pie chart js -->
+        <script src="js/highcharts.js"></script>
+        <script src="js/exporting.js"></script>
         <f:view>
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
@@ -185,7 +201,9 @@
                                             Approved and Removed Recipe
                                         </header>
                                         <div class="panel-body text-center">
-                                            <canvas id="pie" height="400" width="500"></canvas>
+                                            <div class="demo-section k-content wide">
+                                                <div id="chartpie" style="min-width: 400px; height: 450px; max-width: 650px; margin: 0 auto"></div>
+                                            </div>
                                         </div>
                                     </section>
                                 </div>
@@ -261,20 +279,54 @@
 
         <!-- javascripts -->
         
-        <!-- javascripts -->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- nice scroll -->
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <!-- chartjs -->
-    <script src="assets/chart-master/Chart.js"></script>
-    <!-- custom chart script for this page only-->
     
-    <!--custome script for all page-->
-    <script src="js/scripts.js"></script>
-    
+    <script>
+        $(function () {
+        $('#chartpie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Percent',
+                colorByPoint: true,
+                data: [{
+                    name: 'Deleted Recipe',
+                    y: #{statisticsRecipeManagedBean.countRecipeRemoved},
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Reported Recipe',
+                    y: #{statisticsRecipeManagedBean.countRecipeReported},
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Approved Recipe',
+                    y: #{statisticsRecipeManagedBean.countRecipeApproved},
+                    sliced: true,
+                    selected: true}]
+            }]
+        });
+    });
+    </script>
     <script>
         var barChartData = {
             labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
@@ -316,20 +368,6 @@
             ]
         };
         new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-    </script>
-    
-    <script>
-        var pieData = [
-            {
-                value : #{statisticsRecipeManagedBean.countRecipeApproved},
-                color : "#FFA500"
-            },
-            {
-                value : #{statisticsRecipeManagedBean.countRecipeRemoved},
-                color : "#000000"
-            } 
-        ];
-         new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
     </script>
     </h:body>
 </html>

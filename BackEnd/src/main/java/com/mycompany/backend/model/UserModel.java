@@ -109,7 +109,7 @@ public class UserModel {
             case 0:
                 flag = User.BAN_FLAG_ONCE;
                 time = User.BAN_FIRST_TIME;
-                notiFlag = "BANNED ONCE";
+                notiFlag = "BANNED FIRST";
                 break;
             case 1:
                 flag = User.BAN_FLAG_SECOND;
@@ -159,18 +159,6 @@ public class UserModel {
 
             }
             
-            return true;
-        } 
-        return false;
-    }
-    public boolean banAdminUser(String userId) throws DAOException {
-        User user = getUserByID(userId);
-        int flag = User.DELETED_FLAG;
-        long time = 0;
-        long banToTime = 0;
-        banToTime = TimeUtils.getCurrentGMTTime() + time;
-        if (UserDAO.getInstance().banUser(userId, flag, banToTime)) {
-            NotiServer.getInstance().notiBanUser(userId);
             return true;
         } 
         return false;

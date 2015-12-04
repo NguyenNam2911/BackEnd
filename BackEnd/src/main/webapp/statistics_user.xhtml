@@ -40,6 +40,11 @@
 
         <!--custome script for all page-->
         <script src="js/scripts.js"></script>
+        
+        <!-- pie chart js -->
+        <script src="js/highcharts.js"></script>
+        <script src="js/exporting.js"></script>
+
         <!-- javascripts -->
         <f:view>
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
@@ -188,7 +193,7 @@
                                                         <div class="col-lg-10">
                                                             <section class="panel">
                                                                 <header class="panel-heading">
-                                                                    Line
+                                                                    Online User Number Following Day
                                                                 </header>
                                                                 <div class="panel-body text-center">
                                                                     <canvas id="line" height="400" width="800"></canvas>
@@ -216,7 +221,14 @@
                                                                         pointColor : "rgba(151,187,205,1)",
                                                                         pointStrokeColor : "#fff",
 
-                                                                        data : [1,2,3,4,5,6,7]
+                                                                        data : [    #{statisticsUserManagedBean.getCountById(0)},
+                                                                                    #{statisticsUserManagedBean.getCountById(1)},
+                                                                                    #{statisticsUserManagedBean.getCountById(2)},
+                                                                                    #{statisticsUserManagedBean.getCountById(3)},
+                                                                                    #{statisticsUserManagedBean.getCountById(4)},
+                                                                                    #{statisticsUserManagedBean.getCountById(5)},
+                                                                                    #{statisticsUserManagedBean.getCountById(6)}
+                                                                                ]
                                                                     }
                                                                 ]
 
@@ -247,7 +259,9 @@
                                                           Active And Inactive User
                                                       </header>
                                                       <div class="panel-body text-center">
-                                                          <canvas id="pie" height="400" width="500"></canvas>
+                                                            <div class="demo-section k-content wide">
+                                                                <div id="chartpie" style="min-width: 400px; height: 450px; max-width: 650px; margin: 0 auto"></div>
+                                                            </div>
                                                       </div>
                                                   </section>
                                               </div>
@@ -267,7 +281,59 @@
         </f:view>
         <!-- container section start -->
 
-        
+     <script>
+        $(function () {
+        $('#chartpie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Percent',
+                colorByPoint: true,
+                data: [{
+                    name: 'Banned Second User',
+                    y: #{statisticsUserManagedBean.countUserBanSecond},
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Deleted User',
+                    y: #{statisticsUserManagedBean.countUserDeleted},
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Banned First User',
+                    y: #{statisticsUserManagedBean.countUserBanOnce},
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Active User',
+                    y: #{statisticsUserManagedBean.countUserActive},
+                    sliced: true,
+                    selected: true
+                }]
+            }]
+        });
+    });
+    </script>
     <script>
         var barChartData = {
             labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
@@ -294,28 +360,6 @@
 
         };
         new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-    </script>
-    <script>
-        var pieData = [
-            {
-                value: #{statisticsUserManagedBean.countUserActive},
-                color: "#FFA500"
-                
-            },
-            {
-                value : #{statisticsUserManagedBean.countUserBanOnce},
-                color : "#E0E4CC"
-            },
-            {
-                value : #{statisticsUserManagedBean.countUserBanSecond},
-                color : "#69D2E7"
-            },
-            {
-                value : #{statisticsUserManagedBean.countUserDeleted},
-                color : "#000000"
-            } 
-        ];
-         new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
     </script>
     </h:body>
 </html>
