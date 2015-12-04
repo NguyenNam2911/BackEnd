@@ -49,6 +49,16 @@ public class RecipeModel {
         }
         return list;
     }
+    public List<Recipe> searchRecipeByOwner(String name,String id, int page, int flag,  String order) throws DAOException {
+        List<Recipe> list = new ArrayList<>();
+        if(flag == 2){
+            list = RecipeDAO.getInstance().searchAllRecipeByOwner(name,id, page * 10, 10,order);
+        }
+        else{
+            list = RecipeDAO.getInstance().searchAllAndFilterRecipeByOwner(name,id, page * 10, 10, flag, order);
+        }
+        return list;
+    }
     
     //get number result recipe
     public long getSearchResultNumber(String title, int flag_active) throws DAOException {
@@ -57,6 +67,15 @@ public class RecipeModel {
         }
         else{
             return RecipeDAO.getInstance().getSearchAndFilterResultNumber(title, flag_active);
+        }
+        
+    }
+    public long getSearchByOwerResultNumber(String name,String id, int flag_active) throws DAOException {
+        if(flag_active == 2){
+            return RecipeDAO.getInstance().getSearchByOwnerAllResultNumber(name,id);
+        }
+        else{
+            return RecipeDAO.getInstance().getSearchByOwnerAndFilterResultNumber(name, flag_active,id);
         }
         
     }

@@ -27,6 +27,14 @@
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
+            <from-outcome>recipe_by_user</from-outcome>
+            <to-view-id>/recipe_by_user.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
             <from-outcome>forgot_pass</from-outcome>
             <to-view-id>/forgot_pass.xhtml</to-view-id>
             <redirect/>

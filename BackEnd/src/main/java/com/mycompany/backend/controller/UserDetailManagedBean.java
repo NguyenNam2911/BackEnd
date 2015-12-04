@@ -30,7 +30,7 @@ public class UserDetailManagedBean {
 
     public UserDetailManagedBean() {
         userModel = new UserModel();
-        if(userSelected == null){
+        if (userSelected == null) {
             JSFutil.navigate("user_view.xhtml");
         }
     }
@@ -39,8 +39,8 @@ public class UserDetailManagedBean {
         userModel.banUser(userSelected.getId());
         userSelected = userModel.getUserByID(userSelected.getId());
     }
-    
-    public void unBanUser() throws DAOException{
+
+    public void unBanUser() throws DAOException {
         userModel.unBanUser(userSelected.getId());
         userSelected = userModel.getUserByID(userSelected.getId());
     }
@@ -56,8 +56,12 @@ public class UserDetailManagedBean {
     }
 
     public void userDetail(String id) throws DAOException {
-        userSelected = userModel.getUserByID(id);
-        JSFutil.navigate("user_detail");
+        if (id != null) {
+            userSelected = userModel.getUserByID(id);
+            JSFutil.navigate("user_detail");
+        }else{
+            JSFutil.navigate("error");
+        }
 
     }
     //get and set
