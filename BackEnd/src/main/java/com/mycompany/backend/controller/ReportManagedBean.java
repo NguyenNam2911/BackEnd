@@ -63,7 +63,7 @@ public class ReportManagedBean {
     }
     
     public String getUserName(String id) throws DAOException{
-        if(!id.equals("") && id != null){
+        if(id != null && !id.equals("")){
             User user = userModel.getUserByID(id);
             if (user != null)
                 return user.getDisplayName();
@@ -74,9 +74,10 @@ public class ReportManagedBean {
     public String getCreatorId(String recipeId) throws DAOException{
         if (recipeId != null && !recipeId.equals("")){
             Recipe recipe = recipeModel.getRecipeByID(recipeId);
-            return recipe.getOwner();
+            if (recipe != null)
+                return recipe.getOwner();
         }
-        return null;
+        return "";
     }
     
     public User getUser(String id) throws DAOException{
@@ -88,7 +89,7 @@ public class ReportManagedBean {
     }
     
     public String getRecipeName(String id){
-        if(!id.equals("") && id != null){
+        if(id != null && !id.equals("")){
         Recipe recipe = recipeModel.getRecipeByID(id);
         if (recipe != null)
             return recipe.getTitle();
@@ -149,14 +150,14 @@ public class ReportManagedBean {
         
         //update report: verify_by, verify_time
         updateAdminReport(reportId, adminId);
-        listReport = reportModel.getListReports();
+        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
     
     public void removeReportStatus(String reportId) throws DAOException{
         Report report = reportModel.getReportByID(reportId);
         recipeModel.updateRecipeReported(report.getRecipe());
         reportModel.removeReportStatus(reportId);
-        listReport = reportModel.getListReports();
+        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
     
     public boolean updateAdminReport(String reportId, String adminId){

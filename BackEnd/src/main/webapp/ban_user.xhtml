@@ -264,7 +264,7 @@
                                                                                 <p:commandButton style="width: 100px;" value="Unban" action="#" disabled="true"/>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <p:commandButton style="width: 100px;" value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}" update="tbBanUser" />
+                                                                                <p:commandButton style="width: 100px;" value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}" update=":frBanUser :frmPage:paging" />
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </td>

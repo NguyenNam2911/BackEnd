@@ -67,7 +67,7 @@ public class UserBanManagedBean {
     
     public void unbanUser(String userId) throws DAOException{
         userModel.unBanUser(userId);
-        listBanUser = userModel.getBanUser();
+        listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
     
     
