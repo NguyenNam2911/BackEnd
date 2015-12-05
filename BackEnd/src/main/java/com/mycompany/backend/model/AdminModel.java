@@ -18,28 +18,33 @@ import org.entity.User;
 public class AdminModel {
 
     //get list admin namnh
-
     public List<User> getUsersAdmin() {
-       
-         List<User> users_admin = UserDAO.getInstance().getAllUserAdmin();
-         return users_admin;
-        
+
+        List<User> users_admin = UserDAO.getInstance().getAllUserAdmin();
+        return users_admin;
+
+    }
+
+    public boolean checkUserAdminByEmail(String email) throws DAOException {
+        User u = UserDAO.getInstance().getUserInfoByEmail(email);
+        if (u == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //add new admin namnh
-
     public void insertAdmin(User user) throws DAOException {
         UserDAO.getInstance().save(user);
     }
 
     //reset pass
-
     public boolean resetPass(String id, String pass) {
         return UserDAO.getInstance().updateAdminPassWord(id, pass);
     }
 
     //get admin by email
-
     public User getAdminByEmail(String email) throws DAOException {
         User user = UserDAO.getInstance().getUserInfoByEmail(email);
         if (user != null) {
@@ -52,10 +57,10 @@ public class AdminModel {
                 user = null;
             }
             return user;
-        }else{
+        } else {
             return null;
         }
-        
+
     }
 
     public List<User> getUserAdminByName(String name, int page, int flag) throws DAOException {

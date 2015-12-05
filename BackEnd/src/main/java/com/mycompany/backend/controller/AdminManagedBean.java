@@ -133,8 +133,9 @@ public class AdminManagedBean extends Object implements Serializable {
         return 2;
     }
 
-    public void save(ActionEvent event) throws DAOException, EncryptDataException {
-        if (checkEmail(userAdmin.getEmail())) {
+    public void save() throws DAOException, EncryptDataException {
+        boolean check = adminModel.checkUserAdminByEmail(userAdmin.getEmail());
+        if (check) {
             if (checkName(userAdmin.getDisplayName())) {
                 userAdmin.setRole(User.ADMIN_ROLE);  
                 password = JSFutil.ramdomString(8);
@@ -192,12 +193,12 @@ public class AdminManagedBean extends Object implements Serializable {
         return true;
     }
 
-    public void cancel(ActionEvent event) {
+    public void cancel() {
         userAdmin = new User();
         addView = true;
     }
 
-    public void preAdd(ActionEvent event) {
+    public void preAdd() {
         userAdmin = new User();
         addView = false;
     }

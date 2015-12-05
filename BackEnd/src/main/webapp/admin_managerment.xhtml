@@ -178,21 +178,21 @@
                                                             <!--  search form start -->
 
 
-                                                            <h:commandButton class="button-search" action="#{adminManagedBean.searchUser()}"/>
+                                                            <h:commandButton immediate="true"  class="button-search" action="#{adminManagedBean.searchUser()}"/>
                                                             <h:inputText class="input-search"  a:placeholder="Search By Name" value="#{adminManagedBean.search}"/>
 
                                                             <!--  search form end -->                
                                                         </div>
 
                                                         <div class="ddl-filter">
-                                                            <h:commandButton class="button-filter" action="#{adminManagedBean.searchUser()}"/>
+                                                            <h:commandButton immediate="true"   class="button-filter" action="#{adminManagedBean.searchUser()}"/>
                                                             <h:selectOneMenu value="#{adminManagedBean.filter}" onclick="">
                                                                 <f:selectItem itemValue="all" itemLabel="All status"/>
                                                                 <f:selectItem itemValue="active" itemLabel="Active"/>
                                                                 <f:selectItem itemValue="deleted" itemLabel="Deleted"/>
                                                             </h:selectOneMenu>
                                                         </div> 
-                                                        <h:commandButton value="Search"
+                                                        <h:commandButton immediate="true"   value="Search"
                                                                          style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
                                                                          onmouseover="$(this).addClass('ui-state-hover')"
                                                                          onmouseout="$(this).removeClass('ui-state-hover')"
@@ -224,15 +224,15 @@
                                                                         <td>#{user.phone}</td>
                                                                         <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
                                                                         <td>
-                                                                            <p:commandButton value="Removed" disabled="true" rendered="#{user.activeFlag != 1}" style="width: 100px;"></p:commandButton>
-                                                                            <p:commandButton value="Remove" process="@this" action="#{adminManagedBean.deleteUser(user)}"
+                                                                            <p:commandButton immediate="true"  value="Removed" disabled="true" rendered="#{user.activeFlag != 1}" style="width: 100px;"></p:commandButton>
+                                                                            <p:commandButton immediate="true"   value="Remove" process="@this" action="#{adminManagedBean.deleteUser(user)}"
                                                                                              update=":frmMain:tbAdmin" style="width: 100px;" rendered="#{user.activeFlag == 1}" >
                                                                                 <p:confirm header="Confirmation" message="Are you sure delete admin"  />
                                                                             </p:commandButton>
                                                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="text-align: center;">
                                                                                 <div align="center">
-                                                                                    <p:commandButton style="text-align: center;" value="Yes"  styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
-                                                                                    <p:commandButton style="text-align: center;" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                                                    <p:commandButton immediate="true"  style="text-align: center;" value="Yes"  styleClass="ui-confirmdialog-yes" icon="ui-icon-close" />
+                                                                                    <p:commandButton immediate="true"  style="text-align: center;" value="No"  styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 
                                                                                 </div>
                                                                             </p:confirmDialog>
@@ -249,51 +249,51 @@
                                                                 <ul class="pagination pull-right" id="pageMenu">
                                                                     <li><p:commandButton disabled="true" value="&#60;&#60;"  /></li>
                                                                     <li><p:commandButton value="&#60;" disabled="true"  /></li>
-                                                                    <li><p:commandButton style="color: red;" value="#{adminManagedBean.page + 1}" action="#{adminManagedBean.updateUsers(adminManagedBean.page)}"  update=":frmMain:tbAdmin"  /></li>
-                                                                    <li><p:commandButton disabled="#{adminManagedBean.page + 1 >  adminManagedBean.numberP}" 
+                                                                    <li><p:commandButton immediate="true"  style="color: red;" value="#{adminManagedBean.page + 1}" action="#{adminManagedBean.updateUsers(adminManagedBean.page)}"  update=":frmMain:tbAdmin"  /></li>
+                                                                    <li><p:commandButton immediate="true"  disabled="#{adminManagedBean.page + 1 >  adminManagedBean.numberP}" 
                                                                                          value="#{adminManagedBean.page + 2}" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}"  update=":frmMain:tbAdmin"/></li>
-                                                                    <li><p:commandButton  disabled="#{adminManagedBean.page + 1 >=  adminManagedBean.numberP}" 
+                                                                    <li><p:commandButton immediate="true"   disabled="#{adminManagedBean.page + 1 >=  adminManagedBean.numberP}" 
                                                                                           value="#{adminManagedBean.page + 3}" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 2)}"  update=":frmMain:tbAdmin"/></li>
-                                                                    <li><p:commandButton disabled="#{adminManagedBean.page  >=  adminManagedBean.numberP}"
+                                                                    <li><p:commandButton immediate="true"  disabled="#{adminManagedBean.page  >=  adminManagedBean.numberP}"
                                                                                          value="&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton disabled="#{adminManagedBean.page  >=  adminManagedBean.numberP}"
+                                                                    <li><p:commandButton immediate="true"  disabled="#{adminManagedBean.page  >=  adminManagedBean.numberP}"
                                                                                          value="&#62;&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.numberP)}" update=":frmMain:tbAdmin" /></li>
                                                                 </ul>
 
                                                             </p:panel>
                                                             <p:panel id="number1" visible="#{adminManagedBean.typePageBtn == 2}" >
                                                                 <ul class="pagination pull-right" id="pageMenu">
-                                                                    <li><p:commandButton  value="&#60;&#60;" action="#{adminManagedBean.updateUsers(0)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="&#60;" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="#{adminManagedBean.page }" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton style="color: red;" value="#{adminManagedBean.page +1}" action="#{usadminManagedBeanerManagedBean.updateUsers(recipeManagedBean.page)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="#{adminManagedBean.page + 2}" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton value="&#62;&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.numberP)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"   value="&#60;&#60;" action="#{adminManagedBean.updateUsers(0)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"   value="&#60;" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"   value="#{adminManagedBean.page }" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"  style="color: red;" value="#{adminManagedBean.page +1}" action="#{usadminManagedBeanerManagedBean.updateUsers(recipeManagedBean.page)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"   value="#{adminManagedBean.page + 2}" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"   value="&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"  value="&#62;&#62;" action="#{adminManagedBean.updateUsers(adminManagedBean.numberP)}" update=":frmMain:tbAdmin" /></li>
                                                                 </ul>
                                                             </p:panel>
                                                             <p:panel id="number2" visible="#{adminManagedBean.typePageBtn == 3}">
                                                                 <ul class="pagination pull-right" id="pageMenu">
-                                                                    <li><p:commandButton  value="&#60;&#60;" action="#{adminManagedBean.updateUsers(0)}" update=":frmMain:tbAdmin"/></li>
-                                                                    <li><p:commandButton  value="&#60;" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="#{adminManagedBean.page -1}" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 2)}" update=":frmMain:tbAdmin"/></li>
-                                                                    <li><p:commandButton  value="#{adminManagedBean.page }" action="#{adminManagedBean.updateUsers(adminManagedBean.page -1 )}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton style="color: red;" value="#{adminManagedBean.page + 1}" action="#{adminManagedBean.updateUsers(adminManagedBean.page)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton value="&#62;" disabled="true"/></li>
-                                                                    <li><p:commandButton value="&#62;&#62;" disabled="true" /></li>
+                                                                    <li><p:commandButton  immediate="true"  value="&#60;&#60;" action="#{adminManagedBean.updateUsers(0)}" update=":frmMain:tbAdmin"/></li>
+                                                                    <li><p:commandButton  immediate="true"  value="&#60;" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton  immediate="true"  value="#{adminManagedBean.page -1}" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 2)}" update=":frmMain:tbAdmin"/></li>
+                                                                    <li><p:commandButton  immediate="true"  value="#{adminManagedBean.page }" action="#{adminManagedBean.updateUsers(adminManagedBean.page -1 )}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"  style="color: red;" value="#{adminManagedBean.page + 1}" action="#{adminManagedBean.updateUsers(adminManagedBean.page)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"  value="&#62;" disabled="true"/></li>
+                                                                    <li><p:commandButton immediate="true"  value="&#62;&#62;" disabled="true" /></li>
 
                                                                 </ul>
                                                             </p:panel>
 
-                                                            <p:panel id="number3" visible="#{userManagedBean.typePageBtn == 4}" >
+                                                            <p:panel id="number3" visible="#{adminManagedBean.typePageBtn == 4}" >
                                                                 <ul class="pagination pull-right" id="pageMenu">
-                                                                    <li><p:commandButton  value="&#60;&#60;" action="#{userManagedBean.updateUsers(0)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="&#60;" action="#{userManagedBean.updateUsers(userManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton  value="#{userManagedBean.page }" action="#{userManagedBean.updateUsers(userManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton style="color: red;" value="#{userManagedBean.page +1}" action="#{userManagedBean.updateUsers(recipeManagedBean.page)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton disabled="true" value="#{userManagedBean.page + 2}" action="#{userManagedBean.updateUsers(userManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
-                                                                    <li><p:commandButton value="&#62;" disabled="true"/></li>
-                                                                    <li><p:commandButton value="&#62;&#62;" disabled="true" /></li>
+                                                                    <li><p:commandButton  immediate="true"  value="&#60;&#60;" action="#{adminManagedBean.updateUsers(0)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true" value="&#60;" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true"  value="#{adminManagedBean.page }" action="#{adminManagedBean.updateUsers(adminManagedBean.page - 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton  immediate="true" style="color: red;" value="#{adminManagedBean.page +1}" action="#{adminManagedBean.updateUsers(recipeManagedBean.page)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true" disabled="true" value="#{adminManagedBean.page + 2}" action="#{adminManagedBean.updateUsers(adminManagedBean.page + 1)}" update=":frmMain:tbAdmin" /></li>
+                                                                    <li><p:commandButton immediate="true" value="&#62;" disabled="true"/></li>
+                                                                    <li><p:commandButton immediate="true" value="&#62;&#62;" disabled="true" /></li>
                                                                 </ul>
                                                             </p:panel>
 
@@ -315,9 +315,9 @@
                                                         <div align="center">
                                                             <p:panel header="Create Manager" id="pnlInput">
 
-                                                                <p:commandButton id="cmdCreate" disabled="#{!adminManagedBean.addView}" value="Create" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.preAdd(event)}" update=":frmMain:pnlInput"/>
-                                                                <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.cancel(event)}" update=":frmMain:pnlInput" immediate="true"/>
-                                                                <p:commandButton id="cmdSave" disabled="#{adminManagedBean.addView}" value="Save" process="@this,pnlInput" style="width: 100px;margin: 10px" actionListener="#{adminManagedBean.save(event)}" update=":frmMain:tbAdmin :frmMain:pnlInput "/>
+                                                                <p:commandButton id="cmdCreate" disabled="#{!adminManagedBean.addView}" value="Create" process="@this" style="width: 100px;margin: 10px" action="#{adminManagedBean.preAdd()}" update=":frmMain:pnlInput"/>
+                                                                <p:commandButton id="cmdCancel" disabled="#{adminManagedBean.addView}" value="Cancel" process="@this" style="width: 100px;margin: 10px" action="#{adminManagedBean.cancel()}" update=":frmMain:pnlInput" immediate="true"/>
+                                                                <p:commandButton id="cmdSave" disabled="#{adminManagedBean.addView}" value="Save" process="@this,pnlInput" style="width: 100px;margin: 10px" action="#{adminManagedBean.save()}" update=":frmMain:tbAdmin :frmMain:pnlInput "/>
                                                                 <table cellpadding="10px" id="tbCreate">
                                                                     <tbody>
                                                                         <tr>
@@ -351,7 +351,7 @@
 
                                                                                 </h:inputText>
                                                                                 <span style="color: red;">
-                                                                                    <p:messages for="txtName" id="nameError" autoUpdate="true" closable="true"/>
+                                                                                    <p:messages for="txtName" id="nameError" autoUpdate="true" closable="true" />
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
@@ -363,11 +363,14 @@
                                                                                 <h:inputText required="true" value="#{adminManagedBean.userAdmin.phone}" class="form-control" 
                                                                                              id="txtPhone" disabled="#{adminManagedBean.addView}" a:placeholder="Enter Phone Number"
                                                                                              requiredMessage="Please enter Phone Number"
+                                                                                             validatorMessage="Phone must be number"
                                                                                              >
+                                                                                    <f:validateRegex  pattern="[0-9]+" />
+                                                                                    
 
                                                                                 </h:inputText>
                                                                                 <span style="color: red;">
-                                                                                    <p:messages for="txtPhone" id="phoneError" autoUpdate="true"/>
+                                                                                    <p:messages for="txtPhone" id="phoneError" autoUpdate="true" closable="true" />
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
