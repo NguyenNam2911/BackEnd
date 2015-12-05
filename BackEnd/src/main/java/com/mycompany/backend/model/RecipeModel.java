@@ -6,6 +6,7 @@
 package com.mycompany.backend.model;
 
 import com.mycompany.backend.notification_server.NotiServer;
+import com.mycompany.backend.util.JSFutil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +19,7 @@ import org.entity.Recipe;
 import org.entity.Report;
 import org.entity.Tag;
 import org.entity.User;
-import util.JSFutil;
+
 
 /**
  *

@@ -11,6 +11,7 @@ import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,13 +28,13 @@ public class IndexManagedBean implements Serializable {
     long numberUser = 0;
     long numberRecipe = 0;
     long numberReport = 0;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     public IndexManagedBean() {
-        
-            numberUser = userModel.countUser();
-            numberReport = reportModel.countCheckingReport();
-            numberRecipe = recipeModel.getNumberRecipe();
-        
+
+        numberUser = userModel.countUser();
+        numberReport = reportModel.countCheckingReport();
+        numberRecipe = recipeModel.getNumberRecipe();
 
     }
 

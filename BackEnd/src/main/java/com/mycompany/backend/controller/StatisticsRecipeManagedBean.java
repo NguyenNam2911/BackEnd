@@ -18,6 +18,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.entity.Recipe;
@@ -29,22 +30,22 @@ import org.entity.Tag;
  */
 @ManagedBean
 @SessionScoped
-public class StatisticsRecipeManagedBean implements Serializable{
+public class StatisticsRecipeManagedBean implements Serializable {
 
     /**
      * Creates a new instance of StatisticsRecipeManagedBean
      */
-    
     RecipeModel recipeModel = new RecipeModel();
     String dateFrom;
     String dateTo;
     long countRecipeApproved = 0,
-        countRecipeRemoved = 0,
-        countRecipeReported = 0,
-        countRecipes = 0;
+            countRecipeRemoved = 0,
+            countRecipeReported = 0,
+            countRecipes = 0;
     List<Tag> listTags;
     List<Recipe> listRecipes;
-    
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
+
     public StatisticsRecipeManagedBean() throws DAOException {
         countRecipes = getCountAllRecipe();
         countRecipeApproved = getCountRecipeFollowFlag(Recipe.APPROVED_FLAG);
@@ -53,16 +54,16 @@ public class StatisticsRecipeManagedBean implements Serializable{
         listTags = getTopTag(10);
         listRecipes = getTopRecipe(10);
     }
-    
-    private long getCountRecipeFollowFlag(int flag){
+
+    private long getCountRecipeFollowFlag(int flag) {
         return RecipeDAO.getInstance().getNumberRecipeWithFlag(flag);
     }
-    
-    private long getCountAllRecipe(){
+
+    private long getCountAllRecipe() {
         return RecipeDAO.getInstance().getNumberRecipe();
     }
-    
-    private long getTime(String string_date) throws ParseException{
+
+    private long getTime(String string_date) throws ParseException {
 //        String string_date = "12-December-2012";
 
         SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
@@ -70,59 +71,61 @@ public class StatisticsRecipeManagedBean implements Serializable{
         long milliseconds = d.getTime();
         return milliseconds;
     }
-    
-    private void getDateFromToOfMoth(int month){
+
+    private void getDateFromToOfMoth(int month) {
         //get from to
         Calendar calendar = Calendar.getInstance();
         // passing month-1 because 0-->jan, 1-->feb... 11-->dec
         int year = Calendar.getInstance().get(Calendar.YEAR);
         calendar.set(year, month - 1, 1);
-        
+
         //date fisrt of month
         calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DATE));
         Date date = calendar.getTime();
         DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
         dateFrom = DATE_FORMAT.format(date);
-        
+
         //date last of month
         calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
         date = calendar.getTime();
         DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
         dateTo = DATE_FORMAT.format(date);
     }
-    
-    public long getCountCreatedRecipe(int month) throws ParseException{
+
+    public long getCountCreatedRecipe(int month) throws ParseException {
         getDateFromToOfMoth(month);
         long from = getTime(dateFrom);
         long to = getTime(dateTo);
         return RecipeDAO.getInstance().getNumberCreatedRecipe(from, to);
     }
-    
-    public long getCountDeletedRecipe(int month) throws ParseException{
+
+    public long getCountDeletedRecipe(int month) throws ParseException {
         getDateFromToOfMoth(month);
         long from = getTime(dateFrom);
         long to = getTime(dateTo);
         return RecipeDAO.getInstance().getNumberDeletedRecipe(from, to);
     }
-    
+
     //get top tags in tagging
-    public List<Tag> getTopTag(int top) throws DAOException{
+    public List<Tag> getTopTag(int top) throws DAOException {
         List<Tag> myList = new ArrayList<Tag>();
         Iterator<Tag> tags = recipeModel.getTopTags(top);
-        while (tags.hasNext())
+        while (tags.hasNext()) {
             myList.add(tags.next());
+        }
         return myList;
     }
-    
+
     //get top recipes in tagging
-    public List<Recipe> getTopRecipe(int top) throws DAOException{
+    public List<Recipe> getTopRecipe(int top) throws DAOException {
         List<Recipe> myList = new ArrayList<Recipe>();
         Iterator<Recipe> recipes = recipeModel.getTopRecipes(top);
-        while (recipes.hasNext())
+        while (recipes.hasNext()) {
             myList.add(recipes.next());
+        }
         return myList;
     }
-    
+
     //get and set
     public long getCountRecipeApproved() {
         return countRecipeApproved;
@@ -159,6 +162,5 @@ public class StatisticsRecipeManagedBean implements Serializable{
     public void setCountRecipeReported(long countRecipeReported) {
         this.countRecipeReported = countRecipeReported;
     }
-    
-    
+
 }

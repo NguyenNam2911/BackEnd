@@ -6,6 +6,7 @@
 package com.mycompany.backend.model;
 
 import com.mycompany.backend.notification_server.NotiServer;
+import com.mycompany.backend.util.JSFutil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -20,7 +21,7 @@ import org.dao.ReportDAO;
 import org.entity.ActivityLog;
 import org.entity.Recipe;
 import org.entity.Report;
-import util.JSFutil;
+
 
 /**
  *

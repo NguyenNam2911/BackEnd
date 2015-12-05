@@ -8,19 +8,20 @@ package com.mycompany.backend.controller;
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.dao.UserDAO;
 import org.entity.Recipe;
 import org.entity.Report;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *
@@ -33,7 +34,6 @@ public class ReportManagedBean {
     /**
      * Creates a new instance of ReportManagedBean
      */
-    
     ReportModel reportModel = new ReportModel();
     RecipeModel recipeModel = new RecipeModel();
     UserModel userModel = new UserModel();
@@ -46,139 +46,182 @@ public class ReportManagedBean {
     private int pagePrevious;
     private int pageMiddle;
     private int pageNext;
-    private long numberPage; 
-    
-     public ReportManagedBean() throws DAOException {
-        filterText = "2";
-        flag = 2;
-        searchText = "";
-        sortText = "-reported_time";
-        currentPage = 0;
-        pagePrevious = 0;
-        pageMiddle = 1;
-        pageNext = 2;
-        long n = reportModel.countReport();
-        numberPage = getNumberPage(n);
-        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
+    private long numberPage;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
+
+    public ReportManagedBean() {
+        try {
+            filterText = "2";
+            flag = 2;
+            searchText = "";
+            sortText = "-reported_time";
+            currentPage = 0;
+            pagePrevious = 0;
+            pageMiddle = 1;
+            pageNext = 2;
+            long n = reportModel.countReport();
+            numberPage = getNumberPage(n);
+            listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
-    
-    public String getUserName(String id) throws DAOException{
-        if(id != null && !id.equals("")){
-            User user = userModel.getUserByID(id);
-            if (user != null)
-                return user.getDisplayName();
+
+    public String getUserName(String id) {
+        if (id != null && !id.equals("")) {
+            try {
+                User user = userModel.getUserByID(id);
+                if (user != null) {
+                    return user.getDisplayName();
+                }
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
         }
         return "";
     }
-    
-    public String getCreatorId(String recipeId) throws DAOException{
-        if (recipeId != null && !recipeId.equals("")){
+
+    public String getCreatorId(String recipeId) {
+        if (recipeId != null && !recipeId.equals("")) {
             Recipe recipe = recipeModel.getRecipeByID(recipeId);
-            if (recipe != null)
+            if (recipe != null) {
                 return recipe.getOwner();
+            }
         }
         return "";
     }
-    
-    public User getUser(String id) throws DAOException{
-        return userModel.getUserByID(id);
+
+    public User getUser(String id) {
+        try {
+            return userModel.getUserByID(id);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+        return null;
     }
-    
-    public Recipe getRecipe(String id){
+
+    public Recipe getRecipe(String id) {
         return recipeModel.getRecipeByID(id);
     }
-    
-    public String getRecipeName(String id){
-        if(id != null && !id.equals("")){
-        Recipe recipe = recipeModel.getRecipeByID(id);
-        if (recipe != null)
-            return recipe.getTitle();
+
+    public String getRecipeName(String id) {
+        if (id != null && !id.equals("")) {
+            Recipe recipe = recipeModel.getRecipeByID(id);
+            if (recipe != null) {
+                return recipe.getTitle();
+            }
         }
         return "";
     }
-    
-    public String convertTime(long time){
+
+    public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
-    
-    public void searchReport() throws DAOException{
-        flag = getFilterNumber();
-        currentPage = 0;
-        pagePrevious = 0;
-        pageMiddle = 1;
-        pageNext = 2;
-        long n = reportModel.countNumberResultSearch(flag);
-        numberPage = getNumberPage(n);
-        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
+
+    public void searchReport() {
+        try {
+            flag = getFilterNumber();
+            currentPage = 0;
+            pagePrevious = 0;
+            pageMiddle = 1;
+            pageNext = 2;
+            long n = reportModel.countNumberResultSearch(flag);
+            numberPage = getNumberPage(n);
+            listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
-    
-    private int getFilterNumber(){
+
+    private int getFilterNumber() {
         int filterNumber;
-        if (filterText != null){
-           try{
-               filterNumber = Integer.parseInt(filterText);
-           }catch(Exception ex){
-               filterNumber=3;
-           }
-       }else{
-            filterNumber=3;
-       }
+        if (filterText != null) {
+            try {
+                filterNumber = Integer.parseInt(filterText);
+            } catch (Exception ex) {
+                filterNumber = 3;
+            }
+        } else {
+            filterNumber = 3;
+        }
         return filterNumber;
     }
-    
-    public void approveReportStatus(String reportId, String adminId) throws DAOException{
-        
-        //approve report, remove recipe
-        reportModel.approveReportStatus(reportId);
-        Report report = reportModel.getReportByID(reportId);
-        recipeModel.removeRecipe(report.getRecipe());
-        
-        //remove other the same reports
-        List<Report> reports = reportModel.getListCheckingReportByRecipe(report.getRecipe());
-        for(Report rp : reports){
+
+    public void approveReportStatus(String reportId, String adminId) {
+
+        try {
+            //approve report, remove recipe
+            reportModel.approveReportStatus(reportId);
+            Report report = reportModel.getReportByID(reportId);
+            recipeModel.removeRecipe(report.getRecipe());
+
+            //remove other the same reports
+            List<Report> reports = reportModel.getListCheckingReportByRecipe(report.getRecipe());
+            for (Report rp : reports) {
                 reportModel.removeReportStatus(rp.getId());
+            }
+
+            //check ban user
+            Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());
+            userModel.increaseReportOfUser(recipe.getOwner());
+            User user = UserDAO.getInstance().getUser(recipe.getOwner());
+            int nReport = user.getNumberReport();
+            if (user.getActiveFlag() != User.DELETED_FLAG) {
+                if (nReport == 3 || nReport == 6 || nReport >= 9) {
+                    userModel.banUser(user.getId());
+                }
+            }
+
+            //update report: verify_by, verify_time
+            updateAdminReport(reportId, adminId);
+            listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
-        
-        //check ban user
-        Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());  
-        userModel.increaseReportOfUser(recipe.getOwner());
-        User user = UserDAO.getInstance().getUser(recipe.getOwner());
-        int nReport = user.getNumberReport();
-        if (user.getActiveFlag() != User.DELETED_FLAG)
-            if (nReport == 3 || nReport == 6 || nReport >= 9)
-                userModel.banUser(user.getId());
-        
-        //update report: verify_by, verify_time
-        updateAdminReport(reportId, adminId);
-        listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
-    
-    public void removeReportStatus(String reportId) throws DAOException{
+
+    public void removeReportStatus(String reportId) throws DAOException {
         Report report = reportModel.getReportByID(reportId);
         recipeModel.updateRecipeReported(report.getRecipe());
         reportModel.removeReportStatus(reportId);
         listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
-    
-    public boolean updateAdminReport(String reportId, String adminId){
+
+    public boolean updateAdminReport(String reportId, String adminId) {
         return reportModel.updateAdminReport(reportId, adminId);
     }
-    
-    public void reportRecipe(String reporterId, String recipeId) throws DAOException{
-        //create new report
-        Report report = new Report();
-        report.setReporter(reporterId);
-        report.setRecipe(recipeId);
-        report.setReason("Reported by Admin");
-        
-        //add new report
-        reportModel.addReport(report);
-        
-        //approve report
-        approveReportStatus(report.getId(), reporterId);
-        JSFutil.navigate("recipe_view");
+
+    public void reportRecipe(String reporterId, String recipeId) {
+        try {
+            //create new report
+            Report report = new Report();
+            report.setReporter(reporterId);
+            report.setRecipe(recipeId);
+            report.setReason("Reported by Admin");
+
+            //add new report
+            reportModel.addReport(report);
+
+            //approve report
+            approveReportStatus(report.getId(), reporterId);
+            JSFutil.navigate("recipe_view");
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
-    
+
     //phan trang
     public final long getNumberPage(long number) {
         long n;
@@ -189,38 +232,45 @@ public class ReportManagedBean {
         }
         return n;
     }
-    
-    public void updateUsers(int page, int changeNumber) throws DAOException {
-        listReport = reportModel.getReportSearchAndFillter(page, sortText, flag);
-        currentPage = page;
-        
-        //change page number
-        if (changeNumber == 1 || changeNumber ==-1){
-            if (currentPage > 1 && currentPage < numberPage)
-            changePageNumber(changeNumber);
-        }
-        if (changeNumber ==-2 && currentPage == pagePrevious && currentPage >1){
-            changePageNumber(-1);
-        }
-        if (changeNumber ==2 && currentPage == pageNext && currentPage < (int)numberPage){
-            changePageNumber(1);
-        }
-        if (changeNumber == -3){
-            pagePrevious = 0;
-            changePageNumber(0);
-        }
-        if (changeNumber == 3 && numberPage>3){
-            pagePrevious = (int)numberPage - 2;
-            changePageNumber(0);
+
+    public void updateUsers(int page, int changeNumber) {
+        try {
+            listReport = reportModel.getReportSearchAndFillter(page, sortText, flag);
+            currentPage = page;
+
+            //change page number
+            if (changeNumber == 1 || changeNumber == -1) {
+                if (currentPage > 1 && currentPage < numberPage) {
+                    changePageNumber(changeNumber);
+                }
+            }
+            if (changeNumber == -2 && currentPage == pagePrevious && currentPage > 1) {
+                changePageNumber(-1);
+            }
+            if (changeNumber == 2 && currentPage == pageNext && currentPage < (int) numberPage) {
+                changePageNumber(1);
+            }
+            if (changeNumber == -3) {
+                pagePrevious = 0;
+                changePageNumber(0);
+            }
+            if (changeNumber == 3 && numberPage > 3) {
+                pagePrevious = (int) numberPage - 2;
+                changePageNumber(0);
+            }
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
     }
-    
-    private void changePageNumber(int changeNumber){
+
+    private void changePageNumber(int changeNumber) {
         pagePrevious += changeNumber;
         pageMiddle = pagePrevious + 1;
-        pageNext = pageMiddle +1;
+        pageNext = pageMiddle + 1;
     }
-    
+
     //get and set
     public List<Report> getListReport() {
         return listReport;
@@ -301,5 +351,5 @@ public class ReportManagedBean {
     public long getNumberPage() {
         return numberPage;
     }
-    
+
 }

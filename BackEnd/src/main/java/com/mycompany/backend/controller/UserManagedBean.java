@@ -6,12 +6,15 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import org.entity.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 
@@ -38,64 +41,89 @@ public class UserManagedBean {
     private int typePageBtn;
     private String stringSearch;
     private String stringSort;
-    private int  flag_Active;
+    private int flag_Active;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
 // method
-    public UserManagedBean() throws DAOException {
-        filter = "all";
-        flag_Active = filter();
-        search = "";
-        sortBy = "date";
-        stringSearch = search;
-        stringSort = sort();
-        page = 0;
-        typePageBtn = 1;
-        long n = userModel.countUser();
-        numberP = getNumberPage(n);
-        users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
-    }
-
-    public void searchUser() throws DAOException {
-        if (!search.equals("") || !sortBy.equals("date") || !filter.equals("all")) {
-            stringSort = sort();
-            stringSearch = search;
+    public UserManagedBean() {
+        try {
+            filter = "all";
             flag_Active = filter();
-            page = 0;
-            typePageBtn = 1;
-            long n = userModel.countNumberResultSearch(stringSearch,flag_Active, User.NORMAL_USER_ROLE);
-            numberP = getNumberPage(n);
-            users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
             search = "";
-            filter = "All";
             sortBy = "date";
-            
-        } else {
-            page = 0;
-            typePageBtn = 1;
             stringSearch = search;
             stringSort = sort();
-            flag_Active = filter();
+            page = 0;
+            typePageBtn = 1;
             long n = userModel.countUser();
             numberP = getNumberPage(n);
-            users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");;
+        }
+    }
+
+    public void searchUser() {
+        if (!search.equals("") || !sortBy.equals("date") || !filter.equals("all")) {
+            try {
+                stringSort = sort();
+                stringSearch = search;
+                flag_Active = filter();
+                page = 0;
+                typePageBtn = 1;
+                long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.NORMAL_USER_ROLE);
+                numberP = getNumberPage(n);
+                users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+                search = "";
+                filter = "All";
+                sortBy = "date";
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
+
+        } else {
+            try {
+                page = 0;
+                typePageBtn = 1;
+                stringSearch = search;
+                stringSort = sort();
+                flag_Active = filter();
+                long n = userModel.countUser();
+                numberP = getNumberPage(n);
+                users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
 
         }
     }
 
-    public void updateUsers(int page) throws DAOException {
-        users = userModel.getUserNormalByName(stringSearch, page, stringSort,flag_Active);
-        this.page = page;
-        if (page == 0) {
-            typePageBtn = 1;
-        } else if (page == numberP) {
-            if (numberP >= 2) {
-                typePageBtn = 3;
-            } else {
-                typePageBtn = 4;
-            }
+    public void updateUsers(int page) {
+        try {
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+            this.page = page;
+            if (page == 0) {
+                typePageBtn = 1;
+            } else if (page == numberP) {
+                if (numberP >= 2) {
+                    typePageBtn = 3;
+                } else {
+                    typePageBtn = 4;
+                }
 
-        } else {
-            typePageBtn = 2;
+            } else {
+                typePageBtn = 2;
+            }
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
 
     }
@@ -125,20 +153,20 @@ public class UserManagedBean {
     }
 
     private int filter() {
-        
+
         if (!"all".equals(filter)) {
             switch (filter) {
                 case "active":
-                    return  User.ACTIVE_FLAG;
+                    return User.ACTIVE_FLAG;
                 case "bannedOnce":
-                    return  User.BAN_FLAG_ONCE;
+                    return User.BAN_FLAG_ONCE;
                 case "bannedSecond":
-                    return  User.BAN_FLAG_SECOND;
+                    return User.BAN_FLAG_SECOND;
                 case "deleted":
-                    return  User.DELETED_FLAG;
+                    return User.DELETED_FLAG;
 
             }
-            
+
         }
         return 2;
     }
@@ -147,15 +175,28 @@ public class UserManagedBean {
         return TimeUtils.convertTime(time);
     }
 
-    public void banUser(String userId) throws DAOException{
-        userModel.banUser(userId);
-        users = userModel.getUsersNomrmal();
+    public void banUser(String userId) {
+        try {
+            userModel.banUser(userId);
+            users = userModel.getUsersNomrmal();
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
-    
-     public long getNumberRecipe(String id) throws DAOException{
-        return RecipeDAO.getInstance().getNumberRecipeByOwner(id);
+
+    public long getNumberRecipe(String id) {
+        try {
+            return RecipeDAO.getInstance().getNumberRecipeByOwner(id);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+        return 0;
     }
-    
+
 //get and set
     public String getSortBy() {
         return sortBy;

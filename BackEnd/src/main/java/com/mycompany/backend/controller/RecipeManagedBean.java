@@ -7,14 +7,16 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
-import org.dao.RecipeDAO;
 import org.entity.Recipe;
 import org.entity.User;
 
@@ -30,7 +32,7 @@ public class RecipeManagedBean implements Serializable {
      * Creates a new instance of RecipeManagedBean
      */
     private Recipe recipe;
-    private final RecipeModel recipeModel;
+    private RecipeModel recipeModel;
     private List<Recipe> recipes = new ArrayList<>();
     private String search;
     private String filter;
@@ -42,40 +44,58 @@ public class RecipeManagedBean implements Serializable {
     int flag_active;
     private String sortBy;
     private String stringSort;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     //method
-    public RecipeManagedBean() throws DAOException {
-        recipeModel = new RecipeModel();
-        recipe = new Recipe();
-        userModel = new UserModel();
-        page = 0;
-        stringSearch = "";
-        search = "";
-        typePageBtn = 1;
-        filter = "All";
-        flag_active = filter();
-        sortBy = "date";
-        stringSort = sort();
-        long n = recipeModel.getNumberRecipe();
-        numberP = getNumberPage(n);
-        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
-
+    public RecipeManagedBean() {
+        try {
+            recipeModel = new RecipeModel();
+            recipe = new Recipe();
+            userModel = new UserModel();
+            page = 0;
+            stringSearch = "";
+            search = "";
+            typePageBtn = 1;
+            filter = "All";
+            flag_active = filter();
+            sortBy = "date";
+            stringSort = sort();
+            long n = recipeModel.getNumberRecipe();
+            numberP = getNumberPage(n);
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
-    
-   
 
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
 
-    public String getOwnerName(String id) throws DAOException {
-        userModel = new UserModel();
-        String name = userModel.getUserName(id);
-        return name;
+    public String getOwnerName(String id) {
+        try {
+            userModel = new UserModel();
+            String name = userModel.getUserName(id);
+            return name;
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+        return null;
     }
 
-    public User getUserById(String id) throws DAOException {
-        return userModel.getUserByID(id);
+    public User getUserById(String id) {
+        try {
+            return userModel.getUserByID(id);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+        return null;
     }
 
     private int filter() {
@@ -107,29 +127,41 @@ public class RecipeManagedBean implements Serializable {
         return Recipe.SORT_BY_DATE;
     }
 
-    public void searchRecipe() throws DAOException {
+    public void searchRecipe() {
 
         if (!search.equals("") || !filter.equals("All") || !sortBy.equals("date")) {
-            flag_active = filter();
-            stringSort = sort();
-            stringSearch = search;
-            page = 0;
-            typePageBtn = 1;
-            long n = recipeModel.getSearchResultNumber(stringSearch, flag_active);
-            numberP = getNumberPage(n);
-            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
-            search = "";
-            filter = "All";
-            sortBy = "date";
+            try {
+                flag_active = filter();
+                stringSort = sort();
+                stringSearch = search;
+                page = 0;
+                typePageBtn = 1;
+                long n = recipeModel.getSearchResultNumber(stringSearch, flag_active);
+                numberP = getNumberPage(n);
+                recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+                search = "";
+                filter = "All";
+                sortBy = "date";
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
         } else {
-            page = 0;
-            typePageBtn = 1;
-            stringSearch = "";
-            flag_active = 2;
-            stringSort = sort();
-            long n = recipeModel.getNumberRecipe();
-            numberP = getNumberPage(n);
-            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+            try {
+                page = 0;
+                typePageBtn = 1;
+                stringSearch = "";
+                flag_active = 2;
+                stringSort = sort();
+                long n = recipeModel.getNumberRecipe();
+                numberP = getNumberPage(n);
+                recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
 
         }
     }

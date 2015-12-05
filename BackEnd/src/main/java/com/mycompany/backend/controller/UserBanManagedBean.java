@@ -5,17 +5,17 @@
  */
 package com.mycompany.backend.controller;
 
-
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.entity.User;
-
 
 /**
  *
@@ -28,9 +28,8 @@ public class UserBanManagedBean {
     /**
      * Creates a new instance of UserBanManagedBean
      */
-    
     static final int NUMBER_RECORDS = 10;
-    
+
     private UserModel userModel = new UserModel();
     private List<User> listBanUser = new ArrayList<>();
     private String searchText;
@@ -42,36 +41,42 @@ public class UserBanManagedBean {
     private int pagePrevious;
     private int pageMiddle;
     private int pageNext;
-    private long numberPage; 
+    private long numberPage;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
-    public UserBanManagedBean() throws DAOException {
-        filterText = "3";
-        flag = 3;
-        searchText = "";
+    public UserBanManagedBean() {
+        try {
+            filterText = "3";
+            flag = 3;
+            searchText = "";
 //        sortBy = "display_name";
 //        stringSearch = search;
-        sortText = "-registered_time";
-        currentPage = 0;
-        pagePrevious = 0;
-        pageMiddle = 1;
-        pageNext = 2;
+            sortText = "-registered_time";
+            currentPage = 0;
+            pagePrevious = 0;
+            pageMiddle = 1;
+            pageNext = 2;
 //        typePageBtn = 1;
-        long n = userModel.countBanUser();
-        numberPage = getNumberPage(n);
-        listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
+            long n = userModel.countBanUser();
+            numberPage = getNumberPage(n);
+            listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
-    
-    public String convertTime(long time){
+
+    public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
-    
-    public void unbanUser(String userId) throws DAOException{
+
+    public void unbanUser(String userId) throws DAOException {
         userModel.unBanUser(userId);
         listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
-    
-    
-    public void searchBanUser() throws DAOException{
+
+    public void searchBanUser() throws DAOException {
         flag = getFilterNumber();
         currentPage = 0;
         pagePrevious = 0;
@@ -81,7 +86,7 @@ public class UserBanManagedBean {
         numberPage = getNumberPage(n);
         listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
-    
+
 //    public void searchBanUser(){
 //       List<User> users = new ArrayList<>();
 //       if (searchText != null){
@@ -93,23 +98,22 @@ public class UserBanManagedBean {
 //           listBanUser = users;
 //       }
 //    }
-    
-    private int getFilterNumber(){
+    private int getFilterNumber() {
         int filterNumber;
-        if (filterText != null){
-           try{
-               filterNumber = Integer.parseInt(filterText);
-           }catch(Exception ex){
-               filterNumber=4;
-           }
-       }else{
-            filterNumber=4;
-       }
+        if (filterText != null) {
+            try {
+                filterNumber = Integer.parseInt(filterText);
+            } catch (Exception ex) {
+                filterNumber = 4;
+            }
+        } else {
+            filterNumber = 4;
+        }
         return filterNumber;
     }
-    
+
     // phan trang
-    private long getNumberPage(long number){
+    private long getNumberPage(long number) {
         long n;
         if (number % NUMBER_RECORDS == 0) {
             n = (number / NUMBER_RECORDS) - 1;
@@ -118,38 +122,39 @@ public class UserBanManagedBean {
         }
         return n;
     }
-    
+
     public void updateUsers(int page, int changeNumber) throws DAOException {
         listBanUser = userModel.getUserNormalByName(searchText, page, sortText, flag);
         currentPage = page;
-        
+
         //change page number
-        if (changeNumber == 1 || changeNumber ==-1){
-            if (currentPage > 1 && currentPage < numberPage)
-            changePageNumber(changeNumber);
+        if (changeNumber == 1 || changeNumber == -1) {
+            if (currentPage > 1 && currentPage < numberPage) {
+                changePageNumber(changeNumber);
+            }
         }
-        if (changeNumber ==-2 && currentPage == pagePrevious && currentPage >1){
+        if (changeNumber == -2 && currentPage == pagePrevious && currentPage > 1) {
             changePageNumber(-1);
         }
-        if (changeNumber ==2 && currentPage == pageNext && currentPage < (int)numberPage){
+        if (changeNumber == 2 && currentPage == pageNext && currentPage < (int) numberPage) {
             changePageNumber(1);
         }
-        if (changeNumber == -3){
+        if (changeNumber == -3) {
             pagePrevious = 0;
             changePageNumber(0);
         }
-        if (changeNumber == 3 && numberPage>3){
-            pagePrevious = (int)numberPage - 2;
+        if (changeNumber == 3 && numberPage > 3) {
+            pagePrevious = (int) numberPage - 2;
             changePageNumber(0);
         }
     }
-    
-    private void changePageNumber(int changeNumber){
+
+    private void changePageNumber(int changeNumber) {
         pagePrevious += changeNumber;
         pageMiddle = pagePrevious + 1;
-        pageNext = pageMiddle +1;
+        pageNext = pageMiddle + 1;
     }
-    
+
     //get and set
     public UserModel getUserModel() {
         return userModel;
@@ -250,6 +255,5 @@ public class UserBanManagedBean {
     public void setNumberPage(long numberPage) {
         this.numberPage = numberPage;
     }
-    
-    
+
 }

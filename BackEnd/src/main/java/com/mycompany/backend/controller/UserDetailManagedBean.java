@@ -6,13 +6,15 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *
@@ -29,23 +31,36 @@ public class UserDetailManagedBean {
     User userSelected;
     UserModel userModel;
     long numberRecipe;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     public UserDetailManagedBean() {
         userModel = new UserModel();
-        
+
         if (userSelected == null) {
             JSFutil.navigate("user_view.xhtml");
         }
     }
 
-    public void banUser() throws DAOException {
-        userModel.banUser(userSelected.getId());
-        userSelected = userModel.getUserByID(userSelected.getId());
+    public void banUser() {
+        try {
+            userModel.banUser(userSelected.getId());
+            userSelected = userModel.getUserByID(userSelected.getId());
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
 
-    public void unBanUser() throws DAOException {
-        userModel.unBanUser(userSelected.getId());
-        userSelected = userModel.getUserByID(userSelected.getId());
+    public void unBanUser() {
+        try {
+            userModel.unBanUser(userSelected.getId());
+            userSelected = userModel.getUserByID(userSelected.getId());
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
 
     public String convertTime(long time) {
@@ -58,12 +73,18 @@ public class UserDetailManagedBean {
 
     }
 
-    public void userDetail(String id) throws DAOException {
+    public void userDetail(String id) {
         if (id != null) {
-            userSelected = userModel.getUserByID(id);
-            numberRecipe = RecipeDAO.getInstance().getNumberRecipeByOwner(userSelected.getId());
-            JSFutil.navigate("user_detail");
-        }else{
+            try {
+                userSelected = userModel.getUserByID(id);
+                numberRecipe = RecipeDAO.getInstance().getNumberRecipeByOwner(userSelected.getId());
+                JSFutil.navigate("user_detail");
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
+        } else {
             JSFutil.navigate("error");
         }
 

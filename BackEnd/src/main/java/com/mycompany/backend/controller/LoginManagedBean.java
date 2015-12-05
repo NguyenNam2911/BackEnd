@@ -6,16 +6,15 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.LoginModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.EncryptDataException;
 import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
-import util.JSFutil;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,9 +32,10 @@ public class LoginManagedBean implements Serializable {
     boolean flagAdmin;
     String email;
     String password;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     //method
-    public void checkLogin()  {
+    public void checkLogin() {
         try {
             User user_check = loginModel.CheckLogin(email);
             password = EncryptHelper.encrypt(password);
@@ -45,16 +45,18 @@ public class LoginManagedBean implements Serializable {
                     flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
                     JSFutil.setSessionValue("user", user);
                     JSFutil.navigate("index");
+
                 } else {
-                    
+
                     JSFutil.addErrorMessage("PassWord incorect");
                 }
             } else {
-                
+
                 JSFutil.addErrorMessage("Email incorect");
             }
         } catch (DAOException | EncryptDataException ex) {
-            Logger.getLogger(LoginManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
         }
     }
@@ -74,7 +76,6 @@ public class LoginManagedBean implements Serializable {
     }
 
 //get and set
-
     public String getEmail() {
         return email;
     }
@@ -90,9 +91,7 @@ public class LoginManagedBean implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
+
     public boolean isFlagAdmin() {
         return flagAdmin;
     }

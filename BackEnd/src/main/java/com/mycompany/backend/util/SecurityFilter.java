@@ -12,7 +12,7 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
 import org.entity.User;
-import util.JSFutil;
+
 
 /**
  *

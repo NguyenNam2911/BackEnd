@@ -7,6 +7,7 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,8 @@ import org.dao.DAOException;
 import org.entity.Ingredient;
 import org.entity.Recipe;
 import org.entity.Report;
-import org.entity.Tag;
 import org.entity.User;
-import util.JSFutil;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -40,22 +40,36 @@ public class RecipeDetailManagedBean implements Serializable {
     List<Ingredient> listIngredients = new ArrayList<>();
     List<Recipe.Step> listSteps = new ArrayList<>();
     List<String> listTag = new ArrayList<>();
-    
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     //method
-    public User getOwner(String id) throws DAOException {
-        userModel = new UserModel();
-        return userModel.getUserByID(id);
+    public User getOwner(String id) {
+        try {
+            userModel = new UserModel();
+            return userModel.getUserByID(id);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+        return null;
     }
 
-    public String getOwnerName(String id) throws DAOException {
+    public String getOwnerName(String id) {
         if (id.equals("") || id == null) {
             return "Not available!";
         } else {
-            userModel = new UserModel();
-            String name = userModel.getUserName(id);
-            return name;
+            try {
+                userModel = new UserModel();
+                String name = userModel.getUserName(id);
+                return name;
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
         }
+        return "Not available!";
 
     }
 
@@ -66,16 +80,22 @@ public class RecipeDetailManagedBean implements Serializable {
         }
     }
 
-    public void recipeDetail(String id) throws DAOException {
+    public void recipeDetail(String id) {
         if (id == null || id.equals("")) {
             JSFutil.navigate("recipe_view");
         } else {
-            recipe = recipeModel.getRecipeByID(id);
-            report = recipeModel.getReportByRecipe(id);
-            listIngredients = recipe.getIngredients();
-            listSteps = recipe.getSteps();
-            listTag = recipe.getCategoryIds();
-            JSFutil.navigate("recipe_detail");
+            try {
+                recipe = recipeModel.getRecipeByID(id);
+                report = recipeModel.getReportByRecipe(id);
+                listIngredients = recipe.getIngredients();
+                listSteps = recipe.getSteps();
+                listTag = recipe.getCategoryIds();
+                JSFutil.navigate("recipe_detail");
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
         }
     }
 
@@ -88,7 +108,6 @@ public class RecipeDetailManagedBean implements Serializable {
     }
 
     //get and set
-
     public List<String> getListTag() {
         return listTag;
     }
@@ -97,9 +116,6 @@ public class RecipeDetailManagedBean implements Serializable {
         this.listTag = listTag;
     }
 
-   
-    
-    
     public Recipe getRecipe() {
         return recipe;
     }

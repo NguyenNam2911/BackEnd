@@ -7,19 +7,18 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.AdminModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 import org.EncryptDataException;
 import org.EncryptHelper;
+import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *
@@ -48,45 +47,63 @@ public class AdminManagedBean extends Object implements Serializable {
     int flag;
     int flag_Active;
     String password;
+    Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     //method
-    public AdminManagedBean() throws DAOException {
-        addView = true;
-        userAdmin = new User();
-        userModel = new UserModel();
-//        users = adminModel.getUsersAdmin();
-        date = new Date();
-        filter = "all";
-        flag_Active = filter();
-        search = "";
-        stringSearch = search;
-        page = 0;
-        typePageBtn = 1;
-        long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
-        numberP = getNumberPage(n);
-        users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+    public AdminManagedBean() {
+        try {
+            addView = true;
+            userAdmin = new User();
+            userModel = new UserModel();
+            date = new Date();
+            filter = "all";
+            flag_Active = filter();
+            search = "";
+            stringSearch = search;
+            page = 0;
+            typePageBtn = 1;
+            long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
+            numberP = getNumberPage(n);
+            users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
 
-    public void searchUser() throws DAOException {
+    public void searchUser() {
         if (!search.equals("") || !filter.equals("all")) {
-            stringSearch = search;
-            flag_Active = filter();
-            page = 0;
-            typePageBtn = 1;
-            long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
-            numberP = getNumberPage(n);
-            users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
-            search = "";
-            filter = "All";
+            try {
+                stringSearch = search;
+                flag_Active = filter();
+                page = 0;
+                typePageBtn = 1;
+                long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
+                numberP = getNumberPage(n);
+                users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+                search = "";
+                filter = "All";
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
 
         } else {
-            page = 0;
-            typePageBtn = 1;
-            stringSearch = search;
-            flag_Active = filter();
-            long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
-            numberP = getNumberPage(n);
-            users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+            try {
+                page = 0;
+                typePageBtn = 1;
+                stringSearch = search;
+                flag_Active = filter();
+                long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
+                numberP = getNumberPage(n);
+                users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+            } catch (DAOException ex) {
+                logger.error(ex);
+                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.navigate("error");
+            }
 
         }
     }
@@ -133,44 +150,49 @@ public class AdminManagedBean extends Object implements Serializable {
         return 2;
     }
 
-    public void save() throws DAOException, EncryptDataException {
-        boolean check = adminModel.checkUserAdminByEmail(userAdmin.getEmail());
-        if (check) {
-            if (checkName(userAdmin.getDisplayName())) {
-                userAdmin.setRole(User.ADMIN_ROLE);  
-                password = JSFutil.ramdomString(8);
-                userAdmin.setPassword(EncryptHelper.encrypt(password));
+    public void save() {
+        try {
+            boolean check = adminModel.checkUserAdminByEmail(userAdmin.getEmail());
+            if (check) {
+                if (checkName(userAdmin.getDisplayName())) {
+                    userAdmin.setRole(User.ADMIN_ROLE);
+                    password = JSFutil.ramdomString(8);
+                    userAdmin.setPassword(EncryptHelper.encrypt(password));
 //                userAdmin.setPassword("12345678");
-                userAdmin.setRegisteredTime(date.getTime());
-                adminModel = new AdminModel();
-                adminModel.insertAdmin(userAdmin);
-                filter = "all";
-                flag_Active = filter();
-                search = "";
-                stringSearch = search;
-                page = 0;
-                typePageBtn = 1;
-                long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
-                numberP = getNumberPage(n);
-                users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
-                addView = true;
-                JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", password);
-                userAdmin = new User();
-                password = "";
-                
+                    userAdmin.setRegisteredTime(date.getTime());
+                    adminModel = new AdminModel();
+                    adminModel.insertAdmin(userAdmin);
+                    filter = "all";
+                    flag_Active = filter();
+                    search = "";
+                    stringSearch = search;
+                    page = 0;
+                    typePageBtn = 1;
+                    long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
+                    numberP = getNumberPage(n);
+                    users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+                    addView = true;
+                    JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", password);
+                    userAdmin = new User();
+                    password = "";
+
+                } else {
+                    JSFutil.addErrorMessageById("frmMain:txtName", "Name already exists");
+
+                }
+
             } else {
-                JSFutil.addErrorMessageById("frmMain:txtName", "Name already exists");
+
+                JSFutil.addErrorMessageById("frmMain:txtEmail", "Email already registered");
 
             }
-
-        } else {
-
-            JSFutil.addErrorMessageById("frmMain:txtEmail", "Email already registered");
-
+        } catch (DAOException | EncryptDataException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
 
     }
-
 
     public boolean checkName(String name) {
         users = adminModel.getUsersAdmin();
