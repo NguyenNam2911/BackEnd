@@ -72,7 +72,14 @@ public class LoginManagedBean implements Serializable {
 
     // contructer
     public LoginManagedBean() {
-        flagAdmin = false;
+        try {
+            flagAdmin = false;
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+
     }
 
 //get and set
