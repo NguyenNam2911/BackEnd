@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
+import org.dao.RecipeDAO;
 
 /**
  *
@@ -149,6 +150,10 @@ public class UserManagedBean {
     public void banUser(String userId) throws DAOException{
         userModel.banUser(userId);
         users = userModel.getUsersNomrmal();
+    }
+    
+     public long getNumberRecipe(String id) throws DAOException{
+        return RecipeDAO.getInstance().getNumberRecipeByOwner(id);
     }
     
 //get and set

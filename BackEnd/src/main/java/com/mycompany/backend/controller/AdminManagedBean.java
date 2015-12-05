@@ -171,16 +171,6 @@ public class AdminManagedBean extends Object implements Serializable {
 
     }
 
-    public boolean checkEmail(String email) {
-        users = adminModel.getUsersAdmin();
-        for (User user : users) {
-            if (user.getEmail().equals(email)) {
-                return false;
-            }
-
-        }
-        return true;
-    }
 
     public boolean checkName(String name) {
         users = adminModel.getUsersAdmin();

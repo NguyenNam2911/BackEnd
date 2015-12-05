@@ -40,6 +40,7 @@ public class RecipeDetailManagedBean implements Serializable {
     List<Ingredient> listIngredients = new ArrayList<>();
     List<Recipe.Step> listSteps = new ArrayList<>();
     List<String> listTag = new ArrayList<>();
+    
 
     //method
     public User getOwner(String id) throws DAOException {

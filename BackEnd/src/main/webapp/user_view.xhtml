@@ -243,7 +243,7 @@
                                                                     <td>#{userManagedBean.convertTime(user.registeredTime)}</td>
                                                                     <td>#{user.email}</td>
                                                                     <td>#{user.numberBans}</td>
-                                                                    <td>#{user.numberRecipes}</td>
+                                                                    <td>#{userManagedBean.getNumberRecipe(user.id)}</td>
                                                                     <td>
                                                                         <c:set var="status"  value="#{user.activeFlag}"/>
                                                                         <c:if test="${ status == 1 }">

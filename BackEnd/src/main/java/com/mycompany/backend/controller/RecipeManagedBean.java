@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
+import org.dao.RecipeDAO;
 import org.entity.Recipe;
 import org.entity.User;
 
@@ -60,6 +61,8 @@ public class RecipeManagedBean implements Serializable {
         recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
 
     }
+    
+   
 
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);

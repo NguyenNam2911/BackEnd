@@ -131,7 +131,7 @@ public class RecipeByUserManagedBean {
         }
     }
     public void updateRecipes(int page) throws DAOException {
-        recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+        recipes = recipeModel.searchRecipeByOwner(stringSearch,owner.getId(), page, flag_active, stringSort);
         this.page = page;
         if (page == 0) {
             typePageBtn = 1;

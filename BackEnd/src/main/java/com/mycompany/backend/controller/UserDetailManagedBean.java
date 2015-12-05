@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
+import org.dao.RecipeDAO;
 import org.entity.User;
 import util.JSFutil;
 
@@ -27,9 +28,11 @@ public class UserDetailManagedBean {
     //method
     User userSelected;
     UserModel userModel;
+    long numberRecipe;
 
     public UserDetailManagedBean() {
         userModel = new UserModel();
+        
         if (userSelected == null) {
             JSFutil.navigate("user_view.xhtml");
         }
@@ -58,6 +61,7 @@ public class UserDetailManagedBean {
     public void userDetail(String id) throws DAOException {
         if (id != null) {
             userSelected = userModel.getUserByID(id);
+            numberRecipe = RecipeDAO.getInstance().getNumberRecipeByOwner(userSelected.getId());
             JSFutil.navigate("user_detail");
         }else{
             JSFutil.navigate("error");
@@ -65,6 +69,14 @@ public class UserDetailManagedBean {
 
     }
     //get and set
+
+    public long getNumberRecipe() {
+        return numberRecipe;
+    }
+
+    public void setNumberRecipe(long numberRecipe) {
+        this.numberRecipe = numberRecipe;
+    }
 
     public User getUserSelected() {
         return userSelected;
