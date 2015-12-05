@@ -6,6 +6,7 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.AdminModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
@@ -13,8 +14,6 @@ import org.EncryptDataException;
 import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
-import util.JSFutil;
-
 /**
  *
  * @author Nguyen Hoai Nam

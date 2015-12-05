@@ -7,6 +7,7 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,7 @@ import org.dao.DAOException;
 import org.entity.Ingredient;
 import org.entity.Recipe;
 import org.entity.Report;
-import org.entity.Tag;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *

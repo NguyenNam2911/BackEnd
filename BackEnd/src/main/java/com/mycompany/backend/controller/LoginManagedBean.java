@@ -6,6 +6,7 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.LoginModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,6 @@ import org.EncryptDataException;
 import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *

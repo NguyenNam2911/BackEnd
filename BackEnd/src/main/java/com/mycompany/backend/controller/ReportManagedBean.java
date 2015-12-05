@@ -8,10 +8,10 @@ package com.mycompany.backend.controller;
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
@@ -20,7 +20,6 @@ import org.dao.UserDAO;
 import org.entity.Recipe;
 import org.entity.Report;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *

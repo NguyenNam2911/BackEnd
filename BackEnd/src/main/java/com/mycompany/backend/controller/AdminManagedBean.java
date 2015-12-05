@@ -7,19 +7,17 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.AdminModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 import org.EncryptDataException;
 import org.EncryptHelper;
 import org.dao.DAOException;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *

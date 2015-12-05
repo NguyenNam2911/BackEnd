@@ -6,13 +6,13 @@
 package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
 import org.dao.DAOException;
 import org.dao.RecipeDAO;
 import org.entity.User;
-import util.JSFutil;
 
 /**
  *
