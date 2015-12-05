@@ -7,6 +7,8 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.LoginModel;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.EncryptDataException;
@@ -33,22 +35,27 @@ public class LoginManagedBean implements Serializable {
     String password;
 
     //method
-    public void checkLogin() throws DAOException, EncryptDataException {
-        User user_check = loginModel.CheckLogin(email);
-        password = EncryptHelper.encrypt(password);
-        if (user_check != null) {
-            if (user_check.getPassword().equals(password)) {
-                user = user_check;
-                flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
-                JSFutil.setSessionValue("user", user);
-                JSFutil.navigate("index");
+    public void checkLogin()  {
+        try {
+            User user_check = loginModel.CheckLogin(email);
+            password = EncryptHelper.encrypt(password);
+            if (user_check != null) {
+                if (user_check.getPassword().equals(password)) {
+                    user = user_check;
+                    flagAdmin = user.getRole().equals(User.ADMIN_ROLE);
+                    JSFutil.setSessionValue("user", user);
+                    JSFutil.navigate("index");
+                } else {
+                    
+                    JSFutil.addErrorMessage("PassWord incorect");
+                }
             } else {
-
-                JSFutil.addErrorMessage("PassWord incorect");
+                
+                JSFutil.addErrorMessage("Email incorect");
             }
-        } else {
-
-            JSFutil.addErrorMessage("Email incorect");
+        } catch (DAOException | EncryptDataException ex) {
+            Logger.getLogger(LoginManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            JSFutil.navigate("error");
         }
     }
 

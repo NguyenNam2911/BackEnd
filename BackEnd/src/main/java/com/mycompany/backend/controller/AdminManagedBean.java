@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.EncryptDataException;
 import org.EncryptHelper;
@@ -25,7 +26,7 @@ import util.JSFutil;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AdminManagedBean extends Object implements Serializable {
 
     /**
