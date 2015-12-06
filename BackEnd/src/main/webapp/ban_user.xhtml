@@ -264,7 +264,13 @@
                                                                                 <p:commandButton style="width: 100px;" value="Unban" action="#" disabled="true"/>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <p:commandButton style="width: 100px;" value="Unban" action="#{userBanManagedBean.unbanUser(banUser.id)}" update=":frBanUser :frmPage:paging" />
+                                                                                <p:commandButton    style="width: 100px;" value="Unban" 
+                                                                                                    onmouseover="$(this).addClass('ui-state-hover')"
+                                                                                                    onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                                                    onmousedown="$(this).addClass('ui-state-active')"
+                                                                                                    onmouseup="$(this).removeClass('ui-state-active')"
+                                                                                                    action="#{userBanManagedBean.unbanUser(banUser.id)}" 
+                                                                                                    update=":frBanUser :frmPage:paging" />
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </td>

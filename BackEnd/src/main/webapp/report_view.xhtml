@@ -269,10 +269,21 @@
                                                                 <c:choose>
                                                                     <c:when test="${status==0}">
                                                                         <td>
-                                                                            <p:commandButton style="width: 100px;" value="Approve" action="#{reportManagedBean.approveReportStatus(report.id, loginManagedBean.user.id)}" update=":frReport :frmPage:paging" />
+                                                                            <p:commandButton    style="width: 100px;" value="Approve" onmouseover="$(this).addClass('ui-state-hover')"
+                                                                                                onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                                                onmousedown="$(this).addClass('ui-state-active')"
+                                                                                                onmouseup="$(this).removeClass('ui-state-active')"
+                                                                                                action="#{reportManagedBean.approveReportStatus(report.id, loginManagedBean.user.id)}" 
+                                                                                                update=":frReport :frmPage:paging" />
                                                                         </td>
                                                                         <td>
-                                                                            <p:commandButton style="width: 100px;" value="Remove" action="#{reportManagedBean.removeReportStatus(report.id)}" update=":frReport :frmPage:paging" />
+                                                                            <p:commandButton    style="width: 100px;" value="Remove"
+                                                                                                onmouseover="$(this).addClass('ui-state-hover')"
+                                                                                                onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                                                onmousedown="$(this).addClass('ui-state-active')"
+                                                                                                onmouseup="$(this).removeClass('ui-state-active')"
+                                                                                                action="#{reportManagedBean.removeReportStatus(report.id)}" 
+                                                                                                update=":frReport :frmPage:paging" />
                                                                         </td>
                                                                     </c:when>
                                                                     <c:otherwise>

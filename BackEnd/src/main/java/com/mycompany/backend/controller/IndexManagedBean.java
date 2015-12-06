@@ -9,9 +9,16 @@ import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
+import org.dao.DAOException;
+import org.entity.ActivityLog.Count;
 
 /**
  *
@@ -28,14 +35,20 @@ public class IndexManagedBean implements Serializable {
     long numberUser = 0;
     long numberRecipe = 0;
     long numberReport = 0;
+    long countNumber =0;
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
-    public IndexManagedBean() {
+    public IndexManagedBean() throws DAOException {
 
         numberUser = userModel.countUser();
         numberReport = reportModel.countCheckingReport();
         numberRecipe = recipeModel.getNumberRecipe();
-
+        countNumber = getCountView();
+    }
+    
+    private long getCountView() throws DAOException{
+        UserModel userModel = new UserModel();
+        return userModel.getCountActivity();
     }
 
     //get and set
@@ -63,4 +76,13 @@ public class IndexManagedBean implements Serializable {
         this.numberReport = numberReport;
     }
 
+    public long getCountNumber() {
+        return countNumber;
+    }
+
+    public void setCountNumber(long countNumber) {
+        this.countNumber = countNumber;
+    }
+    
+    
 }

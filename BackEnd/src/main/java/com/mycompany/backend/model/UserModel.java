@@ -191,4 +191,8 @@ public class UserModel {
     public Iterator<ActivityLog.Count> getCountUserViewByDay(Date from, Date to) throws DAOException{
         return ActivityLogDAO.getInstance().statistics(from, to);
     }
+    
+    public long getCountActivity() throws DAOException{
+        return ActivityLogDAO.getInstance().getCountActivityLog();
+    }
 }

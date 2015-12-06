@@ -18,6 +18,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
+import org.TimeUtils;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.dao.UserDAO;
@@ -159,7 +160,7 @@ public class StatisticsUserManagedBean implements Serializable {
     }
 
     public String getTextDate(Date date) {
-        DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
         String dateText = (String) DATE_FORMAT.format(date);
         return dateText;
     }
@@ -172,11 +173,15 @@ public class StatisticsUserManagedBean implements Serializable {
         listCountView = getCountUserViewByDay(mondayDate, sundayDate);
     }
 
-    public int getCountById(int i) {
-        if (i >= listCountView.size()) {
-            return 0;
+    public int getCountById(int i) throws ParseException{
+        if (listCountView.size() == 0) return 0;
+        long dateNumber = getTime(getTextDate(getDate(i)));
+        long dateLongFormat = TimeUtils.getStartDay(dateNumber);
+        if (dateLongFormat == listCountView.get(0).getTime()){
+            listCountView.remove(0);
+            return listCountView.get(0).getCount();
         }
-        return listCountView.get(i).getCount();
+        return 0;
     }
 
     //get and set
