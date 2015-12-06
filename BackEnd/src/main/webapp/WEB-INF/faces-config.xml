@@ -43,14 +43,6 @@
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>error</from-outcome>
-            <to-view-id>/error.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
-        <navigation-case>
             <from-outcome>admin_managerment</from-outcome>
             <to-view-id>/admin_managerment.xhtml</to-view-id>
             <redirect/>

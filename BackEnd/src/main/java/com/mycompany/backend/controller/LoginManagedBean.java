@@ -54,7 +54,8 @@ public class LoginManagedBean implements Serializable {
 
                 JSFutil.addErrorMessage("Email incorect");
             }
-        } catch (DAOException | EncryptDataException ex) {
+//        } catch (DAOException | EncryptDataException ex) {
+            } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -74,6 +75,7 @@ public class LoginManagedBean implements Serializable {
     public LoginManagedBean() {
         try {
             flagAdmin = false;
+            JSFutil.setSessionValue("user", null);
         } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
