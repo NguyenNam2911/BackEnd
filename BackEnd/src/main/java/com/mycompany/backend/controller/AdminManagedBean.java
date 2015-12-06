@@ -172,7 +172,9 @@ public class AdminManagedBean extends Object implements Serializable {
                     numberP = getNumberPage(n);
                     users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
                     addView = true;
-                    JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", password);
+                    String contentMail = "Dear "+userAdmin.getDisplayName()+",\r\n\r\n" + "Welcome to dalycook, you were a manager of DailyCook App "
+                                            +".\r\n\r Your Email : "+userAdmin.getEmail() + "\r\n\r Your password : "+password+"\n\r\n DailyCook";
+                    JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook ", contentMail);
                     userAdmin = new User();
                     password = "";
 

@@ -316,7 +316,8 @@
                                                             </p:confirmDialog>
                                                         </c:if>
                                                         <c:if test="${ status == 0 }">
-                                                            <h:commandButton value="Report Manager Page" action="#{recipeDetailManagedBean.reportPage()}"/>
+                                                            <p:commandButton value="Report Manager Page" action="#{recipeDetailManagedBean.reportPage()}"
+                                                                             />
                                                         </c:if>
                                                         <c:if test="${ status == -1 }">
                                                             <p:commandButton value="Removed" disabled="true" />
