@@ -15,10 +15,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
 import org.TimeUtils;
+import static org.TimeUtils.STANDARD_TIME_ZONE;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.dao.UserDAO;
@@ -37,6 +39,7 @@ public class StatisticsUserManagedBean implements Serializable {
      * Creates a new instance of StatisticsUserManagedBean
      */
     public static final long TIME_DAY = 24 * 60 * 60 * 1000L;
+    TimeZone timezone = TimeZone.getTimeZone(TimeUtils.STANDARD_TIME_ZONE);
 
     UserModel userModel = new UserModel();
     String dateFrom;
@@ -99,6 +102,7 @@ public class StatisticsUserManagedBean implements Serializable {
 //        String string_date = "12-December-2012";
 
         SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
+        f.setTimeZone(timezone);
         Date d = f.parse(string_date);
         long milliseconds = d.getTime();
         return milliseconds;
@@ -146,16 +150,21 @@ public class StatisticsUserManagedBean implements Serializable {
     }
 
     public Date getDate(int day) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(timezone);
         calendar.setTime(mondayDate);
         calendar.add(Calendar.DAY_OF_YEAR, day);
         return calendar.getTime();
     }
 
     public Date getMondayCurrentWeek() {
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(timezone);
+        int dayNum = c.get(Calendar.DAY_OF_WEEK);
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         Date date = c.getTime();
+        if (dayNum == 1){
+            mondayDate = date;
+            date = getDate(-7);
+        }
         return date;
     }
 
@@ -176,10 +185,11 @@ public class StatisticsUserManagedBean implements Serializable {
     public int getCountById(int i) throws ParseException{
         if (listCountView.size() == 0) return 0;
         long dateNumber = getTime(getTextDate(getDate(i)));
-        long dateLongFormat = TimeUtils.getStartDay(dateNumber);
-        if (dateLongFormat == listCountView.get(0).getTime()){
-            listCountView.remove(0);
-            return listCountView.get(0).getCount();
+        int lastIndex = listCountView.size() - 1;
+        if (dateNumber == listCountView.get(lastIndex).getTime()){
+            int count = listCountView.get(lastIndex).getCount();
+            listCountView.remove(lastIndex);
+            return count;
         }
         return 0;
     }
