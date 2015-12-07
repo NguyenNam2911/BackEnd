@@ -11,9 +11,9 @@ import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.view.ViewScoped;
+
 import org.TimeUtils;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
@@ -25,7 +25,8 @@ import org.entity.User;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@SessionScoped
+//@SessionScoped
+@ViewScoped
 public class RecipeManagedBean implements Serializable {
 
     /**
@@ -63,13 +64,13 @@ public class RecipeManagedBean implements Serializable {
             long n = recipeModel.getNumberRecipe();
             numberP = getNumberPage(n);
             recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
         }
     }
-
+    
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
@@ -79,7 +80,7 @@ public class RecipeManagedBean implements Serializable {
             userModel = new UserModel();
             String name = userModel.getUserName(id);
             return name;
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -90,7 +91,7 @@ public class RecipeManagedBean implements Serializable {
     public User getUserById(String id) {
         try {
             return userModel.getUserByID(id);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -142,7 +143,7 @@ public class RecipeManagedBean implements Serializable {
                 search = "";
                 filter = "All";
                 sortBy = "date";
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -157,7 +158,7 @@ public class RecipeManagedBean implements Serializable {
                 long n = recipeModel.getNumberRecipe();
                 numberP = getNumberPage(n);
                 recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");

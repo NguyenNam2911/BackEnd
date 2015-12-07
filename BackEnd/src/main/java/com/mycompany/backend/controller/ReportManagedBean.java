@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.apache.log4j.Logger;
@@ -28,7 +29,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ReportManagedBean {
 
     /**
@@ -62,7 +63,7 @@ public class ReportManagedBean {
             long n = reportModel.countReport();
             numberPage = getNumberPage(n);
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -76,7 +77,7 @@ public class ReportManagedBean {
                 if (user != null) {
                     return user.getDisplayName();
                 }
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -98,7 +99,7 @@ public class ReportManagedBean {
     public User getUser(String id) {
         try {
             return userModel.getUserByID(id);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -134,7 +135,7 @@ public class ReportManagedBean {
             long n = reportModel.countNumberResultSearch(flag);
             numberPage = getNumberPage(n);
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -183,7 +184,7 @@ public class ReportManagedBean {
             //update report: verify_by, verify_time
             updateAdminReport(reportId, adminId);
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -215,7 +216,7 @@ public class ReportManagedBean {
             //approve report
             approveReportStatus(report.getId(), reporterId);
             JSFutil.navigate("recipe_view");
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");

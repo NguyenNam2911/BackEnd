@@ -60,7 +60,7 @@ public class UserBanManagedBean {
             long n = userModel.countBanUser();
             numberPage = getNumberPage(n);
             listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -76,15 +76,21 @@ public class UserBanManagedBean {
         listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
     }
 
-    public void searchBanUser() throws DAOException {
-        flag = getFilterNumber();
-        currentPage = 0;
-        pagePrevious = 0;
-        pageMiddle = 1;
-        pageNext = 2;
-        long n = userModel.countNumberResultSearch(searchText, flag, User.NORMAL_USER_ROLE);
-        numberPage = getNumberPage(n);
-        listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
+    public void searchBanUser() {
+        try {
+            flag = getFilterNumber();
+            currentPage = 0;
+            pagePrevious = 0;
+            pageMiddle = 1;
+            pageNext = 2;
+            long n = userModel.countNumberResultSearch(searchText, flag, User.NORMAL_USER_ROLE);
+            numberPage = getNumberPage(n);
+            listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
 
 //    public void searchBanUser(){

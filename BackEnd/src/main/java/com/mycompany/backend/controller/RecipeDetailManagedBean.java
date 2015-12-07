@@ -47,7 +47,7 @@ public class RecipeDetailManagedBean implements Serializable {
         try {
             userModel = new UserModel();
             return userModel.getUserByID(id);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -63,7 +63,7 @@ public class RecipeDetailManagedBean implements Serializable {
                 userModel = new UserModel();
                 String name = userModel.getUserName(id);
                 return name;
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -91,7 +91,7 @@ public class RecipeDetailManagedBean implements Serializable {
                 listSteps = recipe.getSteps();
                 listTag = recipe.getCategoryIds();
                 JSFutil.navigate("recipe_detail");
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");

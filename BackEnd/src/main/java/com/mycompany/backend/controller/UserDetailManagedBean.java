@@ -34,18 +34,26 @@ public class UserDetailManagedBean {
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     public UserDetailManagedBean() {
-        userModel = new UserModel();
+        try {
+            userModel = new UserModel();
 
-        if (userSelected == null) {
-            JSFutil.navigate("user_view.xhtml");
+            if (userSelected == null) {
+                JSFutil.navigate("user_view.xhtml");
+            }
+
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
+
     }
 
     public void banUser() {
         try {
             userModel.banUser(userSelected.getId());
             userSelected = userModel.getUserByID(userSelected.getId());
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -56,7 +64,7 @@ public class UserDetailManagedBean {
         try {
             userModel.unBanUser(userSelected.getId());
             userSelected = userModel.getUserByID(userSelected.getId());
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");

@@ -270,7 +270,7 @@
                                                 <div class="text-center">
                                                     <c:set var="status"  value="#{userDetailManagedBean.userSelected.activeFlag}"/>
                                                     <c:if test="${ status == 1 }">
-                                                        <p:commandButton style="width: 100px; " value="Ban"  action="#{userDetailManagedBean.banUser()}" update=":frmMain"/>
+                                                        <p:commandButton style="width: 100px; " value="Ban"  action="#{userManagedBean.banUserDetail(userDetailManagedBean.userSelected.id)}" update=":frmMain"/>
                                                     </c:if>
                                                     <c:if test="${ status == 0 || status == -1}">
                                                         <p:commandButton style="width: 100px;" value="Unban" update=":frmMain" action="#{userDetailManagedBean.unBanUser()}"/>
