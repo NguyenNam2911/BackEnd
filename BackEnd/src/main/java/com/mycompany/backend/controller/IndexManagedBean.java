@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
+import org.entity.User;
 
 /**
  *

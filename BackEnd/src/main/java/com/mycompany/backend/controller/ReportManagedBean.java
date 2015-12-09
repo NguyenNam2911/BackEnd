@@ -215,7 +215,7 @@ public class ReportManagedBean {
 
             //approve report
             approveReportStatus(report.getId(), reporterId);
-            JSFutil.navigate("recipe_view");
+            
         } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());

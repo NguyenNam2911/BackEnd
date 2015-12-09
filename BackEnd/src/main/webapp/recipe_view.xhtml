@@ -86,11 +86,11 @@
                             <li class="sub-menu" id="li-admin">
                                 <a href="javascript:;" class="">
                                     <i class="icon_archive"></i>
-                                    <span>Manager</span>
+                                    <span>Admin</span>
                                     <span class="menu-arrow arrow_carrot-right"></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
+                                    <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
                                 </ul>
                             </li> 
                             <script>
@@ -231,8 +231,9 @@
                                                             <tr>
                                                                 <td>#{recipeManagedBean.recipes.indexOf(recipe) + (recipeManagedBean.page * 10) + 1}</td>
                                                                 <td>
-                                                                    <h:commandLink value="#{recipe.title}" action="#{recipeDetailManagedBean.recipeDetail(recipe.id)}"
-                                                                                   style="color: #1C86EE"  target="_blank"/>
+                                                                    <h:commandLink value="#{recipe.title} + '/n' + #{recipe.id}" action="#{recipeDetailManagedBean.recipeDetail(recipe.id)}"
+                                                                                   style="color: #1C86EE"  target="_blank">
+                                                                    </h:commandLink>
 
                                                                 </td>
                                                                 <td><img src="#{recipe.pictureUrl}" width="100" height="100"/></td>

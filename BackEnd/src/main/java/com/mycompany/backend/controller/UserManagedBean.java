@@ -139,6 +139,29 @@ public class UserManagedBean {
             JSFutil.navigate("error");
         }
     }
+     
+    public  void updateUserDetail(){
+        try {
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+    }
+     
+    public void unBanUserDetail(String id) {
+        try {
+            userModel.unBanUser(id);
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+            JSFutil.navigate("user_view");
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+    }
+
 
     private String sort() {
         if (!sortBy.equals("date")) {

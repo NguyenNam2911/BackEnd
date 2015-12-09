@@ -83,11 +83,11 @@
                             <li class="sub-menu" id="li-admin">
                                 <a href="javascript:;" class="">
                                     <i class="icon_archive"></i>
-                                    <span>Manager</span>
+                                    <span>Admin</span>
                                     <span class="menu-arrow arrow_carrot-right"></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
+                                    <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
                                 </ul>
                             </li> 
                             <script>
@@ -191,7 +191,7 @@
                                                             <h:outputText value="Banned Second" style="color: red"/>
                                                         </c:if>
                                                         <c:if test="${ status == -2}">
-                                                            <h:outputText value="Deleted" style="color: black"/>
+                                                            <h:outputText value="Removed" style="color: black"/>
                                                         </c:if>
                                                     </div>
                                                 </div>
@@ -270,13 +270,38 @@
                                                 <div class="text-center">
                                                     <c:set var="status"  value="#{userDetailManagedBean.userSelected.activeFlag}"/>
                                                     <c:if test="${ status == 1 }">
-                                                        <p:commandButton style="width: 100px; " value="Ban"  action="#{userManagedBean.banUserDetail(userDetailManagedBean.userSelected.id)}" update=":frmMain"/>
+                                                        <h:commandButton  value="Ban"  
+                                                                         onclick="if (!confirm('Are you sure ban user?'))
+                                                                                         return false"
+                                                                             style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                             onmouseover="$(this).addClass('ui-state-hover')"
+                                                                             onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                             onmousedown="$(this).addClass('ui-state-active')"
+                                                                             onmouseup="$(this).removeClass('ui-state-active')"
+                                                                             action="#{userManagedBean.banUserDetail(userDetailManagedBean.userSelected.id)}">
+                                                        </h:commandButton>
                                                     </c:if>
                                                     <c:if test="${ status == 0 || status == -1}">
-                                                        <p:commandButton style="width: 100px;" value="Unban" update=":frmMain" action="#{userDetailManagedBean.unBanUser()}"/>
+                                                        <h:commandButton  value="Unban"  
+                                                                         onclick="if (!confirm('Are you sure unban user?'))
+                                                                                         return false"
+                                                                             style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                             onmouseover="$(this).addClass('ui-state-hover')"
+                                                                             onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                             onmousedown="$(this).addClass('ui-state-active')"
+                                                                             onmouseup="$(this).removeClass('ui-state-active')"
+                                                                             action="#{userManagedBean.unBanUserDetail(userDetailManagedBean.userSelected.id)}">
+                                                        </h:commandButton>
                                                     </c:if>
                                                     <c:if test="${ status == -2}">
-                                                        <p:commandButton   style="width: 100px;" value="Removed" update=":frmMain" action="#{userDetailManagedBean.unBanUser()}" disabled="true"/>
+                                                        <h:commandButton  value="Removed"  
+                                                                             style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                             onmouseover="$(this).addClass('ui-state-hover')"
+                                                                             onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                             onmousedown="$(this).addClass('ui-state-active')"
+                                                                             onmouseup="$(this).removeClass('ui-state-active')"
+                                                                             disabled="true">
+                                                        </h:commandButton>
 
                                                     </c:if>
 

@@ -90,11 +90,11 @@
                             <li class="sub-menu" id="li-admin">
                                 <a href="javascript:;" class="">
                                     <i class="icon_archive"></i>
-                                    <span>Manager</span>
+                                    <span>Admin</span>
                                     <span class="menu-arrow arrow_carrot-right"></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
+                                    <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
                                 </ul>
                             </li> 
                             <script>
@@ -195,7 +195,7 @@
                                                             <f:selectItem itemValue="active" itemLabel="Active"/>
                                                             <f:selectItem itemValue="bannedOnce" itemLabel="Banned Once"/>
                                                             <f:selectItem itemValue="bannedSecond" itemLabel="Banned Second"/>
-                                                            <f:selectItem itemValue="deleted" itemLabel="Deleted"/>
+                                                            <f:selectItem itemValue="deleted" itemLabel="Removed"/>
                                                         </h:selectOneMenu>
                                                     </div>   
                                                     <div class="ddl-sort">
@@ -256,7 +256,7 @@
                                                                             <h:outputText value="Banned Second" style="color: red"/>
                                                                         </c:if>
                                                                         <c:if test="${ status == -2}">
-                                                                            <h:outputText value="Deleted" style="color: black"/>
+                                                                            <h:outputText value="Removed" style="color: black"/>
                                                                         </c:if>
                                                                     </td>
                                                                 </tr>

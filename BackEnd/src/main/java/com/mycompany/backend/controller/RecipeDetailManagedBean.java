@@ -8,11 +8,14 @@ package com.mycompany.backend.controller;
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.UserModel;
 import com.mycompany.backend.util.JSFutil;
+import static com.mycompany.backend.util.JSFutil.getSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 import org.TimeUtils;
 import org.dao.DAOException;
 import org.entity.Ingredient;
@@ -74,10 +77,10 @@ public class RecipeDetailManagedBean implements Serializable {
     }
 
     public RecipeDetailManagedBean() {
-        recipeModel = new RecipeModel();
-        if (recipe == null) {
-            JSFutil.navigate("recipe_view.xhtml");
-        }
+            recipeModel = new RecipeModel();   
+            if (recipe == null) {
+                JSFutil.navigate("recipe_view.xhtml");
+            }     
     }
 
     public void recipeDetail(String id) {

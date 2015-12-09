@@ -75,6 +75,7 @@ public class LoginManagedBean implements Serializable {
     public LoginManagedBean() {
         try {
             flagAdmin = false;
+            JSFutil.setSessionValue("recipeView", 0);
             JSFutil.setSessionValue("user", null);
         } catch (Exception ex) {
             logger.error(ex);

@@ -11,8 +11,12 @@ import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.NoneScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpSession;
 
 import org.TimeUtils;
 import org.apache.log4j.Logger;
@@ -25,8 +29,8 @@ import org.entity.User;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-//@SessionScoped
-@ViewScoped
+@SessionScoped
+//@NoneScoped
 public class RecipeManagedBean implements Serializable {
 
     /**
@@ -49,6 +53,7 @@ public class RecipeManagedBean implements Serializable {
 
     //method
     public RecipeManagedBean() {
+
         try {
             recipeModel = new RecipeModel();
             recipe = new Recipe();
@@ -64,13 +69,14 @@ public class RecipeManagedBean implements Serializable {
             long n = recipeModel.getNumberRecipe();
             numberP = getNumberPage(n);
             recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+
         } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
         }
     }
-    
+
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);
     }
@@ -165,6 +171,17 @@ public class RecipeManagedBean implements Serializable {
             }
 
         }
+    }
+
+    public void updateRecipesFromDetail() {
+        try {
+            recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+
     }
 
     public void updateRecipes(int page) throws DAOException {
