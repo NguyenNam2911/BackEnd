@@ -89,11 +89,11 @@
                             <li class="sub-menu" id="li-admin">
                                 <a href="javascript:;" class="">
                                     <i class="icon_archive"></i>
-                                    <span>Manager</span>
+                                    <span>Admin</span>
                                     <span class="menu-arrow arrow_carrot-right"></span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
+                                    <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
                                 </ul>
                             </li> 
                             <script>
@@ -264,13 +264,18 @@
                                                                                 <p:commandButton style="width: 100px;" value="Unban" action="#" disabled="true"/>
                                                                             </c:when>
                                                                             <c:otherwise>
-                                                                                <p:commandButton    style="width: 100px;" value="Unban" 
-                                                                                                    onmouseover="$(this).addClass('ui-state-hover')"
-                                                                                                    onmouseout="$(this).removeClass('ui-state-hover')"
-                                                                                                    onmousedown="$(this).addClass('ui-state-active')"
-                                                                                                    onmouseup="$(this).removeClass('ui-state-active')"
-                                                                                                    action="#{userBanManagedBean.unbanUser(banUser.id)}" 
-                                                                                                    update=":frBanUser :frmPage:paging" />
+                                                                                <h:commandButton value="Unban" 
+                                                                                                 onclick="if (!confirm('Are you sure unban user?'))
+                                                                                                             return false"
+                                                                                                             action="#{userManagedBean.updateUserDetail()}"
+                                                                                                 style="width: 100px; height: 30px; margin-left: 10px; color:#1C86F1; border-radius: 5px; "
+                                                                                                 onmouseover="$(this).addClass('ui-state-hover')"
+                                                                                                 onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                                                 onmousedown="$(this).addClass('ui-state-active')"
+                                                                                                 onmouseup="$(this).removeClass('ui-state-active')">
+                                                                                    <f:actionListener binding="#{userBanManagedBean.unbanUser(banUser.id)}" />
+                                                                                    <f:ajax render="tbBanUser"/>
+                                                                                </h:commandButton>   
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </td>
@@ -376,49 +381,49 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
 
-                                //knob
-                                $(function () {
-                                    $(".knob").knob({
-                                        'draw': function () {
-                                            $(this.i).val(this.cv + '%')
-                                        }
-                                    })
-                                });
+                                                                                                     //knob
+                                                                                                     $(function () {
+                                                                                                         $(".knob").knob({
+                                                                                                             'draw': function () {
+                                                                                                                 $(this.i).val(this.cv + '%')
+                                                                                                             }
+                                                                                                         })
+                                                                                                     });
 
-                                //carousel
-                                $(document).ready(function () {
-                                    $("#owl-slider").owlCarousel({
-                                        navigation: true,
-                                        slideSpeed: 300,
-                                        paginationSpeed: 400,
-                                        singleItem: true
+                                                                                                     //carousel
+                                                                                                     $(document).ready(function () {
+                                                                                                         $("#owl-slider").owlCarousel({
+                                                                                                             navigation: true,
+                                                                                                             slideSpeed: 300,
+                                                                                                             paginationSpeed: 400,
+                                                                                                             singleItem: true
 
-                                    });
-                                });
+                                                                                                         });
+                                                                                                     });
 
-                                //custom select box
+                                                                                                     //custom select box
 
-                                $(function () {
-                                    $('select.styled').customSelect();
-                                });
+                                                                                                     $(function () {
+                                                                                                         $('select.styled').customSelect();
+                                                                                                     });
 
-                                /* ---------- Map ---------- */
-                                $(function () {
-                                    $('#map').vectorMap({
-                                        map: 'world_mill_en',
-                                        series: {
-                                            regions: [{
-                                                    values: gdpData,
-                                                    scale: ['#000', '#000'],
-                                                    normalizeFunction: 'polynomial'
-                                                }]
-                                        },
-                                        backgroundColor: '#eef3f7',
-                                        onLabelShow: function (e, el, code) {
-                                            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                        }
-                                    });
-                                });
+                                                                                                     /* ---------- Map ---------- */
+                                                                                                     $(function () {
+                                                                                                         $('#map').vectorMap({
+                                                                                                             map: 'world_mill_en',
+                                                                                                             series: {
+                                                                                                                 regions: [{
+                                                                                                                         values: gdpData,
+                                                                                                                         scale: ['#000', '#000'],
+                                                                                                                         normalizeFunction: 'polynomial'
+                                                                                                                     }]
+                                                                                                             },
+                                                                                                             backgroundColor: '#eef3f7',
+                                                                                                             onLabelShow: function (e, el, code) {
+                                                                                                                 el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                                                                                             }
+                                                                                                         });
+                                                                                                     });
         </script>
     </h:body>
 </html>

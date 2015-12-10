@@ -84,11 +84,11 @@
                                 <li class="sub-menu" id="li-admin">
                                     <a href="javascript:;" class="">
                                         <i class="icon_archive"></i>
-                                        <span>Manager</span>
+                                        <span>Admin</span>
                                         <span class="menu-arrow arrow_carrot-right"></span>
                                     </a>
                                     <ul class="sub">
-                                        <li><a class="" href="admin_managerment.xhtml">View Manager</a></li>  
+                                        <li><a class="" href="admin_managerment.xhtml">View Admin</a></li>  
                                     </ul>
                                 </li> 
                                 <script>
@@ -171,10 +171,7 @@
                                         <div class="panel-body">
                                             <h1>#{recipeDetailManagedBean.recipe.title}</h1>
                                             <h6>
-                                                <span>
-                                                    <i class="icon_clock_alt"></i>
-                                                    11:05 AM
-                                                </span>
+
                                                 <span>
                                                     <i class="icon_calendar"></i>
                                                     #{recipeDetailManagedBean.convertTime(recipeDetailManagedBean.recipe.createdTime)}
@@ -203,7 +200,7 @@
                                                         <h:outputText value="#{recipeDetailManagedBean.recipe.story}" />
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="form-group">
                                                     <div class="col-lg-2">Category</div>
                                                     <div class="col-lg-9">
@@ -294,11 +291,19 @@
                                                         <c:set var="status" value="#{recipeDetailManagedBean.recipe.statusFlag}"></c:set>
                                                         <c:if test="${ status == 1 }">
                                                             <!-- demo -->
-                                                            <p:commandButton value="Remove" process="@this" 
-                                                                             action="#{reportManagedBean.reportRecipe(loginManagedBean.user.id, recipeDetailManagedBean.recipe.id)}"
-                                                                             update=":frmMain" style="width: 100px;">
-                                                                <p:confirm header="Confirmation" message="Are you sure delete recipe"  />
-                                                            </p:commandButton>   
+                                                            <h:commandButton value="Remove" 
+                                                                             onclick="if (!confirm('Are you sure remove recipe?'))
+                                                                                         return false"
+                                                                             action="#{recipeManagedBean.updateRecipesFromDetail()}"
+                                                                             style="width: 100px; height: 30px; margin-left: 10px; border-radius: 5px ;"
+                                                                             onmouseover="$(this).addClass('ui-state-hover')"
+                                                                             onmouseout="$(this).removeClass('ui-state-hover')"
+                                                                             onmousedown="$(this).addClass('ui-state-active')"
+                                                                             onmouseup="$(this).removeClass('ui-state-active')">
+
+                                                                <f:actionListener binding="#{reportManagedBean.reportRecipe(loginManagedBean.user.id, recipeDetailManagedBean.recipe.id)}" />
+                                                                <f:actionListener binding="#{recipeDetailManagedBean.recipeDetail(recipeDetailManagedBean.recipe.id)}" />
+                                                            </h:commandButton>   
                                                             <!-- end demo -->
 
 
@@ -316,8 +321,10 @@
                                                             </p:confirmDialog>
                                                         </c:if>
                                                         <c:if test="${ status == 0 }">
-                                                            <p:commandButton value="Report Manager Page" action="#{recipeDetailManagedBean.reportPage()}"
-                                                                             />
+                                                            <h:commandButton value="Report Manager Page" action="#{recipeDetailManagedBean.reportPage()}"
+                                                                             >
+
+                                                            </h:commandButton>
                                                         </c:if>
                                                         <c:if test="${ status == -1 }">
                                                             <p:commandButton value="Removed" disabled="true" />
@@ -393,46 +400,46 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script>
 
-                                    //knob
-                                    $(function () {
-                                        $(".knob").knob({
-                                            'draw': function () {
-                                                $(this.i).val(this.cv + '%')
-                                            }
-                                        })
-                                    });
-                                    //carousel
-                                    $(document).ready(function () {
-                                        $("#owl-slider").owlCarousel({
-                                            navigation: true,
-                                            slideSpeed: 300,
-                                            paginationSpeed: 400,
-                                            singleItem: true
+                                                                                 //knob
+                                                                                 $(function () {
+                                                                                     $(".knob").knob({
+                                                                                         'draw': function () {
+                                                                                             $(this.i).val(this.cv + '%')
+                                                                                         }
+                                                                                     })
+                                                                                 });
+                                                                                 //carousel
+                                                                                 $(document).ready(function () {
+                                                                                     $("#owl-slider").owlCarousel({
+                                                                                         navigation: true,
+                                                                                         slideSpeed: 300,
+                                                                                         paginationSpeed: 400,
+                                                                                         singleItem: true
 
-                                        });
-                                    });
-                                    //custom select box
+                                                                                     });
+                                                                                 });
+                                                                                 //custom select box
 
-                                    $(function () {
-                                        $('select.styled').customSelect();
-                                    });
-                                    /* ---------- Map ---------- */
-                                    $(function () {
-                                        $('#map').vectorMap({
-                                            map: 'world_mill_en',
-                                            series: {
-                                                regions: [{
-                                                        values: gdpData,
-                                                        scale: ['#000', '#000'],
-                                                        normalizeFunction: 'polynomial'
-                                                    }]
-                                            },
-                                            backgroundColor: '#eef3f7',
-                                            onLabelShow: function (e, el, code) {
-                                                el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-                                            }
-                                        });
-                                    });
+                                                                                 $(function () {
+                                                                                     $('select.styled').customSelect();
+                                                                                 });
+                                                                                 /* ---------- Map ---------- */
+                                                                                 $(function () {
+                                                                                     $('#map').vectorMap({
+                                                                                         map: 'world_mill_en',
+                                                                                         series: {
+                                                                                             regions: [{
+                                                                                                     values: gdpData,
+                                                                                                     scale: ['#000', '#000'],
+                                                                                                     normalizeFunction: 'polynomial'
+                                                                                                 }]
+                                                                                         },
+                                                                                         backgroundColor: '#eef3f7',
+                                                                                         onLabelShow: function (e, el, code) {
+                                                                                             el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                                                                                         }
+                                                                                     });
+                                                                                 });
         </script>
     </h:body>
 </html>

@@ -65,7 +65,7 @@ public class RecipeByUserManagedBean {
             page = 0;
             recipes = recipeModel.searchRecipeByOwner(stringSearch, owner.getId(), page, flag_active, stringSort);
             JSFutil.navigate("recipe_by_user");
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -124,7 +124,7 @@ public class RecipeByUserManagedBean {
                 search = "";
                 filter = "All";
                 sortBy = "date";
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
@@ -139,7 +139,7 @@ public class RecipeByUserManagedBean {
                 long n = recipeModel.getNumberRecipe();
                 numberP = getNumberPage(n);
                 recipes = recipeModel.searchRecipeByOwner(stringSearch, owner.getId(), page, flag_active, stringSort);
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
@@ -164,7 +164,7 @@ public class RecipeByUserManagedBean {
             } else {
                 typePageBtn = 2;
             }
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");

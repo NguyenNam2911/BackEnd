@@ -35,18 +35,25 @@ public class AdminDetailManagedBean implements Serializable {
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     public AdminDetailManagedBean() {
-        userAdmin = new User();
-        adminModel = new AdminModel();
-        oldPass = "";
-        newPass = "";
-        rePass = "";
+        try {
+            userAdmin = new User();
+            adminModel = new AdminModel();
+            oldPass = "";
+            newPass = "";
+            rePass = "";
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+
     }
 
     public void adminDetail(String email) {
         try {
             userAdmin = adminModel.getAdminByEmail(email);
             JSFutil.navigate("change_pass");
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -75,7 +82,7 @@ public class AdminDetailManagedBean implements Serializable {
             } else {
                 JSFutil.addErrorMessageById("frmMain:txtCrrentPass", "PassWord incorect");
             }
-        } catch (EncryptDataException | DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");

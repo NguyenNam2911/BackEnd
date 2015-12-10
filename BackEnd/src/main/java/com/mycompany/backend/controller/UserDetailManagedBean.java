@@ -7,7 +7,6 @@ package com.mycompany.backend.controller;
 
 import com.mycompany.backend.model.UserModel;
 import com.mycompany.backend.util.JSFutil;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.TimeUtils;
@@ -22,46 +21,55 @@ import org.entity.User;
  */
 @ManagedBean
 @SessionScoped
+//@ViewScoped
 public class UserDetailManagedBean {
 
     /**
      * Creates a new instance of UserDetailManagedBean
      */
     //method
-    User userSelected;
-    UserModel userModel;
+    User userSelected = new User();
+    UserModel userModel = new UserModel();
     long numberRecipe;
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     public UserDetailManagedBean() {
-        userModel = new UserModel();
+        try {
+            userModel = new UserModel();
 
-        if (userSelected == null) {
-            JSFutil.navigate("user_view.xhtml");
+            if (userSelected == null) {
+                JSFutil.navigate("user_view.xhtml");
+            }
+
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
+
     }
 
     public void banUser() {
         try {
             userModel.banUser(userSelected.getId());
             userSelected = userModel.getUserByID(userSelected.getId());
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
         }
     }
-
-    public void unBanUser() {
-        try {
-            userModel.unBanUser(userSelected.getId());
-            userSelected = userModel.getUserByID(userSelected.getId());
-        } catch (DAOException ex) {
-            logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
-            JSFutil.navigate("error");
-        }
-    }
+//
+//    public void unBanUser() {
+//        try {
+//            userModel.unBanUser(userSelected.getId());
+//            userSelected = userModel.getUserByID(userSelected.getId());
+//        } catch (Exception ex) {
+//            logger.error(ex);
+//            JSFutil.setSessionValue("error", ex.getMessage());
+//            JSFutil.navigate("error");
+//        }
+//    }
 
     public String convertTime(long time) {
         return TimeUtils.convertTime(time);

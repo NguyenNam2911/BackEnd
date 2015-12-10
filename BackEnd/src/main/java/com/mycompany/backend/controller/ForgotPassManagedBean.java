@@ -33,10 +33,18 @@ public class ForgotPassManagedBean implements Serializable {
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     public ForgotPassManagedBean() {
-        user = new User();
-        adminModel = new AdminModel();
-        successFlag = false;
-        JSFutil.setSessionValue("user", null);
+        try {
+            user = new User();
+            adminModel = new AdminModel();
+            successFlag = false;
+            JSFutil.setSessionValue("user", null);
+
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+
     }
 
     public void resetPassWord() {
@@ -57,7 +65,7 @@ public class ForgotPassManagedBean implements Serializable {
                 JSFutil.addErrorMessageById("frInput:txtEmail", "Email do not exist");
             }
             user = new User();
-        } catch (DAOException | EncryptDataException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");

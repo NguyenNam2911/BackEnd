@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.TimeUtils;
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ import org.dao.RecipeDAO;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class UserManagedBean {
 
     /**
@@ -58,7 +59,7 @@ public class UserManagedBean {
             long n = userModel.countUser();
             numberP = getNumberPage(n);
             users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");;
@@ -79,7 +80,7 @@ public class UserManagedBean {
                 search = "";
                 filter = "All";
                 sortBy = "date";
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -95,7 +96,7 @@ public class UserManagedBean {
                 long n = userModel.countUser();
                 numberP = getNumberPage(n);
                 users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -120,13 +121,47 @@ public class UserManagedBean {
             } else {
                 typePageBtn = 2;
             }
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
         }
 
     }
+     public void banUserDetail(String id) {
+        try {
+            userModel.banUser(id);
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+            JSFutil.navigate("user_view");
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+    }
+     
+    public  void updateUserDetail(){
+        try {
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+    }
+     
+    public void unBanUserDetail(String id) {
+        try {
+            userModel.unBanUser(id);
+            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+            JSFutil.navigate("user_view");
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
+    }
+
 
     private String sort() {
         if (!sortBy.equals("date")) {
@@ -175,21 +210,10 @@ public class UserManagedBean {
         return TimeUtils.convertTime(time);
     }
 
-    public void banUser(String userId) {
-        try {
-            userModel.banUser(userId);
-            users = userModel.getUsersNomrmal();
-        } catch (DAOException ex) {
-            logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
-            JSFutil.navigate("error");
-        }
-    }
-
     public long getNumberRecipe(String id) {
         try {
             return RecipeDAO.getInstance().getNumberRecipeByOwner(id);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");

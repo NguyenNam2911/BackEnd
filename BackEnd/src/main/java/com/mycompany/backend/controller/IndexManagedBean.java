@@ -8,24 +8,20 @@ package com.mycompany.backend.controller;
 import com.mycompany.backend.model.RecipeModel;
 import com.mycompany.backend.model.ReportModel;
 import com.mycompany.backend.model.UserModel;
+import com.mycompany.backend.util.JSFutil;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
-import org.entity.ActivityLog.Count;
+import org.entity.User;
 
 /**
  *
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 
 public class IndexManagedBean implements Serializable {
 
@@ -38,17 +34,23 @@ public class IndexManagedBean implements Serializable {
     long countNumber =0;
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
-    public IndexManagedBean() throws DAOException {
+    public IndexManagedBean(){
 
-        numberUser = userModel.countUser();
-        numberReport = reportModel.countCheckingReport();
-        numberRecipe = recipeModel.getNumberRecipe();
-        countNumber = getCountView();
+        try {
+            numberUser = userModel.countUser();
+            numberReport = reportModel.countCheckingReport();
+            numberRecipe = recipeModel.getNumberRecipe();
+            countNumber = getCountView();
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
     
     private long getCountView() throws DAOException{
-        UserModel userModel = new UserModel();
-        return userModel.getCountActivity();
+        UserModel um = new UserModel();
+        return um.getCountActivity();
     }
 
     //get and set

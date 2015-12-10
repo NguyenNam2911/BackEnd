@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import org.EncryptDataException;
+import javax.faces.bean.SessionScoped;
 import org.EncryptHelper;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
@@ -25,7 +24,7 @@ import org.entity.User;
  * @author Nguyen Hoai Nam
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class AdminManagedBean extends Object implements Serializable {
 
     /**
@@ -65,7 +64,7 @@ public class AdminManagedBean extends Object implements Serializable {
             long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
             numberP = getNumberPage(n);
             users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
-        } catch (DAOException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -84,7 +83,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
                 search = "";
                 filter = "All";
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -99,7 +98,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 long n = userModel.countNumberResultSearch(stringSearch, flag_Active, User.ADMIN_ROLE);
                 numberP = getNumberPage(n);
                 users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
-            } catch (DAOException ex) {
+            } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
                 JSFutil.navigate("error");
@@ -118,20 +117,26 @@ public class AdminManagedBean extends Object implements Serializable {
         return n;
     }
 
-    public void updateUsers(int page) throws DAOException {
-        users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
-        this.page = page;
-        if (page == 0) {
-            typePageBtn = 1;
-        } else if (page == numberP) {
-            if (numberP >= 2) {
-                typePageBtn = 3;
-            } else {
-                typePageBtn = 4;
-            }
+    public void updateUsers(int page) {
+        try {
+            users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+            this.page = page;
+            if (page == 0) {
+                typePageBtn = 1;
+            } else if (page == numberP) {
+                if (numberP >= 2) {
+                    typePageBtn = 3;
+                } else {
+                    typePageBtn = 4;
+                }
 
-        } else {
-            typePageBtn = 2;
+            } else {
+                typePageBtn = 2;
+            }
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
         }
 
     }
@@ -172,8 +177,8 @@ public class AdminManagedBean extends Object implements Serializable {
                     numberP = getNumberPage(n);
                     users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
                     addView = true;
-                    String contentMail = "Dear "+userAdmin.getDisplayName()+",\r\n\r\n" + "Welcome to dalycook, you were a manager of DailyCook App "
-                                            +".\r\n\r Your Email : "+userAdmin.getEmail() + "\r\n\r Your password : "+password+"\n\r\n DailyCook";
+                    String contentMail = "Dear " + userAdmin.getDisplayName() + ",\r\n\r\n" + "Welcome to dalycook, you were a manager of DailyCook App "
+                            + ".\r\n\r Your Email : " + userAdmin.getEmail() + "\r\n\r Your password : " + password + "\n\r\n DailyCook";
                     JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook ", contentMail);
                     userAdmin = new User();
                     password = "";
@@ -188,7 +193,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 JSFutil.addErrorMessageById("frmMain:txtEmail", "Email already registered");
 
             }
-        } catch (DAOException | EncryptDataException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
@@ -218,9 +223,17 @@ public class AdminManagedBean extends Object implements Serializable {
     }
 
     public void deleteUser(User u) throws DAOException {
-        UserModel userModel = new UserModel();
-        userModel.removeAdmin(u.getId());
-        users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+        try {
+            UserModel userModel = new UserModel();
+            userModel.removeAdmin(u.getId());
+            users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
+
+        } catch (Exception ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex);
+            JSFutil.navigate("error");
+        }
+
     }
 
     //get and set
