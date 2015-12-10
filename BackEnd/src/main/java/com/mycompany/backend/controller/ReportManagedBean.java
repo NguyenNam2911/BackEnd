@@ -29,7 +29,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ReportManagedBean {
 
     /**
