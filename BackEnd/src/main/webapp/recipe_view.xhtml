@@ -231,7 +231,7 @@
                                                             <tr>
                                                                 <td>#{recipeManagedBean.recipes.indexOf(recipe) + (recipeManagedBean.page * 10) + 1}</td>
                                                                 <td>
-                                                                    <h:commandLink value="#{recipe.title} + '/n' + #{recipe.id}" action="#{recipeDetailManagedBean.recipeDetail(recipe.id)}"
+                                                                    <h:commandLink value="#{recipe.title}" action="#{recipeDetailManagedBean.recipeDetail(recipe.id)}"
                                                                                    style="color: #1C86EE"  target="_blank">
                                                                     </h:commandLink>
 

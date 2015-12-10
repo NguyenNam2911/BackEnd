@@ -230,7 +230,7 @@ public class AdminManagedBean extends Object implements Serializable {
 
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 

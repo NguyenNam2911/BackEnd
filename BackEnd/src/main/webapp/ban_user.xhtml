@@ -274,6 +274,7 @@
                                                                                                  onmousedown="$(this).addClass('ui-state-active')"
                                                                                                  onmouseup="$(this).removeClass('ui-state-active')">
                                                                                     <f:actionListener binding="#{userBanManagedBean.unbanUser(banUser.id)}" />
+                                                                                    <f:ajax render="tbBanUser"/>
                                                                                 </h:commandButton>   
                                                                             </c:otherwise>
                                                                         </c:choose>

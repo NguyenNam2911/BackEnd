@@ -71,9 +71,16 @@ public class UserBanManagedBean {
         return TimeUtils.convertTime(time);
     }
 
-    public void unbanUser(String userId) throws DAOException {
-        userModel.unBanUser(userId);
-        listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
+    public void unbanUser(String userId){
+        try {
+            userModel = new UserModel();
+            userModel.unBanUser(userId);
+            listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
+        } catch (DAOException ex) {
+            logger.error(ex);
+            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.navigate("error");
+        }
     }
 
     public void searchBanUser() {

@@ -85,7 +85,7 @@
                                 <li class="sub-menu" id="li-admin">
                                     <a href="javascript:;" class="">
                                         <i class="icon_archive"></i>
-                                        <span>Manager</span>
+                                        <span>Admin</span>
                                         <span class="menu-arrow arrow_carrot-right"></span>
                                     </a>
                                     <ul class="sub">
@@ -228,15 +228,13 @@
                                                                         <td>
 
                                                                             <h:commandButton value="Removed" disabled="true" rendered="#{user.activeFlag != 1}"
-                                                                                             onclick="if (!confirm('Are you sure remove admin?'))
-                                                                                                         return false"
-                                                                                             action="#{userManagedBean.updateUserDetail()}"
+                                                                                             
                                                                                              style="width: 100px; height: 30px; margin-left: 10px; color:red; border-radius: 5px;"
                                                                                              onmouseover="$(this).addClass('ui-state-hover')"
                                                                                              onmouseout="$(this).removeClass('ui-state-hover')"
                                                                                              onmousedown="$(this).addClass('ui-state-active')"
                                                                                              onmouseup="$(this).removeClass('ui-state-active')">
-                                                                                <f:actionListener binding="#{userBanManagedBean.unbanUser(banUser.id)}" />
+                                                                               
                                                                             </h:commandButton>   
 
                                                                             <h:commandButton value="Remove" rendered="#{user.activeFlag == 1}"
@@ -248,7 +246,9 @@
                                                                                              onmouseout="$(this).removeClass('ui-state-hover')"
                                                                                              onmousedown="$(this).addClass('ui-state-active')"
                                                                                              onmouseup="$(this).removeClass('ui-state-active')">
-                                                                                <f:actionListener binding="#{userBanManagedBean.unbanUser(banUser.id)}" />
+                                                                                <!--<f:ajax render="tbAdmin"/>-->
+                                                                                
+                                                                                
                                                                             </h:commandButton> 
 
 
@@ -256,6 +256,7 @@
                                                                     </tr>
                                                                 </c:forEach>  
 
+                                                                
                                                             </tbody>
                                                         </table>
 
