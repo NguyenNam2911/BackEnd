@@ -175,7 +175,7 @@ public class ReportManagedBean {
             User user = UserDAO.getInstance().getUser(recipe.getOwner());
             int nReport = user.getNumberReport();
             if (user.getActiveFlag() != User.DELETED_FLAG) {
-                if (nReport == 3 || nReport == 6 || nReport >= 9) {
+                if (nReport % 3 ==0) {
                     userModel.banUser(user.getId());
                 }
             }
