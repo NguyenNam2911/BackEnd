@@ -176,11 +176,13 @@ public class RecipeManagedBean implements Serializable {
     public void updateRecipesFromDetail() {
         try {
             recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
+            JSFutil.navigate("recipe_view");
         } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex.getMessage());
             JSFutil.navigate("error");
         }
+        
 
     }
 

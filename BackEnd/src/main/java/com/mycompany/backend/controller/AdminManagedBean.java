@@ -82,7 +82,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 numberP = getNumberPage(n);
                 users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
                 search = "";
-                filter = "All";
+                filter = "all";
             } catch (Exception ex) {
                 logger.error(ex);
                 JSFutil.setSessionValue("error", ex.getMessage());
