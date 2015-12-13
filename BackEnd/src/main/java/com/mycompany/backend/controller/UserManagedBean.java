@@ -61,7 +61,7 @@ public class UserManagedBean {
             users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");;
         }
     }
@@ -82,7 +82,7 @@ public class UserManagedBean {
                 sortBy = "date";
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
 
@@ -98,7 +98,7 @@ public class UserManagedBean {
                 users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
 
@@ -123,7 +123,7 @@ public class UserManagedBean {
             }
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 
@@ -135,7 +135,7 @@ public class UserManagedBean {
             JSFutil.navigate("user_view");
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -145,7 +145,7 @@ public class UserManagedBean {
             users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
         } catch (DAOException ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -157,7 +157,7 @@ public class UserManagedBean {
             JSFutil.navigate("user_view");
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -215,7 +215,7 @@ public class UserManagedBean {
             return RecipeDAO.getInstance().getNumberRecipeByOwner(id);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
         return 0;

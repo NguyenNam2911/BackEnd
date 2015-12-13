@@ -43,7 +43,7 @@ public class UserDetailManagedBean {
 
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 
@@ -55,7 +55,7 @@ public class UserDetailManagedBean {
             userSelected = userModel.getUserByID(userSelected.getId());
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -66,7 +66,7 @@ public class UserDetailManagedBean {
 //            userSelected = userModel.getUserByID(userSelected.getId());
 //        } catch (Exception ex) {
 //            logger.error(ex);
-//            JSFutil.setSessionValue("error", ex.getMessage());
+//            JSFutil.setSessionValue("error", ex);
 //            JSFutil.navigate("error");
 //        }
 //    }
@@ -89,7 +89,7 @@ public class UserDetailManagedBean {
                 JSFutil.navigate("user_detail");
             } catch (DAOException ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
         } else {

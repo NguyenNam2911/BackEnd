@@ -62,7 +62,7 @@ public class UserBanManagedBean {
             listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -78,7 +78,7 @@ public class UserBanManagedBean {
             listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
         } catch (DAOException ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -95,7 +95,7 @@ public class UserBanManagedBean {
             listBanUser = userModel.getUserNormalByName(searchText, currentPage, sortText, flag);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }

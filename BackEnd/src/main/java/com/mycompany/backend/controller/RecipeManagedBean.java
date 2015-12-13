@@ -72,7 +72,7 @@ public class RecipeManagedBean implements Serializable {
 
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -88,7 +88,7 @@ public class RecipeManagedBean implements Serializable {
             return name;
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
         return null;
@@ -99,7 +99,7 @@ public class RecipeManagedBean implements Serializable {
             return userModel.getUserByID(id);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
         return null;
@@ -151,7 +151,7 @@ public class RecipeManagedBean implements Serializable {
                 sortBy = "date";
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
         } else {
@@ -166,7 +166,7 @@ public class RecipeManagedBean implements Serializable {
                 recipes = recipeModel.searchRecipeByTitle(stringSearch, page, flag_active, stringSort);
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
 
@@ -179,7 +179,7 @@ public class RecipeManagedBean implements Serializable {
             JSFutil.navigate("recipe_view");
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
         

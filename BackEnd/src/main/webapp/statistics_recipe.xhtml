@@ -9,25 +9,25 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+
 
         <!-- Bootstrap CSS -->    
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- bootstrap theme -->
-    <link href="css/bootstrap-theme.css" rel="stylesheet"/>
-    <!--external css-->
-    <!-- font icon -->
-    <link href="css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />    
-    <!-- Custom styles -->
-    <link href="css/style.css" rel="stylesheet"/>
-    <link href="css/style-responsive.css" rel="stylesheet" />
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- bootstrap theme -->
+        <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+        <!--external css-->
+        <!-- font icon -->
+        <link href="css/elegant-icons-style.css" rel="stylesheet" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" />    
+        <!-- Custom styles -->
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/style-responsive.css" rel="stylesheet" />
 
         <title>Statistics Recipe - DailyCook.Admin</title>
     </h:head>
 
     <h:body>
-            <!-- javascripts -->
+        <!-- javascripts -->
         <script src="js/jquery.js"></script>
         <script src="js/jquery-1.8.3.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -49,7 +49,7 @@
                 <img src="img/ajax-loader.gif" />
             </p:dialog> 
             <section id="container" class="">
-            <header class="header dark-bg">
+                <header class="header dark-bg">
                     <a class="logo" href="index.xhtml">DailyCook <span class="lite">Admin</span></a>
                     <div class="top-nav notification-row">
                         <ul class="nav pull-right top-menu">
@@ -174,98 +174,98 @@
                         <div class="row">
                             <!-- chart morris start -->
                             <div class="col-lg-12">
-                  <section class="panel">
-                      <header class="panel-heading">
-                          <h3>Recipe Chart</h3>
-                      </header>
-                      <div class="panel-body">
-                        <div class="tab-pane" id="chartjs">
-                            <div class="row">
-                                <!-- Line -->
-                                <div class="col-lg-12">
-                                    <section class="panel">
-                                        <header class="panel-heading">
-                                            Recipe In The By Month
-                                        </header>
-                                        <div class="panel-body text-center">
-                                            <canvas id="bar" height="400" width="800"></canvas>
-                                        </div>
-                                    </section>
-                                </div>                  
-                            </div>
-                            <div class="row">
-                                <!-- Pie -->
-                                <div class="col-lg-12">
-                                    <section class="panel">
-                                        <header class="panel-heading">
-                                            Approved and Removed Recipe
-                                        </header>
-                                        <div class="panel-body text-center">
-                                            <div class="demo-section k-content wide">
-                                                <div id="chartpie" style="min-width: 400px; height: 450px; max-width: 650px; margin: 0 auto"></div>
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        <h3>Recipe Chart</h3>
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="tab-pane" id="chartjs">
+                                            <div class="row">
+                                                <!-- Line -->
+                                                <div class="col-lg-12">
+                                                    <section class="panel">
+                                                        <header class="panel-heading">
+                                                            Recipe In The By Month
+                                                        </header>
+                                                        <div class="panel-body text-center">
+                                                            <canvas id="bar" height="400" width="800"></canvas>
+                                                        </div>
+                                                    </section>
+                                                </div>                  
+                                            </div>
+                                            <div class="row">
+                                                <!-- Pie -->
+                                                <div class="col-lg-12">
+                                                    <section class="panel">
+                                                        <header class="panel-heading">
+                                                            Approved and Removed Recipe
+                                                        </header>
+                                                        <div class="panel-body text-center">
+                                                            <div class="demo-section k-content wide">
+                                                                <div id="chartpie" style="min-width: 400px; height: 450px; max-width: 650px; margin: 0 auto"></div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </div>
                                             </div>
                                         </div>
-                                    </section>
-                                </div>
+                                        <div class="row">
+                                            <!-- Top Recipes -->
+                                            <div class="col-sm-12">
+                                                <section class="panel">
+                                                    <header class="panel-heading"> Top Favorite Recipes </header>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Recipe</th>
+                                                                <th>Number Favorite</th>
+                                                                <th>Number View</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach var="recipe" items="#{statisticsRecipeManagedBean.listRecipes}">
+                                                                <tr>
+                                                                    <td>#{statisticsRecipeManagedBean.listRecipes.indexOf(recipe)+1}</td>
+                                                                    <td>#{recipe.title}</td>
+                                                                    <td>#{recipe.favoriteNumber}</td>
+                                                                    <td>#{recipe.view}</td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!-- Top Recipes -->
+                                            <div class="col-sm-12">
+                                                <section class="panel">
+                                                    <header class="panel-heading"> Top Tagged Tags </header>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Tag</th>
+                                                                <th>Number Tagged</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach var="tag" items="#{statisticsRecipeManagedBean.listTags}">
+                                                                <tr>
+                                                                    <td>#{statisticsRecipeManagedBean.listTags.indexOf(tag)+1}</td>
+                                                                    <td>#{tag.tag}</td>
+                                                                    <td>#{tag.numberTaged}</td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
-                        </div>
-                          <div class="row">
-                                <!-- Top Recipes -->
-                                <div class="col-sm-12">
-                                    <section class="panel">
-                                        <header class="panel-heading"> Top Favorite Recipes </header>
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Recipe</th>
-                                                    <th>Number Favorite</th>
-                                                    <th>Number View</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach var="recipe" items="#{statisticsRecipeManagedBean.listRecipes}">
-                                                    <tr>
-                                                        <td>#{statisticsRecipeManagedBean.listRecipes.indexOf(recipe)+1}</td>
-                                                        <td>#{recipe.title}</td>
-                                                        <td>#{recipe.favoriteNumber}</td>
-                                                        <td>#{recipe.view}</td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </section>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!-- Top Recipes -->
-                                <div class="col-sm-12">
-                                    <section class="panel">
-                                        <header class="panel-heading"> Top Tagged Tags </header>
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Tag</th>
-                                                    <th>Number Tagged</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach var="tag" items="#{statisticsRecipeManagedBean.listTags}">
-                                                    <tr>
-                                                        <td>#{statisticsRecipeManagedBean.listTags.indexOf(tag)+1}</td>
-                                                        <td>#{tag.tag}</td>
-                                                        <td>#{tag.numberTaged}</td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </section>
-                                </div>
-                            </div>
-                      </div>
-                    </section>
-              </div>
                             <!-- chart morris start -->
                         </div>
                         <!--page end-->
@@ -278,375 +278,373 @@
         <!-- container section start -->
 
         <!-- javascripts -->
-        
+
         <script>
             $(function () {
-    // Create the chart
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Browser market shares. January, 2015 to May, 2015'
-        },
-        subtitle: {
-            text: 'Click the columns to view versions. Source: <a href="http://netmarketshare.com">netmarketshare.com</a>.'
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Total percent market share'
-            }
+                // Create the chart
+                $('#container').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Browser market shares. January, 2015 to May, 2015'
+                    },
+                    subtitle: {
+                        text: 'Click the columns to view versions. Source: <a href="http://netmarketshare.com">netmarketshare.com</a>.'
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent market share'
+                        }
 
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.1f}%'
-                }
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
-
-        series: [{
-            name: "Quantity",
-            colorByPoint: true,
-            data: [{
-                name: "Jan",
-                y: 56.33,
-                drilldown: "Jan"
-            }, {
-                name: "Feb",
-                y: 24.03,
-                drilldown: "Feb"
-            }, {
-                name: "Mar",
-                y: 10.38,
-                drilldown: "Mar"
-            }, {
-                name: "Apr",
-                y: 4.77,
-                drilldown: "Apr"
-            }, {
-                name: "May",
-                y: 0.91,
-                drilldown: "May"
-            }, {
-                name: "Jun",
-                y: 0.2,
-                drilldown: "Jun"
-            }, {
-                name: "Jul",
-                y: 0.2,
-                drilldown: "Jul"
-            }, {
-                name: "Aug",
-                y: 0.2,
-                drilldown: "Aug"
-            }, {
-                name: "Sep",
-                y: 0.2,
-                drilldown: "Sep"
-            }, {
-                name: "Oct",
-                y: 0.2,
-                drilldown: "Oct"
-            }, {
-                name: "Nov",
-                y: 0.2,
-                drilldown: "Nov"
-            }, {
-                name: "Dec",
-                y: 0.2,
-                drilldown: "Dec"
-            }]
-        }],
-        drilldown: {
-            series: [{
-                name: "Microsoft Internet Explorer",
-                id: "Microsoft Internet Explorer",
-                data: [
-                    [
-                        "v11.0",
-                        24.13
-                    ],
-                    [
-                        "v8.0",
-                        17.2
-                    ],
-                    [
-                        "v9.0",
-                        8.11
-                    ],
-                    [
-                        "v10.0",
-                        5.33
-                    ],
-                    [
-                        "v6.0",
-                        1.06
-                    ],
-                    [
-                        "v7.0",
-                        0.5
-                    ]
-                ]
-            }, {
-                name: "Chrome",
-                id: "Chrome",
-                data: [
-                    [
-                        "v40.0",
-                        5
-                    ],
-                    [
-                        "v41.0",
-                        4.32
-                    ],
-                    [
-                        "v42.0",
-                        3.68
-                    ],
-                    [
-                        "v39.0",
-                        2.96
-                    ],
-                    [
-                        "v36.0",
-                        2.53
-                    ],
-                    [
-                        "v43.0",
-                        1.45
-                    ],
-                    [
-                        "v31.0",
-                        1.24
-                    ],
-                    [
-                        "v35.0",
-                        0.85
-                    ],
-                    [
-                        "v38.0",
-                        0.6
-                    ],
-                    [
-                        "v32.0",
-                        0.55
-                    ],
-                    [
-                        "v37.0",
-                        0.38
-                    ],
-                    [
-                        "v33.0",
-                        0.19
-                    ],
-                    [
-                        "v34.0",
-                        0.14
-                    ],
-                    [
-                        "v30.0",
-                        0.14
-                    ]
-                ]
-            }, {
-                name: "Firefox",
-                id: "Firefox",
-                data: [
-                    [
-                        "v35",
-                        2.76
-                    ],
-                    [
-                        "v36",
-                        2.32
-                    ],
-                    [
-                        "v37",
-                        2.31
-                    ],
-                    [
-                        "v34",
-                        1.27
-                    ],
-                    [
-                        "v38",
-                        1.02
-                    ],
-                    [
-                        "v31",
-                        0.33
-                    ],
-                    [
-                        "v33",
-                        0.22
-                    ],
-                    [
-                        "v32",
-                        0.15
-                    ]
-                ]
-            }, {
-                name: "Safari",
-                id: "Safari",
-                data: [
-                    [
-                        "v8.0",
-                        2.56
-                    ],
-                    [
-                        "v7.1",
-                        0.77
-                    ],
-                    [
-                        "v5.1",
-                        0.42
-                    ],
-                    [
-                        "v5.0",
-                        0.3
-                    ],
-                    [
-                        "v6.1",
-                        0.29
-                    ],
-                    [
-                        "v7.0",
-                        0.26
-                    ],
-                    [
-                        "v6.2",
-                        0.17
-                    ]
-                ]
-            }, {
-                name: "Opera",
-                id: "Opera",
-                data: [
-                    [
-                        "v12.x",
-                        0.34
-                    ],
-                    [
-                        "v28",
-                        0.24
-                    ],
-                    [
-                        "v27",
-                        0.17
-                    ],
-                    [
-                        "v29",
-                        0.16
-                    ]
-                ]
-            }]
-        }
-    });
-});
-        </script>
-    <script>
-        $(function () {
-        $('#chartpie').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: ''
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.1f}%'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br></br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+                    series: [{
+                            name: "Quantity",
+                            colorByPoint: true,
+                            data: [{
+                                    name: "Jan",
+                                    y: 56.33,
+                                    drilldown: "Jan"
+                                }, {
+                                    name: "Feb",
+                                    y: 24.03,
+                                    drilldown: "Feb"
+                                }, {
+                                    name: "Mar",
+                                    y: 10.38,
+                                    drilldown: "Mar"
+                                }, {
+                                    name: "Apr",
+                                    y: 4.77,
+                                    drilldown: "Apr"
+                                }, {
+                                    name: "May",
+                                    y: 0.91,
+                                    drilldown: "May"
+                                }, {
+                                    name: "Jun",
+                                    y: 0.2,
+                                    drilldown: "Jun"
+                                }, {
+                                    name: "Jul",
+                                    y: 0.2,
+                                    drilldown: "Jul"
+                                }, {
+                                    name: "Aug",
+                                    y: 0.2,
+                                    drilldown: "Aug"
+                                }, {
+                                    name: "Sep",
+                                    y: 0.2,
+                                    drilldown: "Sep"
+                                }, {
+                                    name: "Oct",
+                                    y: 0.2,
+                                    drilldown: "Oct"
+                                }, {
+                                    name: "Nov",
+                                    y: 0.2,
+                                    drilldown: "Nov"
+                                }, {
+                                    name: "Dec",
+                                    y: 0.2,
+                                    drilldown: "Dec"
+                                }]
+                        }],
+                    drilldown: {
+                        series: [{
+                                name: "Microsoft Internet Explorer",
+                                id: "Microsoft Internet Explorer",
+                                data: [
+                                    [
+                                        "v11.0",
+                                        24.13
+                                    ],
+                                    [
+                                        "v8.0",
+                                        17.2
+                                    ],
+                                    [
+                                        "v9.0",
+                                        8.11
+                                    ],
+                                    [
+                                        "v10.0",
+                                        5.33
+                                    ],
+                                    [
+                                        "v6.0",
+                                        1.06
+                                    ],
+                                    [
+                                        "v7.0",
+                                        0.5
+                                    ]
+                                ]
+                            }, {
+                                name: "Chrome",
+                                id: "Chrome",
+                                data: [
+                                    [
+                                        "v40.0",
+                                        5
+                                    ],
+                                    [
+                                        "v41.0",
+                                        4.32
+                                    ],
+                                    [
+                                        "v42.0",
+                                        3.68
+                                    ],
+                                    [
+                                        "v39.0",
+                                        2.96
+                                    ],
+                                    [
+                                        "v36.0",
+                                        2.53
+                                    ],
+                                    [
+                                        "v43.0",
+                                        1.45
+                                    ],
+                                    [
+                                        "v31.0",
+                                        1.24
+                                    ],
+                                    [
+                                        "v35.0",
+                                        0.85
+                                    ],
+                                    [
+                                        "v38.0",
+                                        0.6
+                                    ],
+                                    [
+                                        "v32.0",
+                                        0.55
+                                    ],
+                                    [
+                                        "v37.0",
+                                        0.38
+                                    ],
+                                    [
+                                        "v33.0",
+                                        0.19
+                                    ],
+                                    [
+                                        "v34.0",
+                                        0.14
+                                    ],
+                                    [
+                                        "v30.0",
+                                        0.14
+                                    ]
+                                ]
+                            }, {
+                                name: "Firefox",
+                                id: "Firefox",
+                                data: [
+                                    [
+                                        "v35",
+                                        2.76
+                                    ],
+                                    [
+                                        "v36",
+                                        2.32
+                                    ],
+                                    [
+                                        "v37",
+                                        2.31
+                                    ],
+                                    [
+                                        "v34",
+                                        1.27
+                                    ],
+                                    [
+                                        "v38",
+                                        1.02
+                                    ],
+                                    [
+                                        "v31",
+                                        0.33
+                                    ],
+                                    [
+                                        "v33",
+                                        0.22
+                                    ],
+                                    [
+                                        "v32",
+                                        0.15
+                                    ]
+                                ]
+                            }, {
+                                name: "Safari",
+                                id: "Safari",
+                                data: [
+                                    [
+                                        "v8.0",
+                                        2.56
+                                    ],
+                                    [
+                                        "v7.1",
+                                        0.77
+                                    ],
+                                    [
+                                        "v5.1",
+                                        0.42
+                                    ],
+                                    [
+                                        "v5.0",
+                                        0.3
+                                    ],
+                                    [
+                                        "v6.1",
+                                        0.29
+                                    ],
+                                    [
+                                        "v7.0",
+                                        0.26
+                                    ],
+                                    [
+                                        "v6.2",
+                                        0.17
+                                    ]
+                                ]
+                            }, {
+                                name: "Opera",
+                                id: "Opera",
+                                data: [
+                                    [
+                                        "v12.x",
+                                        0.34
+                                    ],
+                                    [
+                                        "v28",
+                                        0.24
+                                    ],
+                                    [
+                                        "v27",
+                                        0.17
+                                    ],
+                                    [
+                                        "v29",
+                                        0.16
+                                    ]
+                                ]
+                            }]
                     }
-                }
-            },
-            series: [{
-                name: 'Percent',
-                colorByPoint: true,
-                data: [{
-                    name: 'Deleted Recipe',
-                    y: #{statisticsRecipeManagedBean.countRecipeRemoved},
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Reported Recipe',
-                    y: #{statisticsRecipeManagedBean.countRecipeReported},
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Approved Recipe',
-                    y: #{statisticsRecipeManagedBean.countRecipeApproved},
-                    sliced: true,
-                    selected: true}]
-            }]
-        });
-    });
-    </script>
-    <script>
-        var barChartData = {
-            labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-            datasets : [
-                {
-                    fillColor : "rgba(151,187,205,0.5)",
-                    strokeColor : "rgba(151,187,205,1)",
-                    data : [    #{statisticsRecipeManagedBean.getCountCreatedRecipe(1)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(2)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(3)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(4)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(5)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(6)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(7)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(8)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(9)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(10)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(11)},
-                                #{statisticsRecipeManagedBean.getCountCreatedRecipe(12)}
-                            ]
-                },
-                {
-                    fillColor : "rgba(220,220,220,0.5)",
-                    strokeColor : "rgba(220,220,220,1)",
-                    data : [    #{statisticsRecipeManagedBean.getCountDeletedRecipe(1)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(2)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(3)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(4)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(5)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(6)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(7)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(8)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(9)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(10)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(11)},
-                                #{statisticsRecipeManagedBean.getCountDeletedRecipe(12)}
-                            ]
-                }
-            ]
-        };
-        new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-    </script>
+                });
+            });
+        </script>
+        <script>
+            $(function () {
+                $('#chartpie').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series: [{
+                            name: 'Percent',
+                            colorByPoint: true,
+                            data: [{
+                                    name: 'Deleted Recipe',
+                                    y: #{statisticsRecipeManagedBean.countRecipeRemoved},
+                                    sliced: true,
+                                    selected: true
+                                }, {
+                                    name: 'Reported Recipe',
+                                    y: #{statisticsRecipeManagedBean.countRecipeReported},
+                                    sliced: true,
+                                    selected: true
+                                }, {
+                                    name: 'Approved Recipe',
+                                    y: #{statisticsRecipeManagedBean.countRecipeApproved},
+                                    sliced: true,
+                                    selected: true}]
+                        }]
+                });
+            });
+        </script>
+        <script>
+            var barChartData = {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [
+                    {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        data: [#{statisticsRecipeManagedBean.getCountCreatedRecipe(1)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(2)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(3)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(4)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(5)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(6)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(7)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(8)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(9)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(10)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(11)},
+            #{statisticsRecipeManagedBean.getCountCreatedRecipe(12)}
+                        ]
+                    },
+                    {
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        data: [#{statisticsRecipeManagedBean.getCountDeletedRecipe(1)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(2)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(3)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(4)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(5)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(6)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(7)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(8)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(9)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(10)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(11)},
+            #{statisticsRecipeManagedBean.getCountDeletedRecipe(12)}
+                        ]
+                    }
+                ]
+            };
+            new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
+        </script>
     </h:body>
 </html>

@@ -43,7 +43,7 @@ public class AdminDetailManagedBean implements Serializable {
             rePass = "";
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 
@@ -55,7 +55,7 @@ public class AdminDetailManagedBean implements Serializable {
             JSFutil.navigate("change_pass");
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -84,7 +84,7 @@ public class AdminDetailManagedBean implements Serializable {
             }
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 

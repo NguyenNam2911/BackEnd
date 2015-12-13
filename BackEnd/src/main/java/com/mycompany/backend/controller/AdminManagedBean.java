@@ -66,7 +66,7 @@ public class AdminManagedBean extends Object implements Serializable {
             users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -85,7 +85,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 filter = "all";
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
 
@@ -100,7 +100,7 @@ public class AdminManagedBean extends Object implements Serializable {
                 users = adminModel.getUserAdminByName(stringSearch, page, flag_Active);
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
 
@@ -135,7 +135,7 @@ public class AdminManagedBean extends Object implements Serializable {
             }
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 
@@ -195,7 +195,7 @@ public class AdminManagedBean extends Object implements Serializable {
             }
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 

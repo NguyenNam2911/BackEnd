@@ -41,7 +41,7 @@ public class ForgotPassManagedBean implements Serializable {
 
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 
@@ -67,7 +67,7 @@ public class ForgotPassManagedBean implements Serializable {
             user = new User();
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }

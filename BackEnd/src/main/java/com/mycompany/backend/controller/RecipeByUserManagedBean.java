@@ -67,7 +67,7 @@ public class RecipeByUserManagedBean {
             JSFutil.navigate("recipe_by_user");
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
 

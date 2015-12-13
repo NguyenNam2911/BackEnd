@@ -65,7 +65,7 @@ public class ReportManagedBean {
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -79,7 +79,7 @@ public class ReportManagedBean {
                 }
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
         }
@@ -101,7 +101,7 @@ public class ReportManagedBean {
             return userModel.getUserByID(id);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
         return null;
@@ -137,7 +137,7 @@ public class ReportManagedBean {
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -186,7 +186,7 @@ public class ReportManagedBean {
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -218,7 +218,7 @@ public class ReportManagedBean {
             
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
@@ -261,7 +261,7 @@ public class ReportManagedBean {
             }
         } catch (DAOException ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }

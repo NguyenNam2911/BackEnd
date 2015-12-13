@@ -52,7 +52,7 @@ public class RecipeDetailManagedBean implements Serializable {
             return userModel.getUserByID(id);
         } catch (Exception ex) {
             logger.error(ex);
-            JSFutil.setSessionValue("error", ex.getMessage());
+            JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
         return null;
@@ -68,7 +68,7 @@ public class RecipeDetailManagedBean implements Serializable {
                 return name;
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
         }
@@ -96,7 +96,7 @@ public class RecipeDetailManagedBean implements Serializable {
                 JSFutil.navigate("recipe_detail");
             } catch (Exception ex) {
                 logger.error(ex);
-                JSFutil.setSessionValue("error", ex.getMessage());
+                JSFutil.setSessionValue("error", ex);
                 JSFutil.navigate("error");
             }
         }
