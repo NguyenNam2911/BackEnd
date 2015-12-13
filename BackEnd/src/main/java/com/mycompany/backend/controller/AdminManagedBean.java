@@ -15,6 +15,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.EncryptHelper;
+import org.Unicode;
 import org.apache.log4j.Logger;
 import org.dao.DAOException;
 import org.entity.User;
@@ -163,7 +164,7 @@ public class AdminManagedBean extends Object implements Serializable {
                     userAdmin.setRole(User.ADMIN_ROLE);
                     password = JSFutil.ramdomString(8);
                     userAdmin.setPassword(EncryptHelper.encrypt(password));
-//                userAdmin.setPassword("12345678");
+                    userAdmin.setDisplayNameNormalize(Unicode.toAscii(userAdmin.getDisplayName()));
                     userAdmin.setRegisteredTime(date.getTime());
                     adminModel = new AdminModel();
                     adminModel.insertAdmin(userAdmin);

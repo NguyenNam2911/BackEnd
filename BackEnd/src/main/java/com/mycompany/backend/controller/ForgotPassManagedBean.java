@@ -54,7 +54,9 @@ public class ForgotPassManagedBean implements Serializable {
                 String pass = JSFutil.ramdomString(8);
                 adminModel.resetPass(userAdmin.getId(), EncryptHelper.encrypt(pass));
                 try {
-                    JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook management", pass);
+                    String contentMail = "Dear " + userAdmin.getDisplayName() + ",\r\n\r\n" + "Welcome to dalycook, you were a manager of DailyCook App "
+                            + ".\r\n\r Your Email : " + userAdmin.getEmail() + "\r\n\r Your password : " + pass + "\n\r\n DailyCook";
+                    JSFutil.sentMail(userAdmin.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Welcome to dalycook ", contentMail);
 
                 } catch (Exception e) {
                     JSFutil.addErrorMessageById("frInput:txtEmail", e.getMessage());
