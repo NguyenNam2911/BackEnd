@@ -63,7 +63,7 @@ public class AdminDetailManagedBean implements Serializable {
     public void changePass() {
         try {
             if (userAdmin.getPassword().equals(EncryptHelper.encrypt(oldPass))) {
-                if (!userAdmin.getPassword().equals(newPass)) {
+                if (!userAdmin.getPassword().equals(EncryptHelper.encrypt(newPass))) {
                     if (newPass.equals(rePass)) {
                         adminModel.resetPass(userAdmin.getId(), EncryptHelper.encrypt(newPass));
                         userAdmin = adminModel.getAdminByEmail(userAdmin.getEmail());

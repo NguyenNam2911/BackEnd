@@ -35,8 +35,8 @@ public class LoginManagedBean implements Serializable {
     Logger logger = Logger.getLogger(LoginManagedBean.class);
 
     //method
-    public void checkLogin() {
-        try {
+    public void checkLogin() throws DAOException, EncryptDataException {
+        
             User user_check = loginModel.CheckLogin(email);
             password = EncryptHelper.encrypt(password);
             if (user_check != null) {
@@ -56,11 +56,7 @@ public class LoginManagedBean implements Serializable {
 
                 JSFutil.addErrorMessage("Email incorect");
             }
-        } catch (Exception ex) {
-            logger.error(ex);
-            JSFutil.setSessionValue("error", ex);
-            JSFutil.navigate("error");
-        }
+       
     }
 
     public void logOut() {
