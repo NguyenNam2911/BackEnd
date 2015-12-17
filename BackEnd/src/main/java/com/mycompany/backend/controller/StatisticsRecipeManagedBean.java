@@ -29,7 +29,7 @@ import org.entity.Tag;
  * @author KhanhDN
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class StatisticsRecipeManagedBean implements Serializable {
 
     /**

@@ -32,13 +32,13 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class StatisticsUserManagedBean implements Serializable {
 
     /**
      * Creates a new instance of StatisticsUserManagedBean
      */
-    public static final long TIME_DAY = 24 * 60 * 60 * 1000L;
+    
     TimeZone timezone = TimeZone.getTimeZone(TimeUtils.STANDARD_TIME_ZONE);
 
     UserModel userModel = new UserModel();
