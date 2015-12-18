@@ -190,6 +190,7 @@
                                                     <div class="ddl-sort">
                                                         <h:commandButton class="button-sort" action="#{reportManagedBean.searchReport()}"/>
                                                         <h:selectOneMenu value="#{reportManagedBean.sortText}" onclick="">
+                                                            <f:selectItem itemValue="recipe" itemLabel="Sort By Recipe"/>
                                                             <f:selectItem itemValue="-reported_time" itemLabel="Sort By Date"/>
                                                             <f:selectItem itemValue="verify_by" itemLabel="Sort By Verified Admin"/>
                                                             <f:selectItem itemValue="-verify_time" itemLabel="Sort By Verified Time"/>
