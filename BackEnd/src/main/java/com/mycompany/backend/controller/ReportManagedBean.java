@@ -160,6 +160,9 @@ public class ReportManagedBean {
 
         try {
             //approve report, remove recipe
+            Report rpcheck = reportModel.getReportByID(reportId);
+            if (rpcheck == null) return;
+            if (rpcheck.getStatus() == Report.APPROVE_FLAG) return;
             reportModel.approveReportStatus(reportId);
             Report report = reportModel.getReportByID(reportId);
             recipeModel.removeRecipe(report.getRecipe());
