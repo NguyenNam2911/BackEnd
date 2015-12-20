@@ -97,7 +97,7 @@ public class RecipeModel {
                     String contentMail = "Dear "+user.getDisplayName()+",\r\n\r\n"+"I want to notice to you that your recipe '"
                                                 +recipe.getTitle()
                                                 +"' is removed. Because the content of your recipe is not appropriate to DailyCook.\r\n\\r\\nDailyCook";
-                    JSFutil.sentMail(user.getEmail(), "nguyenhoainam301193@gmail.com", "namhot123", "Notification From DailyCook!!!", 
+                    JSFutil.sentMail(user.getEmail(), JSFutil.EMAIL, JSFutil.PASSWORD, "Notification From DailyCook!!!", 
                             contentMail);
                 }
             }
