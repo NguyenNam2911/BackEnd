@@ -160,32 +160,31 @@ public class ReportManagedBean {
 
         try {
             //approve report, remove recipe
-            Report rpcheck = reportModel.getReportByID(reportId);
-            if (rpcheck == null) return;
-            if (rpcheck.getStatus() == Report.APPROVE_FLAG) return;
-            reportModel.approveReportStatus(reportId);
             Report report = reportModel.getReportByID(reportId);
-            recipeModel.removeRecipe(report.getRecipe());
+            if (report != null && report.getStatus() != Report.APPROVE_FLAG){
+                reportModel.approveReportStatus(reportId);
+                recipeModel.removeRecipe(report.getRecipe());
 
-            //remove other the same reports
-            List<Report> reports = reportModel.getListCheckingReportByRecipe(report.getRecipe());
-            for (Report rp : reports) {
-                reportModel.removeReportStatus(rp.getId());
-            }
-
-            //check ban user
-            Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());
-            userModel.increaseReportOfUser(recipe.getOwner());
-            User user = UserDAO.getInstance().getUser(recipe.getOwner());
-            int nReport = user.getNumberReport();
-            if (user.getActiveFlag() != User.DELETED_FLAG) {
-                if (nReport % 3 ==0) {
-                    userModel.banUser(user.getId());
+                //remove other the same reports
+                List<Report> reports = reportModel.getListCheckingReportByRecipe(report.getRecipe());
+                for (Report rp : reports) {
+                    reportModel.removeReportStatus(rp.getId());
                 }
-            }
 
-            //update report: verify_by, verify_time
-            updateAdminReport(reportId, adminId);
+                //check ban user
+                Recipe recipe = RecipeDAO.getInstance().getRecipe(report.getRecipe());
+                userModel.increaseReportOfUser(recipe.getOwner());
+                User user = UserDAO.getInstance().getUser(recipe.getOwner());
+                int nReport = user.getNumberReport();
+                if (user.getActiveFlag() != User.DELETED_FLAG) {
+                    if (nReport % 3 ==0) {
+                        userModel.banUser(user.getId());
+                    }
+                }
+
+                //update report: verify_by, verify_time
+                updateAdminReport(reportId, adminId);
+            }
             listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
         } catch (Exception ex) {
             logger.error(ex);
@@ -196,8 +195,10 @@ public class ReportManagedBean {
 
     public void removeReportStatus(String reportId) throws DAOException {
         Report report = reportModel.getReportByID(reportId);
-        recipeModel.updateRecipeReported(report.getRecipe());
-        reportModel.removeReportStatus(reportId);
+        if (report != null){
+            recipeModel.updateRecipeReported(report.getRecipe());
+            reportModel.removeReportStatus(reportId);
+        }
         listReport = reportModel.getReportSearchAndFillter(currentPage, sortText, flag);
     }
 
