@@ -32,7 +32,7 @@ import org.entity.User;
  * @author KhanhDN
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class StatisticsUserManagedBean implements Serializable {
 
     /**
@@ -152,6 +152,10 @@ public class StatisticsUserManagedBean implements Serializable {
     public Date getDate(int day) {
         Calendar calendar = Calendar.getInstance(timezone);
         calendar.setTime(mondayDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.add(Calendar.DAY_OF_YEAR, day);
         return calendar.getTime();
     }
@@ -160,6 +164,10 @@ public class StatisticsUserManagedBean implements Serializable {
         Calendar c = Calendar.getInstance(timezone);
         int dayNum = c.get(Calendar.DAY_OF_WEEK);
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MINUTE, 0);
         Date date = c.getTime();
         if (dayNum == 1){
             mondayDate = date;
