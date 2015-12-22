@@ -224,7 +224,7 @@
 
                                                             <c:forEach items="#{reportManagedBean.listReport}" var="report">
                                                             <tr>
-                                                                <td>#{reportManagedBean.listReport.indexOf(report)+1}</td>
+                                                                <td>#{reportManagedBean.listReport.indexOf(report) + (reportManagedBean.currentPage * 5) +1}</td>
                                                                 <td>
                                                                     <h:commandLink value="#{reportManagedBean.getRecipeName(report.recipe)}" 
                                                                                    action="#{recipeDetailManagedBean.recipeDetail(report.recipe)}"

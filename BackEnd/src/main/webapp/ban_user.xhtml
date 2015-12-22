@@ -228,7 +228,7 @@
 
                                                             <c:forEach var="banUser" items="#{userBanManagedBean.listBanUser}">
                                                                 <tr>
-                                                                    <td>#{userBanManagedBean.listBanUser.indexOf(banUser)+1}</td>
+                                                                    <td>#{userBanManagedBean.listBanUser.indexOf(banUser) + (userBanManagedBean.currentPage * 10) +1}</td>
                                                                     <td>
                                                                         <h:commandLink value="#{banUser.displayName}" action="#{userDetailManagedBean.userDetail(banUser.id)}"
                                                                                        style="color: #1C86EE" />

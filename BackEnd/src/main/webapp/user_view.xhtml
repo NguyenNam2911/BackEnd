@@ -235,7 +235,7 @@
 
                                                             <c:forEach items="#{userManagedBean.users}" var="user">
                                                                 <tr class="user-row">
-                                                                    <td>#{userManagedBean.users.indexOf(user) + 1}</td>
+                                                                    <td>#{userManagedBean.users.indexOf(user) + (userManagedBean.page * 10) + 1}</td>
                                                                     <td><h:commandLink value="#{user.displayName}" action="#{userDetailManagedBean.userDetail(user.id)}"
                                                                                        style="color: #1C86EE"  target="_blank"/> 
                                                                     </td>
