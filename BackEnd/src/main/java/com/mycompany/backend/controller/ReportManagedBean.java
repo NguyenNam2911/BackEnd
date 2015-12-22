@@ -161,7 +161,7 @@ public class ReportManagedBean {
         try {
             //approve report, remove recipe
             Report report = reportModel.getReportByID(reportId);
-            if (report != null && report.getStatus() != Report.APPROVE_FLAG){
+            if (report != null && report.getStatus() != Report.APPROVE_FLAG) {
                 reportModel.approveReportStatus(reportId);
                 recipeModel.removeRecipe(report.getRecipe());
 
@@ -177,7 +177,7 @@ public class ReportManagedBean {
                 User user = UserDAO.getInstance().getUser(recipe.getOwner());
                 int nReport = user.getNumberReport();
                 if (user.getActiveFlag() != User.DELETED_FLAG) {
-                    if (nReport % 3 ==0) {
+                    if (nReport % 3 == 0) {
                         userModel.banUser(user.getId());
                     }
                 }
@@ -195,7 +195,7 @@ public class ReportManagedBean {
 
     public void removeReportStatus(String reportId) throws DAOException {
         Report report = reportModel.getReportByID(reportId);
-        if (report != null){
+        if (report != null) {
             recipeModel.updateRecipeReported(report.getRecipe());
             reportModel.removeReportStatus(reportId);
         }
@@ -208,18 +208,25 @@ public class ReportManagedBean {
 
     public void reportRecipe(String reporterId, String recipeId) {
         try {
-            //create new report
-            Report report = new Report();
-            report.setReporter(reporterId);
-            report.setRecipe(recipeId);
-            report.setReason("Reported by Admin");
+            Recipe recipe = new Recipe();
+            recipe = recipeModel.getRecipeByID(recipeId);
+            if (recipe.getStatusFlag() == Recipe.APPROVED_FLAG) {
+                //create new report
+                Report report = new Report();
+                report.setReporter(reporterId);
+                report.setRecipe(recipeId);
+                report.setReason("Reported by Admin");
 
-            //add new report
-            reportModel.addReport(report);
+                //add new report
+                reportModel.addReport(report);
 
-            //approve report
-            approveReportStatus(report.getId(), reporterId);
-            
+                //approve report
+                approveReportStatus(report.getId(), reporterId);
+
+            }else{
+                JSFutil.navigate("recipe_detail");
+            }
+
         } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex);
