@@ -128,19 +128,28 @@ public class UserManagedBean {
         }
 
     }
-     public void banUserDetail(String id) {
+
+    public void banUserDetail(String id) {
         try {
-            userModel.banUser(id);
-            users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
-            JSFutil.navigate("user_view");
+            User u = new User();
+            u = userModel.getUserByID(id);
+            if (u.getActiveFlag() == User.ACTIVE_FLAG) {
+                userModel.banUser(id);
+                users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+                JSFutil.navigate("user_view");
+            }else{
+                users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
+                JSFutil.navigate("user_view");
+            }
+
         } catch (Exception ex) {
             logger.error(ex);
             JSFutil.setSessionValue("error", ex);
             JSFutil.navigate("error");
         }
     }
-     
-    public  void updateUserDetail(){
+
+    public void updateUserDetail() {
         try {
             users = userModel.getUserNormalByName(stringSearch, page, stringSort, flag_Active);
         } catch (DAOException ex) {
@@ -149,7 +158,7 @@ public class UserManagedBean {
             JSFutil.navigate("error");
         }
     }
-     
+
     public void unBanUserDetail(String id) {
         try {
             userModel.unBanUser(id);
@@ -161,7 +170,6 @@ public class UserManagedBean {
             JSFutil.navigate("error");
         }
     }
-
 
     private String sort() {
         if (!sortBy.equals("date")) {

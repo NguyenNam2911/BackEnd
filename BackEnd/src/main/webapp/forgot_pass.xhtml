@@ -38,10 +38,7 @@
             <h2>Forgot password</h2>
             <div class="panel panel-default">
                 <h:form id="frInput">
-                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                        <img src="img/ajax-loader.gif" />
-                    </p:dialog> 
+                    
                     
                         <p:panel id="pnInput" visible="#{!forgotPassManagedBean.successFlag}">
                             <div class="panel-heading">Retrieve password</div>
